@@ -5,15 +5,15 @@ import java.util.Date;
 public class Reservation {
 
     private LibraryMember libraryMember;
-    private Book book;
+    private Copy copy;
     private Date expiryDate;
     private Location pickupLocation;
 
     public Reservation() {}
 
-    public Reservation(LibraryMember libraryMember, Book book, Date expiryDate, Location pickupLocation) {
+    public Reservation(LibraryMember libraryMember, Copy copy, Date expiryDate, Location pickupLocation) {
         this.libraryMember = new LibraryMember(libraryMember);
-        this.book = book;
+        this.copy = copy;
         this.expiryDate = expiryDate;
         this.pickupLocation = new Location(pickupLocation);
     }
@@ -26,12 +26,12 @@ public class Reservation {
         this.libraryMember = libraryMember;
     }
 
-    public Book getBook() {
-        return book;
+    public Copy getCopy() {
+        return copy;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setCopy(Copy copy) {
+        this.copy = copy;
     }
 
     public Date getExpiryDate() {
@@ -54,7 +54,7 @@ public class Reservation {
     public String toString() {
         return "Reservation{" +
                 "libraryMember=" + libraryMember +
-                ", book=" + book +
+                ", copy=" + copy +
                 ", expiryDate=" + expiryDate +
                 ", pickupLocation=" + pickupLocation +
                 '}';
