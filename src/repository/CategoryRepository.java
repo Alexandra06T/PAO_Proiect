@@ -2,10 +2,30 @@ package repository;
 
 import model.Book;
 import model.Category;
+import model.Category;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryRepository {
     private static List<Category> categories = new ArrayList<>();
+
+    public Category read(String name) {
+        if(!categories.isEmpty()){
+            for(Category c : categories){
+                if(c.getName().equals(name)){
+                    return c;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void delete(Category branchLibrary) {
+        categories.remove(branchLibrary);
+    }
+
+    public void create(Category branchLibrary) {
+        categories.add(branchLibrary);
+    }
 }

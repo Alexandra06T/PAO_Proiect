@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Reservation {
 
+    private static int nrReservations = 0;
+    private int id;
     private LibraryMember libraryMember;
     private Copy copy;
     private Date expiryDate;
@@ -16,6 +18,12 @@ public class Reservation {
         this.copy = copy;
         this.expiryDate = expiryDate;
         this.pickupLocation = new Location(pickupLocation);
+        nrReservations++;
+        this.id = nrReservations;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public LibraryMember getLibraryMember() {

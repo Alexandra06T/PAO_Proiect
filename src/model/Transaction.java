@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Transaction {
 
+    private static int nrTransactions = 0;
+    private int id;
     private LibraryMember libraryMember;
     private Copy copy;
     private Date date;
@@ -15,6 +17,12 @@ public class Transaction {
         this.libraryMember = new LibraryMember(libraryMember);
         this.copy = new Copy(copy);
         this.date = date;
+        nrTransactions++;
+        this.id = nrTransactions;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public LibraryMember getLibraryMember() {
