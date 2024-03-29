@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Reservation {
@@ -7,15 +8,15 @@ public class Reservation {
     private static int nrReservations = 0;
     private int id;
     private LibraryMember libraryMember;
-    private Copy copy;
-    private Date expiryDate;
+    private Book book;
+    private LocalDate expiryDate;
     private Location pickupLocation;
 
     public Reservation() {}
 
-    public Reservation(LibraryMember libraryMember, Copy copy, Date expiryDate, Location pickupLocation) {
+    public Reservation(LibraryMember libraryMember, Book book, LocalDate expiryDate, Location pickupLocation) {
         this.libraryMember = new LibraryMember(libraryMember);
-        this.copy = copy;
+        this.book = book;
         this.expiryDate = expiryDate;
         this.pickupLocation = new Location(pickupLocation);
         nrReservations++;
@@ -34,19 +35,19 @@ public class Reservation {
         this.libraryMember = libraryMember;
     }
 
-    public Copy getCopy() {
-        return copy;
+    public Book getBook() {
+        return book;
     }
 
-    public void setCopy(Copy copy) {
-        this.copy = copy;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
-    public Date getExpiryDate() {
+    public LocalDate getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
     }
 
@@ -62,7 +63,7 @@ public class Reservation {
     public String toString() {
         return "Reservation{" +
                 "libraryMember=" + libraryMember +
-                ", copy=" + copy +
+                ", book=" + book +
                 ", expiryDate=" + expiryDate +
                 ", pickupLocation=" + pickupLocation +
                 '}';
