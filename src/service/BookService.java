@@ -57,6 +57,10 @@ public class BookService {
         scanner.nextLine();
         Category category = categoryDAOService.getCategoryByIndex(index);
         book.setCategory(category);
+        if(book.getCategory() != null)  {
+            book.getCategory().removeBook(book);
+        }
+        category.addBook(book);
     }
 
     public String choose(Scanner scanner) {

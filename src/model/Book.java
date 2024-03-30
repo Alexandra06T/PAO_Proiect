@@ -100,6 +100,14 @@ public class Book {
         return copies;
     }
 
+    public void addCopy(Copy copy) {
+        copies.add(copy);
+    }
+
+    public void removeCopy(Copy copy) {
+        copies.remove(copy);
+    }
+
     @Override
     public String toString() {
         return title + '\n' +

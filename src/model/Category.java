@@ -36,6 +36,14 @@ public class Category {
         return books;
     }
 
+    public void addBook(Book book) {
+        books.add(book);
+    }
+
+    public void removeBook(Book book) {
+        books.remove(book);
+    }
+
     @Override
     public String toString() {
         return "Category{" +

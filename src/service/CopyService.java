@@ -38,6 +38,7 @@ public class CopyService {
         copy.setId(nr+1);
         databaseService.addCopy(copy);
         System.out.println("The copy was added to the catalogue");
+        book.addCopy(copy);
     }
 
     private void setGeneralInfo(Scanner scanner, Copy copy) {
@@ -127,7 +128,7 @@ public class CopyService {
             System.out.println("Couldn't find the copy");
         }
         databaseService.removeCopy(copy.getBook(), copy.getId());
-        System.out.println("Removed " + copy);
+        copy.getBook().removeCopy(copy);
     }
 
     public void update(Scanner scanner) {
@@ -139,13 +140,6 @@ public class CopyService {
         setGeneralInfo(scanner, newcopy);
         copy.setBarcode(newcopy.getBarcode());
         copy.setIndex(newcopy.getIndex());
-        String isbn = chooseBook(scanner);
-        Book book = bookDAOService.getBookByISBN(isbn);
-        if(book == null) {
-            System.out.println("Couldn't set the book");
-            return;
-        }
-        copy.setBook(book);
         Location location = chooseLocation(scanner);
         if(location == null) {
             System.out.println("Couldn't set the location");
