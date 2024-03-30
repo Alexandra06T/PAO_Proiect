@@ -10,10 +10,28 @@ import java.util.List;
 public class CategoryRepository {
     private static List<Category> categories = new ArrayList<>();
 
-    public Category read(String name) {
+    public List<Category> getAll() {
+        if(!categories.isEmpty()){
+            return categories;
+        }
+        return null;
+    }
+
+    public Category readName(String name) {
         if(!categories.isEmpty()){
             for(Category c : categories){
                 if(c.getName().equals(name)){
+                    return c;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Category readIndex(int index) {
+        if(!categories.isEmpty()){
+            for(Category c : categories){
+                if(c.getIndex() == index){
                     return c;
                 }
             }

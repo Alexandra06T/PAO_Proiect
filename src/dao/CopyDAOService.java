@@ -25,6 +25,7 @@ public class CopyDAOService {
         return copy;
     }
 
+
     public List<Copy> getAvailableCopies(Book book){
         List<Copy> copyList = copyRepository.readAvailable(book);
         if(copyList != null){
@@ -49,6 +50,10 @@ public class CopyDAOService {
 
     public void addCopy(Copy copy) {
         if(copy != null){
+            if(copyRepository.read(copy.getBook(), copy.getId()) != null) {
+                System.out.println("There is already a copy of this book having this id");
+                return;
+            }
             copyRepository.create(copy);
         }
     }

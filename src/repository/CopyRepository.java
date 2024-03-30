@@ -21,6 +21,7 @@ public class CopyRepository {
         return null;
     }
 
+
     public List<Copy> readAvailable(Book book) {
         List<Copy> copyList = new ArrayList<>();
         if(!copies.isEmpty()){

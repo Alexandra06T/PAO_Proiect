@@ -8,6 +8,13 @@ import java.util.List;
 public class BookRepository {
     private static List<Book> books = new ArrayList<>();
 
+    public List<Book> readAll() {
+        if(!books.isEmpty()){
+            return books;
+        }
+        return null;
+    }
+
     public Book readISBN(String isbn) {
         if(!books.isEmpty()){
             for(Book b : books){

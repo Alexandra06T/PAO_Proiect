@@ -18,14 +18,14 @@ public class Book {
 
     public Book() {}
 
-    public Book(String title, List<String> authors, String ISBN, String publishingHouse, int publishedDate, int numberOfPages, Category category) {
+    public Book(String title, List<String> authors, String ISBN, String publishingHouse, int publishedDate, int numberOfPages) {
         this.title = title;
         this.authors = authors;
         this.ISBN = ISBN;
         this.publishingHouse = publishingHouse;
         this.publishedDate = publishedDate;
         this.numberOfPages = numberOfPages;
-        this.category = category;
+        this.category = new Category();
         this.copies = new ArrayList<>();
     }
 

@@ -68,6 +68,14 @@ public class BookDAOService {
 
     public void addBook (Book book) {
         if(book != null){
+            if(bookRepository.readISBN(book.getISBN()) != null) {
+                System.out.println("There is already a book having this ISBN");
+                return;
+            }
+            if(book.getNumberOfPages() <= 0) {
+                System.out.println("Invalid number of pages");
+                return;
+            }
             bookRepository.create(book);
         }
     }
