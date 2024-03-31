@@ -16,6 +16,10 @@ public class ReservationService {
 
     public ReservationService(){
         this.databaseService = new ReservationDAOService();
+        this.bookDAOService = new BookDAOService();
+        this.locationDAOService = new LocationDAOService();
+        this.branchLibraryDAOService = new BranchLibraryDAOService();
+        this.libraryMemberDAOService = new LibraryMemberDAOService();
     }
 
     public void create(Scanner scanner) {
@@ -33,6 +37,14 @@ public class ReservationService {
         if(location == null) {
             System.out.println("Couldn't find the location");
             return;
+        }
+
+        List<Reservation> reservations = databaseService.getReservationByMember(libraryMember);
+        for(Reservation r : reservations) {
+            if(r.getBook().equals(book) && r.getPickupLocation().equals(location) && r.getExpiryDate().isAfter(java.time.LocalDate.now())) {
+                System.out.println("There is already a reservation");
+                return;
+            }
         }
         System.out.println("Enter the number of days until the reservation expires:");
         int nrDays = scanner.nextInt();

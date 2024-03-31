@@ -1,8 +1,6 @@
 package service;
 
-import dao.BookDAOService;
 import dao.CategoryDAOService;
-import model.Book;
 import model.Category;
 
 import java.util.ArrayList;

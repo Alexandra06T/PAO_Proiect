@@ -1,10 +1,11 @@
 package dao;
 
-import model.CheckIn;
-import model.CheckOut;
-import model.Transaction;
+import model.*;
 import repository.CheckInRepository;
 import repository.CheckOutRepository;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import static utils.Constants.CHECKIN;
 

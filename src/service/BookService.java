@@ -16,6 +16,7 @@ public class BookService {
 
     public BookService(){
         this.databaseService = new BookDAOService();
+        this.categoryDAOService = new CategoryDAOService();
     }
 
     public void create(Scanner scanner) {

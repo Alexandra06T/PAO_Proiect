@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Transaction {
@@ -8,12 +9,12 @@ public class Transaction {
     private int id;
     private LibraryMember libraryMember;
     private Copy copy;
-    private Date date;
+    private LocalDate date;
 
     public Transaction() {
     }
 
-    public Transaction(LibraryMember libraryMember, Copy copy, Date date) {
+    public Transaction(LibraryMember libraryMember, Copy copy, LocalDate date) {
         this.libraryMember = new LibraryMember(libraryMember);
         this.copy = new Copy(copy);
         this.date = date;
@@ -41,11 +42,11 @@ public class Transaction {
         this.copy = copy;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

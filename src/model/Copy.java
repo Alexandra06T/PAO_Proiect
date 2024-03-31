@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Copy {
 
     private int id;
@@ -8,6 +11,7 @@ public class Copy {
     private String index;
     private Location location;
     private boolean available;
+    private List<Transaction> transactions;
 
     public Copy() {}
 
@@ -18,6 +22,7 @@ public class Copy {
         this.index = index;
         this.location = location;
         this.available = available;
+        this.transactions = new ArrayList<>();
     }
 
     public Copy(Copy copy) {
@@ -27,6 +32,7 @@ public class Copy {
         this.index = copy.getIndex();
         this.location = copy.getLocation();
         this.available = copy.isAvailable();
+        this.transactions = copy.getTransactions();
     }
 
     public int getId() {
@@ -75,6 +81,18 @@ public class Copy {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
+
+    public void removeTransaction(Transaction transaction) {
+        transactions.remove(transaction);
     }
 
     @Override

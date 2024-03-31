@@ -1,11 +1,8 @@
 package service;
 
-import dao.BookDAOService;
 import dao.BranchLibraryDAOService;
-import dao.CopyDAOService;
 import dao.LocationDAOService;
 import model.BranchLibrary;
-import model.Copy;
 import model.Location;
 
 import java.util.Scanner;
@@ -14,10 +11,10 @@ public class LocationService {
 
     private LocationDAOService databaseService;
     private BranchLibraryDAOService branchLibraryDAOService;
-    private CopyDAOService copyDAOService;
 
     public LocationService(){
         this.databaseService = new LocationDAOService();
+        this.branchLibraryDAOService = new BranchLibraryDAOService();
     }
 
     public void create(Scanner scanner) {

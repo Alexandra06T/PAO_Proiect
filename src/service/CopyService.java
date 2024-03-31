@@ -16,6 +16,9 @@ public class CopyService {
 
     public CopyService(){
         this.databaseService = new CopyDAOService();
+        this.bookDAOService = new BookDAOService();
+        this.locationDAOService = new LocationDAOService();
+        this.branchLibraryDAOService = new BranchLibraryDAOService();
     }
 
     public void create(Scanner scanner) {

@@ -8,4 +8,5 @@ public class Constants {
     public final static int maxNrBorrowedBooks = 4;
     public final static String CHECKIN = "checkin";
     public final static String CHECKOUT = "checkout";
+    public final static double penaltyPerDay = 5;
 }

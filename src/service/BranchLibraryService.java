@@ -1,9 +1,7 @@
 package service;
 
 import dao.BranchLibraryDAOService;
-import dao.CategoryDAOService;
 import model.BranchLibrary;
-import model.Category;
 
 import java.util.Scanner;
 

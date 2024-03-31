@@ -11,6 +11,18 @@ public class CheckIn extends Transaction {
         super(transaction.getLibraryMember(), transaction.getCopy(), transaction.getDate());
     }
 
+    public int getNumberDays() {
+        return numberDays;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public boolean isCheckedOut() {
+        return checkedOut;
+    }
+
     public void setNumberDays(int numberDays) {
         this.numberDays = numberDays;
     }
