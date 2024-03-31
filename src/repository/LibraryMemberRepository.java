@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class LibraryMemberRepository {
-    private static HashMap<String, LibraryMember> libraryMembers = new HashMap<>();
+    private static HashMap<Integer, LibraryMember> libraryMembers = new HashMap<>();
 
-    public LibraryMember read(String memberId) {
+    public LibraryMember read(int memberId) {
         return libraryMembers.get(memberId);
     }
 

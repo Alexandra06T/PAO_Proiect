@@ -11,7 +11,7 @@ public class LibraryMemberDAOService {
         this.libraryMemberRepository = new LibraryMemberRepository();
     }
 
-    public LibraryMember getLibraryMemberById(String memberId){
+    public LibraryMember getLibraryMemberById(int memberId){
         LibraryMember libraryMember = libraryMemberRepository.read(memberId);
         if(libraryMember != null){
             System.out.println(libraryMember);
@@ -22,7 +22,7 @@ public class LibraryMemberDAOService {
         return libraryMember;
     }
 
-    public void removeLibraryMember(String memberId) {
+    public void removeLibraryMember(int memberId) {
         LibraryMember libraryMember = getLibraryMemberById(memberId);
         if (libraryMember == null) return;
 

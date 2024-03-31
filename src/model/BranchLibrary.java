@@ -43,6 +43,14 @@ public class BranchLibrary {
         return locations;
     }
 
+    public void addLocation(Location location) {
+        locations.add(location);
+    }
+
+    public void removeLocation(Location location) {
+        locations.remove(location);
+    }
+
     @Override
     public String toString() {
         return "BranchLibrary{" +

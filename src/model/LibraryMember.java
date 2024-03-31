@@ -5,7 +5,8 @@ import java.util.List;
 
 public class LibraryMember {
 
-    private String memberID;
+    private static int nrMembers = 0;
+    private int memberID;
     private String name;
     private String emailAddress;
     private String phoneNumber;
@@ -15,8 +16,8 @@ public class LibraryMember {
 
     public LibraryMember() {}
 
-    public LibraryMember(String memberID, String name, String emailAddress, String phoneNumber, String address) {
-        this.memberID = memberID;
+    public LibraryMember(String name, String emailAddress, String phoneNumber, String address) {
+        this.memberID = ++nrMembers;
         this.name = name;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
@@ -35,12 +36,8 @@ public class LibraryMember {
         this.reservations = libraryMember.getReservations();
     }
 
-    public String getMemberID() {
+    public int getMemberID() {
         return memberID;
-    }
-
-    public void setMemberID(String memberID) {
-        this.memberID = memberID;
     }
 
     public String getName() {
@@ -81,6 +78,22 @@ public class LibraryMember {
 
     public List<Transaction> getTransactions() {
         return transactions;
+    }
+
+    public void addReservation(Reservation reservation) {
+        reservations.add(reservation);
+    }
+
+    public void removeReservation(Reservation reservation) {
+        reservations.remove(reservation);
+    }
+
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
+
+    public void removeTransaction(Transaction transaction) {
+        transactions.remove(transaction);
     }
 
     @Override
