@@ -2,6 +2,7 @@ package dao;
 
 import model.Book;
 import model.LibraryMember;
+import model.Location;
 import model.Reservation;
 import repository.ReservationRepository;
 
@@ -53,6 +54,22 @@ public class ReservationDAOService {
             }
         }else {
             System.out.println("No reservation for this library member");
+        }
+
+        return reservationList;
+    }
+
+    public List<Reservation> getReservationByLocation(Location location){
+        List<Reservation> reservationList = reservationRepository.readLocation(location);
+        if(reservationList != null){
+            for(Reservation r: reservationList) {
+                System.out.println(r.getId());
+                System.out.println(r.getBook());
+                System.out.println(r.getPickupLocation());
+                System.out.println(r.getExpiryDate());
+            }
+        }else {
+            System.out.println("No reservation for this location");
         }
 
         return reservationList;

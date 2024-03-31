@@ -32,7 +32,7 @@ public class LocationService {
         databaseService.addLocation(location);
     }
 
-    public BranchLibrary chooseBranchLibrary(Scanner scanner) {
+    private BranchLibrary chooseBranchLibrary(Scanner scanner) {
         System.out.println("Enter the name of the branch library:");
         String name = scanner.nextLine();
         BranchLibrary branchLibrary = branchLibraryDAOService.getBranchLibrary(name);

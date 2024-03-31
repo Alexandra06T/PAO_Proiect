@@ -1,6 +1,7 @@
 package model;
 
 import service.CategoryService;
+import service.ReservationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class Book {
     private int numberOfPages;
     private Category category;
     private List<Copy> copies;
+    private List<Reservation> reservations;
 
     public Book() {}
 
@@ -27,6 +29,7 @@ public class Book {
         this.numberOfPages = numberOfPages;
         this.category = new Category();
         this.copies = new ArrayList<>();
+        this.reservations = new ArrayList<>();
     }
 
     public Book(Book book) {
@@ -38,6 +41,7 @@ public class Book {
         this.numberOfPages = book.getNumberOfPages();
         this.category = book.category;
         this.copies = book.getCopies();
+        this.reservations = book.getReservations();
     }
 
     public String getTitle() {
@@ -106,6 +110,18 @@ public class Book {
 
     public void removeCopy(Copy copy) {
         copies.remove(copy);
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void addReservation(Reservation reservation) {
+        reservations.add(reservation);
+    }
+
+    public void removeReservation(Reservation reservation) {
+        reservations.remove(reservation);
     }
 
     @Override

@@ -63,7 +63,7 @@ public class BookService {
         category.addBook(book);
     }
 
-    public String choose(Scanner scanner) {
+    private String choose(Scanner scanner) {
         System.out.println("How do you want to search the book? [title/author]");
         String option = scanner.nextLine().toLowerCase();
         System.out.println("Enter:");

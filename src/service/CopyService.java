@@ -52,7 +52,7 @@ public class CopyService {
     }
 
 
-    public String chooseBook(Scanner scanner) {
+    private String chooseBook(Scanner scanner) {
         System.out.println("How do you want to search the book? [title/author]");
         String option = scanner.nextLine().toLowerCase();
         System.out.println("Enter:");
@@ -73,7 +73,7 @@ public class CopyService {
         return isbn;
     }
 
-    public Location chooseLocation(Scanner scanner) {
+    private Location chooseLocation(Scanner scanner) {
         System.out.println("Enter the branch library's name:");
         String name = scanner.nextLine().toLowerCase();
         System.out.println("Enter the location in the branch library:");

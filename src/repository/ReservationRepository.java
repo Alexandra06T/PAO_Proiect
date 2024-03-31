@@ -48,6 +48,20 @@ public class ReservationRepository {
         return reservationList;
     }
 
+    public List<Reservation> readLocation(Location location) {
+        List<Reservation> reservationList = new ArrayList<>();
+        if(!reservations.isEmpty()){
+            for(Reservation r : reservations){
+                if(r.getPickupLocation().equals(location) && r.getExpiryDate().isBefore(LocalDate.now())){
+                    reservationList.add(r);
+                }
+            }
+        }
+
+        if(reservationList.isEmpty()) return null;
+        return reservationList;
+    }
+
     public void delete(Reservation reservation) {
         reservations.remove(reservation);
     }

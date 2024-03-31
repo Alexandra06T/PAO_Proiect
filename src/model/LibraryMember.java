@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LibraryMember {
 
@@ -94,6 +95,20 @@ public class LibraryMember {
 
     public void removeTransaction(Transaction transaction) {
         transactions.remove(transaction);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LibraryMember that = (LibraryMember) o;
+        return memberID == that.memberID && Objects.equals(name, that.name) && Objects.equals(emailAddress, that.emailAddress) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(address, that.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(memberID, name, emailAddress, phoneNumber, address);
     }
 
     @Override
