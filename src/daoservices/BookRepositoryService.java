@@ -1,20 +1,20 @@
-package dao;
+package daoservices;
 
 import model.Book;
-import repository.BookRepository;
+import dao.BookDao;
 
 import java.util.List;
 
-public class BookDAOService {
+public class BookRepositoryService {
 
-    private BookRepository bookRepository;
+    private BookDao bookDao;
 
-    public BookDAOService() {
-        this.bookRepository = new BookRepository();
+    public BookRepositoryService() {
+        this.bookDao = new BookDao();
     }
 
     public Book getBookByISBN(String isbn){
-        Book book = bookRepository.readISBN(isbn);
+        Book book = bookDao.readISBN(isbn);
         if(book != null){
             System.out.println(book);
         }else {
@@ -25,7 +25,7 @@ public class BookDAOService {
     }
 
     public List<Book> getBooksByTitle(String title){
-        List<Book> bookList = bookRepository.readTitle(title);
+        List<Book> bookList = bookDao.readTitle(title);
         if(bookList != null){
             for(Book b : bookList) {
                 System.out.println(b.getTitle());
@@ -41,7 +41,7 @@ public class BookDAOService {
     }
 
     public List<Book> getBooksByAuthor(String author){
-        List<Book> bookList = bookRepository.readAuthor(author);
+        List<Book> bookList = bookDao.readAuthor(author);
 
         if(bookList != null){
             for(Book b : bookList) {
@@ -61,14 +61,14 @@ public class BookDAOService {
         Book book = getBookByISBN(isbn);
         if (book == null) return;
 
-        bookRepository.delete(book);
+        bookDao.delete(book);
 
         System.out.println("Removed " + book);
     }
 
     public void addBook (Book book) {
         if(book != null){
-            if(bookRepository.readISBN(book.getISBN()) != null) {
+            if(bookDao.readISBN(book.getISBN()) != null) {
                 System.out.println("There is already a book having this ISBN");
                 return;
             }
@@ -76,7 +76,7 @@ public class BookDAOService {
                 System.out.println("Invalid number of pages");
                 return;
             }
-            bookRepository.create(book);
+            bookDao.create(book);
         }
     }
 }

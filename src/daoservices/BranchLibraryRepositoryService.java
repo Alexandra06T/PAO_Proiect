@@ -1,19 +1,19 @@
-package dao;
+package daoservices;
 
 
 import model.BranchLibrary;
-import repository.BranchLibraryRepository;
+import dao.BranchLibraryDao;
 
-public class BranchLibraryDAOService {
+public class BranchLibraryRepositoryService {
 
-    private BranchLibraryRepository branchLibraryRepository;
+    private BranchLibraryDao branchLibraryDao;
 
-    public BranchLibraryDAOService() {
-        this.branchLibraryRepository = new BranchLibraryRepository();
+    public BranchLibraryRepositoryService() {
+        this.branchLibraryDao = new BranchLibraryDao();
     }
 
     public BranchLibrary getBranchLibrary(String name){
-        BranchLibrary branchLibrary = branchLibraryRepository.read(name);
+        BranchLibrary branchLibrary = branchLibraryDao.read(name);
         if(branchLibrary != null){
             System.out.println(branchLibrary);
         }else {
@@ -27,14 +27,14 @@ public class BranchLibraryDAOService {
         BranchLibrary branchLibrary = getBranchLibrary(name);
         if (branchLibrary == null) return;
 
-        branchLibraryRepository.delete(branchLibrary);
+        branchLibraryDao.delete(branchLibrary);
 
         System.out.println("Removed " + branchLibrary.getName());
     }
 
     public void addBranchLibrary(BranchLibrary branchLibrary) {
         if(branchLibrary != null){
-            branchLibraryRepository.create(branchLibrary);
+            branchLibraryDao.create(branchLibrary);
         }
     }
 

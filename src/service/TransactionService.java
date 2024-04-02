@@ -1,6 +1,6 @@
 package service;
 
-import dao.*;
+import daoservices.*;
 import model.*;
 
 import java.time.LocalDate;
@@ -8,22 +8,21 @@ import java.util.List;
 import java.util.Scanner;
 
 import static java.time.Period.between;
-import static javax.xml.datatype.DatatypeConstants.DAYS;
 import static utils.Constants.*;
 
 public class TransactionService {
-    private TransactionDAOService databaseService;
-    private BookDAOService bookDAOService;
-    private CopyDAOService copyDAOService;
-    private LibraryMemberDAOService libraryMemberDAOService;
-    private ReservationDAOService reservationDAOService;
+    private TransactionRepositoryService databaseService;
+    private BookRepositoryService bookRepositoryService;
+    private CopyRepositoryService copyRepositoryService;
+    private LibraryMemberRepositoryService libraryMemberRepositoryService;
+    private ReservationRepositoryService reservationRepositoryService;
 
     public TransactionService(){
-        this.databaseService = new TransactionDAOService();
-        this.bookDAOService = new BookDAOService();
-        this.copyDAOService = new CopyDAOService();
-        this.libraryMemberDAOService = new LibraryMemberDAOService();
-        this.reservationDAOService = new ReservationDAOService();
+        this.databaseService = new TransactionRepositoryService();
+        this.bookRepositoryService = new BookRepositoryService();
+        this.copyRepositoryService = new CopyRepositoryService();
+        this.libraryMemberRepositoryService = new LibraryMemberRepositoryService();
+        this.reservationRepositoryService = new ReservationRepositoryService();
     }
 
     public void create(Scanner scanner) {
@@ -61,15 +60,15 @@ public class TransactionService {
         String search = scanner.nextLine();
         switch (option) {
             case "title":
-                bookDAOService.getBooksByTitle(search);
+                bookRepositoryService.getBooksByTitle(search);
             case "author":
-                bookDAOService.getBooksByAuthor(search);
+                bookRepositoryService.getBooksByAuthor(search);
             default:
                 System.out.println("wrong option");
         }
         System.out.println("Enter the ISBN of the book:");
         String isbn = scanner.nextLine();
-        Book book = bookDAOService.getBookByISBN(isbn);
+        Book book = bookRepositoryService.getBookByISBN(isbn);
         if(book == null) {
             System.out.println("wrong ISBN");
         }
@@ -83,7 +82,7 @@ public class TransactionService {
             System.out.println("Couldn't find the book");
             return null;
         }
-        List<Copy> availableCopies = copyDAOService.getAvailableCopies(book);
+        List<Copy> availableCopies = copyRepositoryService.getAvailableCopies(book);
 
         if(availableCopies.isEmpty()){
             System.out.println("The book has no available copies");
@@ -91,7 +90,7 @@ public class TransactionService {
         System.out.println("Enter the id of the copy");
         int id = scanner.nextInt();
         scanner.nextLine();
-        Copy copy = copyDAOService.getCopyByBookAndId(book, id);
+        Copy copy = copyRepositoryService.getCopyByBookAndId(book, id);
         if(copy == null || !copy.isAvailable()) {
             System.out.println("wrong id");
             return null;
@@ -103,7 +102,7 @@ public class TransactionService {
         System.out.println("Enter the ID of the library member:");
         int memberId = scanner.nextInt();
         scanner.nextLine();
-        LibraryMember libraryMember = libraryMemberDAOService.getLibraryMemberById(memberId);
+        LibraryMember libraryMember = libraryMemberRepositoryService.getLibraryMemberById(memberId);
         if(libraryMember == null) {
             System.out.println("There is no library member having this ID");
             return null;
@@ -119,8 +118,8 @@ public class TransactionService {
             LibraryMember libraryMember = transaction.getLibraryMember();
 
             //verificam daca are voie sa imprumute
-            if(libraryMemberDAOService.getCurrentCheckIns(libraryMember.getMemberID()).size() >= maxNrBorrowedBooks ||
-            libraryMemberDAOService.hasOverdueCopies(libraryMember.getMemberID(), java.time.LocalDate.now())) {
+            if(libraryMemberRepositoryService.getCurrentCheckIns(libraryMember.getMemberID()).size() >= maxNrBorrowedBooks ||
+            libraryMemberRepositoryService.hasOverdueCopies(libraryMember.getMemberID(), java.time.LocalDate.now())) {
                 System.out.println("The library member is not allowed to borrow books");
                 return;
             }
@@ -131,7 +130,7 @@ public class TransactionService {
             transaction.getCopy().setAvailable(false);
 
             //daca exista rezervare, o anulam
-            List<Reservation> reservations = reservationDAOService.getReservationByMember(libraryMember);
+            List<Reservation> reservations = reservationRepositoryService.getReservationByMember(libraryMember);
             for(Reservation r : reservations) {
                 if(r.getBook().equals(transaction.getCopy().getBook()) && r.getExpiryDate().isBefore(java.time.LocalDate.now())) {
                     r.setExpiryDate(java.time.LocalDate.now());
@@ -143,7 +142,7 @@ public class TransactionService {
 
             CheckIn currentCheckIn = null;
             //cautam daca exista imprumut
-            List<CheckIn> checkIns = libraryMemberDAOService.getCurrentCheckIns(libraryMember.getMemberID());
+            List<CheckIn> checkIns = libraryMemberRepositoryService.getCurrentCheckIns(libraryMember.getMemberID());
             for(CheckIn checkIn : checkIns) {
                 if(checkIn.getCopy().equals(transaction.getCopy())) {
                     checkIn.setCheckedOut(true);

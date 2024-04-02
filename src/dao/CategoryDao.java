@@ -1,13 +1,11 @@
-package repository;
+package dao;
 
-import model.Book;
-import model.Category;
 import model.Category;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryRepository {
+public class CategoryDao {
     private static List<Category> categories = new ArrayList<>();
 
     public List<Category> getAll() {

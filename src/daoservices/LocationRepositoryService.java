@@ -1,19 +1,19 @@
-package dao;
+package daoservices;
 
 import model.BranchLibrary;
 import model.Location;
-import repository.LocationRepository;
+import dao.LocationDao;
 
-public class LocationDAOService {
+public class LocationRepositoryService {
 
-    private LocationRepository locationRepository;
+    private LocationDao locationDao;
 
-    public LocationDAOService() {
-        this.locationRepository = new LocationRepository();
+    public LocationRepositoryService() {
+        this.locationDao = new LocationDao();
     }
 
     public Location getLocationByBranchAndName(BranchLibrary branchLibrary, String name){
-        Location location = locationRepository.read(branchLibrary, name);
+        Location location = locationDao.read(branchLibrary, name);
         if(location != null){
             System.out.println(location);
         }else {
@@ -27,14 +27,14 @@ public class LocationDAOService {
         Location location = getLocationByBranchAndName(branchLibrary, name);
         if (location == null) return;
 
-        locationRepository.delete(location);
+        locationDao.delete(location);
 
         System.out.println("Removed " + location);
     }
 
     public void addLocation(Location location) {
         if(location != null){
-            locationRepository.create(location);
+            locationDao.create(location);
         }
     }
 }

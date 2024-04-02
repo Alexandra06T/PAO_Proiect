@@ -1,13 +1,12 @@
-package repository;
+package dao;
 
 import model.Book;
-import model.CheckIn;
 import model.Copy;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CopyRepository {
+public class CopyDao {
     private static List<Copy> copies = new ArrayList<>();
 
     public Copy read(Book book, int id) {

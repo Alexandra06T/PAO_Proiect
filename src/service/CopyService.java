@@ -1,31 +1,29 @@
 package service;
 
-import dao.*;
+import daoservices.*;
 import model.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class CopyService {
 
-    private BookDAOService bookDAOService;
-    private LocationDAOService locationDAOService;
-    private BranchLibraryDAOService branchLibraryDAOService;
-    private CopyDAOService databaseService;
+    private BookRepositoryService bookRepositoryService;
+    private LocationRepositoryService locationRepositoryService;
+    private BranchLibraryRepositoryService branchLibraryRepositoryService;
+    private CopyRepositoryService databaseService;
 
     public CopyService(){
-        this.databaseService = new CopyDAOService();
-        this.bookDAOService = new BookDAOService();
-        this.locationDAOService = new LocationDAOService();
-        this.branchLibraryDAOService = new BranchLibraryDAOService();
+        this.databaseService = new CopyRepositoryService();
+        this.bookRepositoryService = new BookRepositoryService();
+        this.locationRepositoryService = new LocationRepositoryService();
+        this.branchLibraryRepositoryService = new BranchLibraryRepositoryService();
     }
 
     public void create(Scanner scanner) {
         Copy copy = new Copy();
         setGeneralInfo(scanner, copy);
         String isbn = chooseBook(scanner);
-        Book book = bookDAOService.getBookByISBN(isbn);
+        Book book = bookRepositoryService.getBookByISBN(isbn);
         if(book == null) {
             System.out.println("Couldn't set the book");
             return;
@@ -62,15 +60,15 @@ public class CopyService {
         String search = scanner.nextLine();
         switch (option) {
             case "title":
-                bookDAOService.getBooksByTitle(search);
+                bookRepositoryService.getBooksByTitle(search);
             case "author":
-                bookDAOService.getBooksByAuthor(search);
+                bookRepositoryService.getBooksByAuthor(search);
             default:
                 System.out.println("wrong option");
         }
         System.out.println("Enter the ISBN of the book:");
         String isbn = scanner.nextLine();
-        if(bookDAOService.getBookByISBN(isbn) == null) {
+        if(bookRepositoryService.getBookByISBN(isbn) == null) {
             System.out.println("wrong ISBN");
         }
         return isbn;
@@ -81,12 +79,12 @@ public class CopyService {
         String name = scanner.nextLine().toLowerCase();
         System.out.println("Enter the location in the branch library:");
         String loc = scanner.nextLine().toLowerCase();
-        BranchLibrary branchLibrary = branchLibraryDAOService.getBranchLibrary(name);
+        BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
         if(branchLibrary == null) {
             System.out.println("There is no branch library having this name");
             return null;
         }
-        Location location = locationDAOService.getLocationByBranchAndName(branchLibrary, loc);
+        Location location = locationRepositoryService.getLocationByBranchAndName(branchLibrary, loc);
         if(location == null) {
             System.out.println("There is no location having this name");
             return null;
@@ -96,7 +94,7 @@ public class CopyService {
 
     private Copy findCopy(Scanner scanner) {
         String isbn = chooseBook(scanner);
-        Book book = bookDAOService.getBookByISBN(isbn);
+        Book book = bookRepositoryService.getBookByISBN(isbn);
         if(book == null) {
             System.out.println("Couldn't find the copy");
             return null;

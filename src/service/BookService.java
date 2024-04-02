@@ -1,7 +1,7 @@
 package service;
 
-import dao.BookDAOService;
-import dao.CategoryDAOService;
+import daoservices.BookRepositoryService;
+import daoservices.CategoryRepositoryService;
 import model.Book;
 import model.Category;
 
@@ -11,12 +11,12 @@ import java.util.Scanner;
 
 public class BookService {
 
-    private BookDAOService databaseService;
-    private CategoryDAOService categoryDAOService;
+    private BookRepositoryService databaseService;
+    private CategoryRepositoryService categoryRepositoryService;
 
     public BookService(){
-        this.databaseService = new BookDAOService();
-        this.categoryDAOService = new CategoryDAOService();
+        this.databaseService = new BookRepositoryService();
+        this.categoryRepositoryService = new CategoryRepositoryService();
     }
 
     public void create(Scanner scanner) {
@@ -52,11 +52,11 @@ public class BookService {
     }
 
     private void setCategory(Scanner scanner, Book book) {
-        System.out.println(categoryDAOService.getAll());
+        System.out.println(categoryRepositoryService.getAll());
         System.out.println("Enter the index of the chosen category:");
         int index = scanner.nextInt();
         scanner.nextLine();
-        Category category = categoryDAOService.getCategoryByIndex(index);
+        Category category = categoryRepositoryService.getCategoryByIndex(index);
         book.setCategory(category);
         if(book.getCategory() != null)  {
             book.getCategory().removeBook(book);

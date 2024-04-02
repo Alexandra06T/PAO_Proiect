@@ -1,16 +1,16 @@
 package service;
 
-import dao.LibraryMemberDAOService;
+import daoservices.LibraryMemberRepositoryService;
 import model.LibraryMember;
 
 import java.util.Scanner;
 
 public class LibraryMemberService {
 
-    private LibraryMemberDAOService databaseService;
+    private LibraryMemberRepositoryService databaseService;
 
     public LibraryMemberService(){
-        this.databaseService = new LibraryMemberDAOService();
+        this.databaseService = new LibraryMemberRepositoryService();
     }
 
     public void create(Scanner scanner) {

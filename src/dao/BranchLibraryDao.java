@@ -1,12 +1,11 @@
-package repository;
+package dao;
 
-import model.Book;
 import model.BranchLibrary;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BranchLibraryRepository {
+public class BranchLibraryDao {
     private static List<BranchLibrary> branchLibraries = new ArrayList<>();
 
     public BranchLibrary read(String name) {

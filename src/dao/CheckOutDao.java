@@ -1,13 +1,11 @@
-package repository;
+package dao;
 
-import model.Book;
-import model.CheckOut;
 import model.CheckOut;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CheckOutRepository {
+public class CheckOutDao {
     private static List<CheckOut> checkOuts = new ArrayList<>();
 
     public CheckOut read(int id) {

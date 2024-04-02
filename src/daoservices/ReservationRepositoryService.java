@@ -1,23 +1,23 @@
-package dao;
+package daoservices;
 
 import model.Book;
 import model.LibraryMember;
 import model.Location;
 import model.Reservation;
-import repository.ReservationRepository;
+import dao.ReservationDao;
 
 import java.util.List;
 
-public class ReservationDAOService {
+public class ReservationRepositoryService {
 
-    private ReservationRepository reservationRepository;
+    private ReservationDao reservationDao;
 
-    public ReservationDAOService() {
-        this.reservationRepository = new ReservationRepository();
+    public ReservationRepositoryService() {
+        this.reservationDao = new ReservationDao();
     }
 
     public Reservation getReservationById(int id){
-        Reservation reservation = reservationRepository.readId(id);
+        Reservation reservation = reservationDao.readId(id);
         if(reservation != null){
             System.out.println(reservation);
         }else {
@@ -28,7 +28,7 @@ public class ReservationDAOService {
     }
 
     public List<Reservation> getReservationByBook(Book book){
-        List<Reservation> reservationList = reservationRepository.readBook(book);
+        List<Reservation> reservationList = reservationDao.readBook(book);
         if(reservationList != null){
             for(Reservation r: reservationList) {
                 System.out.println(r.getId());
@@ -44,7 +44,7 @@ public class ReservationDAOService {
     }
 
     public List<Reservation> getReservationByMember(LibraryMember libraryMember){
-        List<Reservation> reservationList = reservationRepository.readMember(libraryMember);
+        List<Reservation> reservationList = reservationDao.readMember(libraryMember);
         if(reservationList != null){
             for(Reservation r: reservationList) {
                 System.out.println(r.getId());
@@ -60,7 +60,7 @@ public class ReservationDAOService {
     }
 
     public List<Reservation> getReservationByLocation(Location location){
-        List<Reservation> reservationList = reservationRepository.readLocation(location);
+        List<Reservation> reservationList = reservationDao.readLocation(location);
         if(reservationList != null){
             for(Reservation r: reservationList) {
                 System.out.println(r.getId());
@@ -79,14 +79,14 @@ public class ReservationDAOService {
         Reservation reservation = getReservationById(id);
         if (reservation == null) return;
 
-        reservationRepository.delete(reservation);
+        reservationDao.delete(reservation);
 
         System.out.println("Removed " + reservation);
     }
 
     public void addReservation(Reservation reservation) {
         if(reservation != null){
-            reservationRepository.create(reservation);
+            reservationDao.create(reservation);
         }
     }
 }

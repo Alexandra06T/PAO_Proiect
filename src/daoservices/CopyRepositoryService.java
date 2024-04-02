@@ -1,21 +1,21 @@
-package dao;
+package daoservices;
 
 import model.Book;
 import model.Copy;
-import repository.CopyRepository;
+import dao.CopyDao;
 
 import java.util.List;
 
-public class CopyDAOService {
+public class CopyRepositoryService {
 
-    private CopyRepository copyRepository;
+    private CopyDao copyDao;
 
-    public CopyDAOService() {
-        this.copyRepository = new CopyRepository();
+    public CopyRepositoryService() {
+        this.copyDao = new CopyDao();
     }
 
     public Copy getCopyByBookAndId(Book book, int id){
-        Copy copy = copyRepository.read(book, id);
+        Copy copy = copyDao.read(book, id);
         if(copy != null){
             System.out.println(copy);
         }else {
@@ -27,7 +27,7 @@ public class CopyDAOService {
 
 
     public List<Copy> getAvailableCopies(Book book){
-        List<Copy> copyList = copyRepository.readAvailable(book);
+        List<Copy> copyList = copyDao.readAvailable(book);
         if(copyList != null){
             for(Copy c : copyList) {
                 System.out.print(c.getId());
@@ -43,18 +43,18 @@ public class CopyDAOService {
         Copy copy = getCopyByBookAndId(book, id);
         if (copy == null) return;
 
-        copyRepository.delete(copy);
+        copyDao.delete(copy);
 
         System.out.println("Removed " + copy);
     }
 
     public void addCopy(Copy copy) {
         if(copy != null){
-            if(copyRepository.read(copy.getBook(), copy.getId()) != null) {
+            if(copyDao.read(copy.getBook(), copy.getId()) != null) {
                 System.out.println("There is already a copy of this book having this id");
                 return;
             }
-            copyRepository.create(copy);
+            copyDao.create(copy);
         }
     }
 

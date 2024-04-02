@@ -1,4 +1,4 @@
-package repository;
+package dao;
 
 import model.*;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 
-public class ReservationRepository {
+public class ReservationDao {
     private static List<Reservation> reservations = new ArrayList<>();
 
     public Reservation readId(int id) {

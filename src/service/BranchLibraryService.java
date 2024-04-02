@@ -1,15 +1,15 @@
 package service;
 
-import dao.BranchLibraryDAOService;
+import daoservices.BranchLibraryRepositoryService;
 import model.BranchLibrary;
 
 import java.util.Scanner;
 
 public class BranchLibraryService {
-    private BranchLibraryDAOService databaseService;
+    private BranchLibraryRepositoryService databaseService;
 
     public BranchLibraryService(){
-        this.databaseService = new BranchLibraryDAOService();
+        this.databaseService = new BranchLibraryRepositoryService();
     }
 
     public void create(Scanner scanner) {

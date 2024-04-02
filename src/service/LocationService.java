@@ -1,7 +1,7 @@
 package service;
 
-import dao.BranchLibraryDAOService;
-import dao.LocationDAOService;
+import daoservices.BranchLibraryRepositoryService;
+import daoservices.LocationRepositoryService;
 import model.BranchLibrary;
 import model.Location;
 
@@ -9,12 +9,12 @@ import java.util.Scanner;
 
 public class LocationService {
 
-    private LocationDAOService databaseService;
-    private BranchLibraryDAOService branchLibraryDAOService;
+    private LocationRepositoryService databaseService;
+    private BranchLibraryRepositoryService branchLibraryRepositoryService;
 
     public LocationService(){
-        this.databaseService = new LocationDAOService();
-        this.branchLibraryDAOService = new BranchLibraryDAOService();
+        this.databaseService = new LocationRepositoryService();
+        this.branchLibraryRepositoryService = new BranchLibraryRepositoryService();
     }
 
     public void create(Scanner scanner) {
@@ -32,7 +32,7 @@ public class LocationService {
     private BranchLibrary chooseBranchLibrary(Scanner scanner) {
         System.out.println("Enter the name of the branch library:");
         String name = scanner.nextLine();
-        BranchLibrary branchLibrary = branchLibraryDAOService.getBranchLibrary(name);
+        BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
         if(branchLibrary == null) {
             System.out.println("wrong name");
         }

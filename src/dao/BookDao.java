@@ -1,11 +1,11 @@
-package repository;
+package dao;
 
 import model.Book;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookRepository {
+public class BookDao {
     private static List<Book> books = new ArrayList<>();
 
     public List<Book> readAll() {

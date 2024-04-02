@@ -1,10 +1,9 @@
-package dao;
+package daoservices;
 
 import model.CheckIn;
 import model.LibraryMember;
-import model.Reservation;
 import model.Transaction;
-import repository.LibraryMemberRepository;
+import dao.LibraryMemberDao;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,16 +11,16 @@ import java.util.List;
 
 import static utils.Constants.CHECKIN;
 
-public class LibraryMemberDAOService {
+public class LibraryMemberRepositoryService {
 
-    private LibraryMemberRepository libraryMemberRepository;
+    private LibraryMemberDao libraryMemberDao;
 
-    public LibraryMemberDAOService() {
-        this.libraryMemberRepository = new LibraryMemberRepository();
+    public LibraryMemberRepositoryService() {
+        this.libraryMemberDao = new LibraryMemberDao();
     }
 
     public LibraryMember getLibraryMemberById(int memberId){
-        LibraryMember libraryMember = libraryMemberRepository.read(memberId);
+        LibraryMember libraryMember = libraryMemberDao.read(memberId);
         if(libraryMember != null){
             System.out.println(libraryMember);
         }else {
@@ -33,7 +32,7 @@ public class LibraryMemberDAOService {
 
     public List<CheckIn> getCurrentCheckIns(int memberId) {
         List<CheckIn> checkIns = new ArrayList<>();
-        LibraryMember libraryMember = libraryMemberRepository.read(memberId);
+        LibraryMember libraryMember = libraryMemberDao.read(memberId);
         List<Transaction> transactions = libraryMember.getTransactions();
         for(Transaction t : transactions) {
             if(t.getClass().getName().equals(CHECKIN)) {
@@ -48,7 +47,7 @@ public class LibraryMemberDAOService {
     }
 
     public boolean hasOverdueCopies(int memberId, LocalDate currentDate) {
-        LibraryMember libraryMember = libraryMemberRepository.read(memberId);
+        LibraryMember libraryMember = libraryMemberDao.read(memberId);
         List<Transaction> transactions = libraryMember.getTransactions();
         for(Transaction t : transactions) {
             if(t.getClass().getName().equals(CHECKIN)) {
@@ -65,14 +64,14 @@ public class LibraryMemberDAOService {
         LibraryMember libraryMember = getLibraryMemberById(memberId);
         if (libraryMember == null) return;
 
-        libraryMemberRepository.delete(libraryMember);
+        libraryMemberDao.delete(libraryMember);
 
         System.out.println("Removed " + libraryMember);
     }
 
     public void addLibraryMember(LibraryMember libraryMember) {
         if(libraryMember != null){
-            libraryMemberRepository.create(libraryMember);
+            libraryMemberDao.create(libraryMember);
         }
     }
 }

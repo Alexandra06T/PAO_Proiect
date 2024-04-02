@@ -1,14 +1,11 @@
-package repository;
+package dao;
 
-import model.Book;
-import model.BranchLibrary;
-import model.CheckIn;
 import model.CheckIn;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CheckInRepository {
+public class CheckInDao {
     private static List<CheckIn> checkIns = new ArrayList<>();
 
     public CheckIn read(int id) {

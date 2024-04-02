@@ -1,14 +1,10 @@
-package repository;
+package dao;
 
-import model.Book;
-import model.CheckIn;
 import model.LibraryMember;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class LibraryMemberRepository {
+public class LibraryMemberDao {
     private static HashMap<Integer, LibraryMember> libraryMembers = new HashMap<>();
 
     public LibraryMember read(int memberId) {

@@ -1,20 +1,20 @@
-package dao;
+package daoservices;
 
 import model.Category;
-import repository.CategoryRepository;
+import dao.CategoryDao;
 
 import java.util.List;
 
-public class CategoryDAOService {
+public class CategoryRepositoryService {
 
-    private CategoryRepository categoryRepository;
+    private CategoryDao categoryDao;
 
-    public CategoryDAOService() {
-        this.categoryRepository = new CategoryRepository();
+    public CategoryRepositoryService() {
+        this.categoryDao = new CategoryDao();
     }
 
     public List<Category> getAll(){
-        List<Category> categories = categoryRepository.getAll();
+        List<Category> categories = categoryDao.getAll();
         if(categories != null){
             System.out.println(categories);
         }else {
@@ -25,7 +25,7 @@ public class CategoryDAOService {
     }
 
     public Category getCategoryByName(String name){
-        Category category = categoryRepository.readName(name);
+        Category category = categoryDao.readName(name);
         if(category != null){
             System.out.println(category);
         }else {
@@ -36,7 +36,7 @@ public class CategoryDAOService {
     }
 
     public Category getCategoryByIndex(int index){
-        Category category = categoryRepository.readIndex(index);
+        Category category = categoryDao.readIndex(index);
         if(category != null){
             System.out.println(category);
         }else {
@@ -50,14 +50,14 @@ public class CategoryDAOService {
         Category category = getCategoryByName(name);
         if (category == null) return;
 
-        categoryRepository.delete(category);
+        categoryDao.delete(category);
 
         System.out.println("Removed " + category);
     }
 
     public void addCategory(Category category) {
         if(category != null){
-            categoryRepository.create(category);
+            categoryDao.create(category);
         }
     }
 }

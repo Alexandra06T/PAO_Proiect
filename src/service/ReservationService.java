@@ -1,6 +1,6 @@
 package service;
 
-import dao.*;
+import daoservices.*;
 import model.*;
 
 import java.util.ArrayList;
@@ -8,18 +8,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ReservationService {
-    private BookDAOService bookDAOService;
-    private LocationDAOService locationDAOService;
-    private BranchLibraryDAOService branchLibraryDAOService;
-    private LibraryMemberDAOService libraryMemberDAOService;
-    private ReservationDAOService databaseService;
+    private BookRepositoryService bookRepositoryService;
+    private LocationRepositoryService locationRepositoryService;
+    private BranchLibraryRepositoryService branchLibraryRepositoryService;
+    private LibraryMemberRepositoryService libraryMemberRepositoryService;
+    private ReservationRepositoryService databaseService;
 
     public ReservationService(){
-        this.databaseService = new ReservationDAOService();
-        this.bookDAOService = new BookDAOService();
-        this.locationDAOService = new LocationDAOService();
-        this.branchLibraryDAOService = new BranchLibraryDAOService();
-        this.libraryMemberDAOService = new LibraryMemberDAOService();
+        this.databaseService = new ReservationRepositoryService();
+        this.bookRepositoryService = new BookRepositoryService();
+        this.locationRepositoryService = new LocationRepositoryService();
+        this.branchLibraryRepositoryService = new BranchLibraryRepositoryService();
+        this.libraryMemberRepositoryService = new LibraryMemberRepositoryService();
     }
 
     public void create(Scanner scanner) {
@@ -63,15 +63,15 @@ public class ReservationService {
         String search = scanner.nextLine();
         switch (option) {
             case "title":
-                bookDAOService.getBooksByTitle(search);
+                bookRepositoryService.getBooksByTitle(search);
             case "author":
-                bookDAOService.getBooksByAuthor(search);
+                bookRepositoryService.getBooksByAuthor(search);
             default:
                 System.out.println("wrong option");
         }
         System.out.println("Enter the ISBN of the book:");
         String isbn = scanner.nextLine();
-        Book book = bookDAOService.getBookByISBN(isbn);
+        Book book = bookRepositoryService.getBookByISBN(isbn);
         if(book == null) {
             System.out.println("wrong ISBN");
         }
@@ -83,12 +83,12 @@ public class ReservationService {
         String name = scanner.nextLine().toLowerCase();
         System.out.println("Enter the location in the branch library:");
         String loc = scanner.nextLine().toLowerCase();
-        BranchLibrary branchLibrary = branchLibraryDAOService.getBranchLibrary(name);
+        BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
         if(branchLibrary == null) {
             System.out.println("There is no branch library having this name");
             return null;
         }
-        Location location = locationDAOService.getLocationByBranchAndName(branchLibrary, loc);
+        Location location = locationRepositoryService.getLocationByBranchAndName(branchLibrary, loc);
         if(location == null) {
             System.out.println("There is no location having this name");
             return null;
@@ -100,7 +100,7 @@ public class ReservationService {
         System.out.println("Enter the ID of the library member:");
         int memberId = scanner.nextInt();
         scanner.nextLine();
-        LibraryMember libraryMember = libraryMemberDAOService.getLibraryMemberById(memberId);
+        LibraryMember libraryMember = libraryMemberRepositoryService.getLibraryMemberById(memberId);
         if(libraryMember == null) {
             System.out.println("There is no library member having this ID");
             return null;

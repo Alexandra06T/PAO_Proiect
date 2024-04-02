@@ -1,17 +1,15 @@
 package service;
 
-import dao.CategoryDAOService;
+import daoservices.CategoryRepositoryService;
 import model.Category;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class CategoryService {
-    private CategoryDAOService databaseService;
+    private CategoryRepositoryService databaseService;
 
     public CategoryService(){
-        this.databaseService = new CategoryDAOService();
+        this.databaseService = new CategoryRepositoryService();
     }
 
     public void create(Scanner scanner) {

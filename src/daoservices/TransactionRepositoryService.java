@@ -1,26 +1,23 @@
-package dao;
+package daoservices;
 
 import model.*;
-import repository.CheckInRepository;
-import repository.CheckOutRepository;
-
-import java.time.LocalDate;
-import java.util.List;
+import dao.CheckInDao;
+import dao.CheckOutDao;
 
 import static utils.Constants.CHECKIN;
 
-public class TransactionDAOService {
+public class TransactionRepositoryService {
 
-    private CheckInRepository checkInRepository;
-    private CheckOutRepository checkOutRepository;
+    private CheckInDao checkInDao;
+    private CheckOutDao checkOutDao;
 
-    public TransactionDAOService() {
-        this.checkInRepository = new CheckInRepository();
-        this.checkOutRepository = new CheckOutRepository();
+    public TransactionRepositoryService() {
+        this.checkInDao = new CheckInDao();
+        this.checkOutDao = new CheckOutDao();
     }
 
     public CheckIn getCheckInById(int id){
-        CheckIn checkIn = checkInRepository.read(id);
+        CheckIn checkIn = checkInDao.read(id);
         if(checkIn != null){
             System.out.println(checkIn);
         }else {
@@ -31,7 +28,7 @@ public class TransactionDAOService {
     }
 
     public CheckOut getCheckOutById(int id){
-        CheckOut checkOut = checkOutRepository.read(id);
+        CheckOut checkOut = checkOutDao.read(id);
         if(checkOut != null){
             System.out.println(checkOut);
         }else {
@@ -45,8 +42,8 @@ public class TransactionDAOService {
         if (transaction == null) return;
 
         switch (transaction){
-            case CheckIn checkIn -> checkInRepository.delete(checkIn);
-            case CheckOut checkOut -> checkOutRepository.delete(checkOut);
+            case CheckIn checkIn -> checkInDao.delete(checkIn);
+            case CheckOut checkOut -> checkOutDao.delete(checkOut);
             default -> throw new IllegalStateException("Unexpected value: " + transaction);
         }
 
@@ -56,8 +53,8 @@ public class TransactionDAOService {
     public void addTransaction(Transaction transaction) {
         if(transaction != null){
             switch (transaction){
-                case CheckIn checkIn-> checkInRepository.create(checkIn);
-                case CheckOut checkOut -> checkOutRepository.create(checkOut);
+                case CheckIn checkIn-> checkInDao.create(checkIn);
+                case CheckOut checkOut -> checkOutDao.create(checkOut);
                 default -> throw new IllegalStateException("Unexpected value: " + transaction);
             }
         }

@@ -1,14 +1,12 @@
-package repository;
+package dao;
 
-import model.Book;
 import model.BranchLibrary;
-import model.CheckIn;
 import model.Location;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocationRepository {
+public class LocationDao {
     private static List<Location> locations = new ArrayList<>();
 
     public Location read(BranchLibrary branchLibrary, String name) {
