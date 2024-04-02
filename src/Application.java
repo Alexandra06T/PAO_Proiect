@@ -236,7 +236,7 @@ public class Application {
         System.out.println("Choose the target of your operation:");
         System.out.println("Category");
         System.out.println("Book");
-        System.out.println("Copy");
+        System.out.println("BookCopy");
         System.out.println("Library Member");
         System.out.println("Location");
         System.out.println("Branch Library");

@@ -1,7 +1,7 @@
 package daoservices;
 
 import model.Book;
-import model.Copy;
+import model.BookCopy;
 import dao.CopyDao;
 
 import java.util.List;
@@ -14,47 +14,47 @@ public class CopyRepositoryService {
         this.copyDao = new CopyDao();
     }
 
-    public Copy getCopyByBookAndId(Book book, int id){
-        Copy copy = copyDao.read(book, id);
-        if(copy != null){
-            System.out.println(copy);
+    public BookCopy getCopyByBookAndId(Book book, int id){
+        BookCopy bookCopy = copyDao.read(book, id);
+        if(bookCopy != null){
+            System.out.println(bookCopy);
         }else {
-            System.out.println("No copy of the specified book having this id");
+            System.out.println("No bookCopy of the specified book having this id");
         }
 
-        return copy;
+        return bookCopy;
     }
 
 
-    public List<Copy> getAvailableCopies(Book book){
-        List<Copy> copyList = copyDao.readAvailable(book);
-        if(copyList != null){
-            for(Copy c : copyList) {
+    public List<BookCopy> getAvailableCopies(Book book){
+        List<BookCopy> bookCopyList = copyDao.readAvailable(book);
+        if(bookCopyList != null){
+            for(BookCopy c : bookCopyList) {
                 System.out.print(c.getId());
                 System.out.println(c.getLocation() + c.getIndex());
             }
         }else {
             System.out.println("No available copies for this book");
         }
-        return copyList;
+        return bookCopyList;
     }
 
     public void removeCopy(Book book, int id) {
-        Copy copy = getCopyByBookAndId(book, id);
-        if (copy == null) return;
+        BookCopy bookCopy = getCopyByBookAndId(book, id);
+        if (bookCopy == null) return;
 
-        copyDao.delete(copy);
+        copyDao.delete(bookCopy);
 
-        System.out.println("Removed " + copy);
+        System.out.println("Removed " + bookCopy);
     }
 
-    public void addCopy(Copy copy) {
-        if(copy != null){
-            if(copyDao.read(copy.getBook(), copy.getId()) != null) {
-                System.out.println("There is already a copy of this book having this id");
+    public void addCopy(BookCopy bookCopy) {
+        if(bookCopy != null){
+            if(copyDao.read(bookCopy.getBook(), bookCopy.getId()) != null) {
+                System.out.println("There is already a bookCopy of this book having this id");
                 return;
             }
-            copyDao.create(copy);
+            copyDao.create(bookCopy);
         }
     }
 

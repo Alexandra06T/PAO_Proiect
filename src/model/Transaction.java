@@ -1,22 +1,22 @@
 package model;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.Objects;
 
 public class Transaction {
 
     private static int nrTransactions = 0;
     private int id;
     private LibraryMember libraryMember;
-    private Copy copy;
+    private BookCopy bookCopy;
     private LocalDate date;
 
     public Transaction() {
     }
 
-    public Transaction(LibraryMember libraryMember, Copy copy, LocalDate date) {
-        this.libraryMember = new LibraryMember(libraryMember);
-        this.copy = new Copy(copy);
+    public Transaction(LibraryMember libraryMember, BookCopy bookCopy, LocalDate date) {
+        this.libraryMember = libraryMember;
+        this.bookCopy = bookCopy;
         this.date = date;
         nrTransactions++;
         this.id = nrTransactions;
@@ -34,12 +34,12 @@ public class Transaction {
         this.libraryMember = libraryMember;
     }
 
-    public Copy getCopy() {
-        return copy;
+    public BookCopy getBookCopy() {
+        return bookCopy;
     }
 
-    public void setCopy(Copy copy) {
-        this.copy = copy;
+    public void setBookCopy(BookCopy bookCopy) {
+        this.bookCopy = bookCopy;
     }
 
     public LocalDate getDate() {
@@ -51,10 +51,23 @@ public class Transaction {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return id == that.id && Objects.equals(libraryMember, that.libraryMember) && Objects.equals(bookCopy, that.bookCopy) && Objects.equals(date, that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, libraryMember, bookCopy, date);
+    }
+
+    @Override
     public String toString() {
         return "Transaction{" +
                 "libraryMember=" + libraryMember +
-                ", copy=" + copy +
+                ", bookCopy=" + bookCopy +
                 ", date=" + date +
                 '}';
     }

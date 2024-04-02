@@ -53,7 +53,7 @@ public class TransactionRepositoryService {
     public void addTransaction(Transaction transaction) {
         if(transaction != null){
             switch (transaction){
-                case CheckIn checkIn-> checkInDao.create(checkIn);
+                case CheckIn checkIn -> checkInDao.create(checkIn);
                 case CheckOut checkOut -> checkOutDao.create(checkOut);
                 default -> throw new IllegalStateException("Unexpected value: " + transaction);
             }

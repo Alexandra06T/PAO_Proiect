@@ -33,15 +33,58 @@ public class TransactionService {
     }
 
     public void read(Scanner scanner) {
-
+        System.out.println("Enter the id of the transaction:");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        databaseService.getCheckInById(id);
+        databaseService.getCheckOutById(id);
     }
 
     public void delete(Scanner scanner) {
-
+        System.out.println("Enter the id of the transaction:");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Enter the type of the transaction:");
+        String typeOfTransaction = scanner.nextLine();
+        if(!typeOfTransactionValidation(typeOfTransaction)) { return; }
+        databaseService.removeTransaction(typeOfTransaction, id);
     }
 
     public void update(Scanner scanner) {
+        System.out.println("Enter the type of the transaction:");
+        String typeOfTransaction = scanner.nextLine();
+        if(!typeOfTransactionValidation(typeOfTransaction)) { return; }
+        System.out.println("Enter the id of the transaction:");
+        int id = scanner.nextInt();;
+        scanner.nextLine();
+        Transaction transaction = databaseService.getTransaction(typeOfTransaction, id);
+        if (transaction == null) { return;}
 
+        Transaction transactionGeneralInfo = setGeneralInfo(scanner);
+        transaction.setLibraryMember(transactionGeneralInfo.getLibraryMember());
+        transaction.setBookCopy(transactionGeneralInfo.getBookCopy());
+        transaction.setDate(transactionGeneralInfo.getDate());
+        if(typeOfTransaction.equals(CHECKIN)){
+            checkInInit(scanner, (CheckIn) transaction);
+        }else{
+            CheckIn currentCheckIn = null;
+            //cautam daca exista imprumut
+            List<CheckIn> checkIns = libraryMemberRepositoryService.getCurrentCheckIns(transaction.getLibraryMember().getMemberID());
+            for(CheckIn checkIn : checkIns) {
+                if(checkIn.getBookCopy().equals(transaction.getBookCopy())) {
+                    checkIn.setCheckedOut(true);
+                    currentCheckIn = new CheckIn(checkIn);
+                    break;
+                }
+            }
+
+            if(currentCheckIn == null) {
+                System.out.println("There is no such check in");
+                return;
+            }
+
+            checkOutInit(scanner, currentCheckIn ,(CheckOut) transaction);
+        }
     }
 
     public boolean typeOfTransactionValidation(String typeOfTransaction) {
@@ -75,27 +118,27 @@ public class TransactionService {
         return book;
     }
 
-    private Copy chooseCopy(Scanner scanner) {
+    private BookCopy chooseCopy(Scanner scanner) {
 
         Book book = chooseBook(scanner);
         if(book == null) {
             System.out.println("Couldn't find the book");
             return null;
         }
-        List<Copy> availableCopies = copyRepositoryService.getAvailableCopies(book);
+        List<BookCopy> availableCopies = copyRepositoryService.getAvailableCopies(book);
 
         if(availableCopies.isEmpty()){
             System.out.println("The book has no available copies");
         }
-        System.out.println("Enter the id of the copy");
+        System.out.println("Enter the id of the bookCopy");
         int id = scanner.nextInt();
         scanner.nextLine();
-        Copy copy = copyRepositoryService.getCopyByBookAndId(book, id);
-        if(copy == null || !copy.isAvailable()) {
+        BookCopy bookCopy = copyRepositoryService.getCopyByBookAndId(book, id);
+        if(bookCopy == null || !bookCopy.isAvailable()) {
             System.out.println("wrong id");
             return null;
         }
-        return copy;
+        return bookCopy;
     }
 
     private LibraryMember chooseLibraryMember(Scanner scanner) {
@@ -127,12 +170,12 @@ public class TransactionService {
             CheckIn checkIn = new CheckIn(transaction);
             checkInInit(scanner, checkIn);
             transaction = checkIn;
-            transaction.getCopy().setAvailable(false);
+            transaction.getBookCopy().setAvailable(false);
 
             //daca exista rezervare, o anulam
             List<Reservation> reservations = reservationRepositoryService.getReservationByMember(libraryMember);
             for(Reservation r : reservations) {
-                if(r.getBook().equals(transaction.getCopy().getBook()) && r.getExpiryDate().isBefore(java.time.LocalDate.now())) {
+                if(r.getBook().equals(transaction.getBookCopy().getBook()) && r.getExpiryDate().isBefore(java.time.LocalDate.now())) {
                     r.setExpiryDate(java.time.LocalDate.now());
                 }
             }
@@ -144,7 +187,7 @@ public class TransactionService {
             //cautam daca exista imprumut
             List<CheckIn> checkIns = libraryMemberRepositoryService.getCurrentCheckIns(libraryMember.getMemberID());
             for(CheckIn checkIn : checkIns) {
-                if(checkIn.getCopy().equals(transaction.getCopy())) {
+                if(checkIn.getBookCopy().equals(transaction.getBookCopy())) {
                     checkIn.setCheckedOut(true);
                     currentCheckIn = new CheckIn(checkIn);
                     break;
@@ -160,20 +203,20 @@ public class TransactionService {
             checkOutInit(scanner, currentCheckIn, checkOut);
             transaction = checkOut;
 
-            transaction.getCopy().setAvailable(true);
+            transaction.getBookCopy().setAvailable(true);
         }
 
         databaseService.addTransaction(transaction);
         System.out.println("Created " + transaction);
         transaction.getLibraryMember().addTransaction(transaction);
-        transaction.getCopy().addTransaction(transaction);
+        transaction.getBookCopy().addTransaction(transaction);
     }
 
     private Transaction setGeneralInfo(Scanner scanner) {
-        Copy copy = chooseCopy(scanner);
+        BookCopy bookCopy = chooseCopy(scanner);
         LibraryMember libraryMember = chooseLibraryMember(scanner);
         LocalDate localDate = java.time.LocalDate.now();
-        return new Transaction(libraryMember, copy, localDate);
+        return new Transaction(libraryMember, bookCopy, localDate);
     }
 
     private void checkInInit(Scanner scanner, CheckIn checkIn) {

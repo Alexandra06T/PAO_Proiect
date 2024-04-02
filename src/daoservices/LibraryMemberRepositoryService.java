@@ -71,6 +71,15 @@ public class LibraryMemberRepositoryService {
 
     public void addLibraryMember(LibraryMember libraryMember) {
         if(libraryMember != null){
+            //verificare simpla a unui numar de telefon
+            if(!libraryMember.getPhoneNumber().matches("0([237])[0-9]{8}")) {
+                System.out.println("The phone number has an invalid format");
+                return;
+            }
+            if(!libraryMember.getEmailAddress().matches("[a-z]+(.[a-z0-9])*+@[a-z0-9]+.(com|org|ro|gov)")) {
+                System.out.println("The email address has an invalid format");
+                return;
+            }
             libraryMemberDao.create(libraryMember);
         }
     }

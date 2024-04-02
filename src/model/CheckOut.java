@@ -1,9 +1,5 @@
 package model;
 
-import java.util.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class CheckOut extends Transaction {
 
     private String bookStatus;
@@ -11,7 +7,7 @@ public class CheckOut extends Transaction {
     private double penalty;
 
     public CheckOut(Transaction transaction) {
-        super(transaction.getLibraryMember(), transaction.getCopy(), transaction.getDate());
+        super(transaction.getLibraryMember(), transaction.getBookCopy(), transaction.getDate());
     }
 
     public void setOverdueDays(int overdueDays) {

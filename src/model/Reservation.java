@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class Reservation {
 
@@ -15,7 +16,7 @@ public class Reservation {
     public Reservation() {}
 
     public Reservation(LibraryMember libraryMember, Book book, LocalDate expiryDate, Location pickupLocation) {
-        this.libraryMember = new LibraryMember(libraryMember);
+        this.libraryMember = libraryMember;
         this.book = book;
         this.expiryDate = expiryDate;
         this.pickupLocation = new Location(pickupLocation);
@@ -57,6 +58,19 @@ public class Reservation {
 
     public void setPickupLocation(Location pickupLocation) {
         this.pickupLocation = pickupLocation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return id == that.id && Objects.equals(libraryMember, that.libraryMember) && Objects.equals(book, that.book) && Objects.equals(expiryDate, that.expiryDate) && Objects.equals(pickupLocation, that.pickupLocation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, libraryMember, book, expiryDate, pickupLocation);
     }
 
     @Override

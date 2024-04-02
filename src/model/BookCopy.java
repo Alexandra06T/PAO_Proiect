@@ -2,8 +2,9 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Copy {
+public class BookCopy {
 
     private int id;
     private Book book;
@@ -13,11 +14,11 @@ public class Copy {
     private boolean available;
     private List<Transaction> transactions;
 
-    public Copy() {}
+    public BookCopy() {}
 
-    public Copy(int id, Book book, String barcode, String index, Location location, boolean available) {
+    public BookCopy(int id, Book book, String barcode, String index, Location location, boolean available) {
         this.id = id;
-        this.book = new Book(book);
+        this.book = book;
         this.barcode = barcode;
         this.index = index;
         this.location = location;
@@ -25,14 +26,14 @@ public class Copy {
         this.transactions = new ArrayList<>();
     }
 
-    public Copy(Copy copy) {
-        this.id = copy.getId();
-        this.book = new Book(copy.getBook());
+    public BookCopy(BookCopy bookCopy) {
+        this.id = bookCopy.getId();
+        this.book = bookCopy.getBook();
         this.barcode = getBarcode();
-        this.index = copy.getIndex();
-        this.location = copy.getLocation();
-        this.available = copy.isAvailable();
-        this.transactions = copy.getTransactions();
+        this.index = bookCopy.getIndex();
+        this.location = bookCopy.getLocation();
+        this.available = bookCopy.isAvailable();
+        this.transactions = bookCopy.getTransactions();
     }
 
     public int getId() {
@@ -96,12 +97,25 @@ public class Copy {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookCopy bookCopy = (BookCopy) o;
+        return id == bookCopy.id && available == bookCopy.available && Objects.equals(book, bookCopy.book) && Objects.equals(barcode, bookCopy.barcode) && Objects.equals(index, bookCopy.index) && Objects.equals(location, bookCopy.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, book, barcode, index, location, available);
+    }
+
+    @Override
     public String toString() {
         String av;
         if(available) av = "available";
         else av = "not available";
 
-        return "Copy{" +
+        return "BookCopy{" +
                 "id=" + id +
                 ", book=" + book +
                 ", barcode='" + barcode + '\'' +

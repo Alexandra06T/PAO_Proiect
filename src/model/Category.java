@@ -16,6 +16,12 @@ public class Category {
         this.books = new ArrayList<>();
     }
 
+    public Category(Category category) {
+        this.name = category.getName();
+        this.index = category.getIndex();
+        this.books = category.getBooks();
+    }
+
     public String getName() {
         return name;
     }

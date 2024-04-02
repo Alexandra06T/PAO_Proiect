@@ -1,14 +1,12 @@
 package model;
 
-import java.util.Date;
-
 public class CheckIn extends Transaction {
     private int numberDays;
     private String type;
     private boolean checkedOut = false;
 
     public CheckIn(Transaction transaction) {
-        super(transaction.getLibraryMember(), transaction.getCopy(), transaction.getDate());
+        super(transaction.getLibraryMember(), transaction.getBookCopy(), transaction.getDate());
     }
 
     public int getNumberDays() {

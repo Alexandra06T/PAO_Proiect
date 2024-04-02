@@ -1,17 +1,17 @@
 package dao;
 
 import model.Book;
-import model.Copy;
+import model.BookCopy;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CopyDao {
-    private static List<Copy> copies = new ArrayList<>();
+    private static List<BookCopy> copies = new ArrayList<>();
 
-    public Copy read(Book book, int id) {
+    public BookCopy read(Book book, int id) {
         if(!copies.isEmpty()){
-            for(Copy c : copies){
+            for(BookCopy c : copies){
                 if(c.getBook().equals(book) && c.getId() == id){
                     return c;
                 }
@@ -21,24 +21,24 @@ public class CopyDao {
     }
 
 
-    public List<Copy> readAvailable(Book book) {
-        List<Copy> copyList = new ArrayList<>();
+    public List<BookCopy> readAvailable(Book book) {
+        List<BookCopy> bookCopyList = new ArrayList<>();
         if(!copies.isEmpty()){
-            for(Copy c : copies){
+            for(BookCopy c : copies){
                 if(c.getBook().equals(book) && c.isAvailable()){
-                    copyList.add(c);
+                    bookCopyList.add(c);
                 }
             }
         }
-        if(copyList.isEmpty()) return null;
-        return copyList;
+        if(bookCopyList.isEmpty()) return null;
+        return bookCopyList;
     }
 
-    public void delete(Copy copy) {
-        copies.remove(copy);
+    public void delete(BookCopy bookCopy) {
+        copies.remove(bookCopy);
     }
 
-    public void create(Copy copy) {
-        copies.add(copy);
+    public void create(BookCopy bookCopy) {
+        copies.add(bookCopy);
     }
 }

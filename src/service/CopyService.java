@@ -20,36 +20,36 @@ public class CopyService {
     }
 
     public void create(Scanner scanner) {
-        Copy copy = new Copy();
-        setGeneralInfo(scanner, copy);
+        BookCopy bookCopy = new BookCopy();
+        setGeneralInfo(scanner, bookCopy);
         String isbn = chooseBook(scanner);
         Book book = bookRepositoryService.getBookByISBN(isbn);
         if(book == null) {
             System.out.println("Couldn't set the book");
             return;
         }
-        copy.setBook(book);
+        bookCopy.setBook(book);
         Location location = chooseLocation(scanner);
         if(location == null) {
             System.out.println("Couldn't set the location");
             return;
         }
-        copy.setLocation(location);
-        int nr = book.getCopies().size();
-        copy.setId(nr+1);
-        databaseService.addCopy(copy);
-        System.out.println("The copy was added to the catalogue");
-        book.addCopy(copy);
+        bookCopy.setLocation(location);
+        int nr = book.getBookCopies().size();
+        bookCopy.setId(nr+1);
+        databaseService.addCopy(bookCopy);
+        System.out.println("The bookCopy was added to the catalogue");
+        book.addBookCopy(bookCopy);
     }
 
-    private void setGeneralInfo(Scanner scanner, Copy copy) {
-        System.out.println("Enter the barcode of the copy:");
+    private void setGeneralInfo(Scanner scanner, BookCopy bookCopy) {
+        System.out.println("Enter the barcode of the bookCopy:");
         String barcode = scanner.nextLine();
-        System.out.println("Enter the index of the copy:");
+        System.out.println("Enter the index of the bookCopy:");
         String index = scanner.nextLine();
-        copy.setBarcode(barcode);
-        copy.setIndex(index);
-        copy.setAvailable(false);
+        bookCopy.setBarcode(barcode);
+        bookCopy.setIndex(index);
+        bookCopy.setAvailable(false);
     }
 
 
@@ -92,60 +92,60 @@ public class CopyService {
         return location;
     }
 
-    private Copy findCopy(Scanner scanner) {
+    private BookCopy findCopy(Scanner scanner) {
         String isbn = chooseBook(scanner);
         Book book = bookRepositoryService.getBookByISBN(isbn);
         if(book == null) {
-            System.out.println("Couldn't find the copy");
+            System.out.println("Couldn't find the bookCopy");
             return null;
         }
-        if(book.getCopies().isEmpty()){
+        if(book.getBookCopies().isEmpty()){
             System.out.println("The book has no copies");
         }
-        System.out.println(book.getCopies());
-        System.out.println("Enter the id of the copy");
+        System.out.println(book.getBookCopies());
+        System.out.println("Enter the id of the bookCopy");
         int id = scanner.nextInt();
         scanner.nextLine();
-        Copy copy = databaseService.getCopyByBookAndId(book, id);
-        if(copy == null) {
+        BookCopy bookCopy = databaseService.getCopyByBookAndId(book, id);
+        if(bookCopy == null) {
             System.out.println("wrong id");
             return null;
         }
-        return copy;
+        return bookCopy;
     }
 
     public void read(Scanner scanner) {
-        Copy copy = findCopy(scanner);
-        if(copy == null) {
-            System.out.println("Couldn't find the copy");
+        BookCopy bookCopy = findCopy(scanner);
+        if(bookCopy == null) {
+            System.out.println("Couldn't find the bookCopy");
             return;
         }
-        System.out.println(copy);
+        System.out.println(bookCopy);
     }
 
     public void delete(Scanner scanner) {
-        Copy copy = findCopy(scanner);
-        if(copy == null) {
-            System.out.println("Couldn't find the copy");
+        BookCopy bookCopy = findCopy(scanner);
+        if(bookCopy == null) {
+            System.out.println("Couldn't find the bookCopy");
         }
-        databaseService.removeCopy(copy.getBook(), copy.getId());
-        copy.getBook().removeCopy(copy);
+        databaseService.removeCopy(bookCopy.getBook(), bookCopy.getId());
+        bookCopy.getBook().removeBookCopy(bookCopy);
     }
 
     public void update(Scanner scanner) {
-        Copy copy = findCopy(scanner);
-        if(copy == null) {
-            System.out.println("Couldn't find the copy");
+        BookCopy bookCopy = findCopy(scanner);
+        if(bookCopy == null) {
+            System.out.println("Couldn't find the bookCopy");
         }
-        Copy newcopy = new Copy();
+        BookCopy newcopy = new BookCopy();
         setGeneralInfo(scanner, newcopy);
-        copy.setBarcode(newcopy.getBarcode());
-        copy.setIndex(newcopy.getIndex());
+        bookCopy.setBarcode(newcopy.getBarcode());
+        bookCopy.setIndex(newcopy.getIndex());
         Location location = chooseLocation(scanner);
         if(location == null) {
             System.out.println("Couldn't set the location");
             return;
         }
-        copy.setLocation(location);
+        bookCopy.setLocation(location);
     }
 }

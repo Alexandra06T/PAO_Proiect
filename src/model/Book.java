@@ -1,10 +1,8 @@
 package model;
 
-import service.CategoryService;
-import service.ReservationService;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Book {
 
@@ -15,7 +13,7 @@ public class Book {
     private int publishedDate;
     private int numberOfPages;
     private Category category;
-    private List<Copy> copies;
+    private List<BookCopy> bookCopies;
     private List<Reservation> reservations;
 
     public Book() {}
@@ -28,7 +26,7 @@ public class Book {
         this.publishedDate = publishedDate;
         this.numberOfPages = numberOfPages;
         this.category = new Category();
-        this.copies = new ArrayList<>();
+        this.bookCopies = new ArrayList<>();
         this.reservations = new ArrayList<>();
     }
 
@@ -39,9 +37,12 @@ public class Book {
         this.publishingHouse = book.getPublishingHouse();
         this.publishedDate = book.getPublishedDate();
         this.numberOfPages = book.getNumberOfPages();
-        this.category = book.category;
-        this.copies = book.getCopies();
+        this.category = book.getCategory();
         this.reservations = book.getReservations();
+        this.bookCopies = new ArrayList<>();
+        for(BookCopy b : book.getBookCopies()) {
+            this.bookCopies.add(new BookCopy(b));
+        }
     }
 
     public String getTitle() {
@@ -100,16 +101,16 @@ public class Book {
         this.category = category;
     }
 
-    public List<Copy> getCopies() {
-        return copies;
+    public List<BookCopy> getBookCopies() {
+        return bookCopies;
     }
 
-    public void addCopy(Copy copy) {
-        copies.add(copy);
+    public void addBookCopy(BookCopy bookCopy) {
+        bookCopies.add(new BookCopy(bookCopy));
     }
 
-    public void removeCopy(Copy copy) {
-        copies.remove(copy);
+    public void removeBookCopy(BookCopy bookCopy) {
+        bookCopies.remove(bookCopy);
     }
 
     public List<Reservation> getReservations() {
@@ -125,6 +126,19 @@ public class Book {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return publishedDate == book.publishedDate && numberOfPages == book.numberOfPages && Objects.equals(title, book.title) && Objects.equals(authors, book.authors) && Objects.equals(ISBN, book.ISBN) && Objects.equals(publishingHouse, book.publishingHouse) && Objects.equals(category, book.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, authors, ISBN, publishingHouse, publishedDate, numberOfPages, category);
+    }
+
+    @Override
     public String toString() {
         return title + '\n' +
                 authors + "\nISBN: " +
@@ -133,6 +147,6 @@ public class Book {
                 publishedDate +
                 "\nnumber of pages: " + numberOfPages +
                 "\n" + category +
-                ", copies=" + copies;
+                ", copies=" + bookCopies;
     }
 }

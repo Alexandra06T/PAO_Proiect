@@ -1,7 +1,5 @@
 package model;
 
-import service.ReservationService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,22 +8,22 @@ public class Location {
 
     private String name;
     private BranchLibrary branchLibrary;
-    private List<Copy> copies;
+    private List<BookCopy> bookCopies;
     private List<Reservation> reservations;
 
     public Location() {}
 
     public Location(String name, BranchLibrary branchLibrary) {
         this.name = name;
-        this.branchLibrary = new BranchLibrary(branchLibrary);
-        this.copies = new ArrayList<>();
+        this.branchLibrary = branchLibrary;
+        this.bookCopies = new ArrayList<>();
         this.reservations = new ArrayList<>();
     }
 
     public Location(Location location) {
         this.name = location.getName();
-        this.branchLibrary = new BranchLibrary(location.getBranchLibrary());
-        this.copies = location.getCopies();
+        this.branchLibrary = location.getBranchLibrary();
+        this.bookCopies = location.getBookCopies();
         this.reservations = location.getReservations();
     }
 
@@ -45,16 +43,16 @@ public class Location {
         this.branchLibrary = branchLibrary;
     }
 
-    public List<Copy> getCopies() {
-        return copies;
+    public List<BookCopy> getBookCopies() {
+        return bookCopies;
     }
 
-    public void addCopy(Copy copy) {
-        copies.add(copy);
+    public void addBookCopy(BookCopy bookCopy) {
+        bookCopies.add(bookCopy);
     }
 
-    public void removeCopy(Copy copy) {
-        copies.remove(copy);
+    public void removeBookCopy(BookCopy bookCopy) {
+        bookCopies.remove(bookCopy);
     }
 
     public List<Reservation> getReservations() {
@@ -87,7 +85,7 @@ public class Location {
         return "Location{" +
                 "name='" + name + '\'' +
                 ", branchLibrary=" + branchLibrary +
-                ", copies=" + copies +
+                ", copies=" + bookCopies +
                 '}';
     }
 }
