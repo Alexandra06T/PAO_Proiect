@@ -113,12 +113,14 @@ public class LibraryMember {
 
     @Override
     public String toString() {
-        return "LibraryMember{" +
-                "memberID='" + memberID + '\'' +
-                ", name='" + name + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "ID: " + memberID +
+                "\n" + name +
+                "\nCONTACT DETAILS:\n" + emailAddress +
+                "\n" + phoneNumber +
+                "\n" + address +
+                "\nRESERVATIONS:\n" +
+                reservations +
+                "\nTRANSACTIONS:\n" +
+                transactions + "\n";
     }
 }

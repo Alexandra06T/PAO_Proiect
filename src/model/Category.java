@@ -52,10 +52,8 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" +
-                "name='" + name + '\'' +
-                ", index=" + index +
-                ", books=" + books +
-                '}';
+        return name +
+                " (" + index + ")\n" +
+                "BOOKS:\n" + books + "\n";
     }
 }

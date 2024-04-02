@@ -6,7 +6,7 @@ import model.BookCopy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CopyDao {
+public class BookCopyDao {
     private static List<BookCopy> copies = new ArrayList<>();
 
     public BookCopy read(Book book, int id) {

@@ -1,6 +1,3 @@
-import model.Category;
-import model.LibraryMember;
-import model.Location;
 import service.*;
 
 import java.util.Scanner;
@@ -12,7 +9,7 @@ public class Application {
         BookService bookService = new BookService();
         BranchLibraryService branchLibraryService = new BranchLibraryService();
         CategoryService categoryService = new CategoryService();
-        CopyService copyService = new CopyService();
+        BookCopyService bookCopyService = new BookCopyService();
         LibraryMemberService libraryMemberService = new LibraryMemberService();
         LocationService locationService = new LocationService();
         ReservationService reservationService = new ReservationService();
@@ -29,7 +26,7 @@ public class Application {
                     String command = scanner.nextLine().toLowerCase();
                     switch (command){
                         case "create":
-                            categoryService.read(scanner);
+                            categoryService.create(scanner);
                             break;
                         case "read":
                             categoryService.read(scanner);
@@ -53,7 +50,7 @@ public class Application {
                     command = scanner.nextLine().toLowerCase();
                     switch (command){
                         case "create":
-                            bookService.read(scanner);
+                            bookService.create(scanner);
                             break;
                         case "read":
                             bookService.read(scanner);
@@ -77,16 +74,16 @@ public class Application {
                     command = scanner.nextLine().toLowerCase();
                     switch (command){
                         case "create":
-                            copyService.read(scanner);
+                            bookCopyService.create(scanner);
                             break;
                         case "read":
-                            copyService.read(scanner);
+                            bookCopyService.read(scanner);
                             break;
                         case "delete":
-                            copyService.delete(scanner);
+                            bookCopyService.delete(scanner);
                             break;
                         case "update":
-                            copyService.update(scanner);
+                            bookCopyService.update(scanner);
                             break;
                         case "quit":
                             System.out.println("Exiting");
@@ -101,7 +98,7 @@ public class Application {
                     command = scanner.nextLine().toLowerCase();
                     switch (command){
                         case "create":
-                            libraryMemberService.read(scanner);
+                            libraryMemberService.create(scanner);
                             break;
                         case "read":
                             libraryMemberService.read(scanner);
@@ -125,7 +122,7 @@ public class Application {
                     command = scanner.nextLine().toLowerCase();
                     switch (command){
                         case "create":
-                            branchLibraryService.read(scanner);
+                            branchLibraryService.create(scanner);
                             break;
                         case "read":
                             branchLibraryService.read(scanner);
@@ -149,7 +146,7 @@ public class Application {
                     command = scanner.nextLine().toLowerCase();
                     switch (command){
                         case "create":
-                            locationService.read(scanner);
+                            locationService.create(scanner);
                             break;
                         case "read":
                             locationService.read(scanner);
@@ -174,7 +171,7 @@ public class Application {
                     command = scanner.nextLine().toLowerCase();
                     switch (command){
                         case "create":
-                            reservationService.read(scanner);
+                            reservationService.create(scanner);
                             break;
                         case "read":
                             reservationService.read(scanner);
@@ -198,7 +195,7 @@ public class Application {
                     command = scanner.nextLine().toLowerCase();
                     switch (command){
                         case "create":
-                            transactionService.read(scanner);
+                            transactionService.create(scanner);
                             break;
                         case "read":
                             transactionService.read(scanner);

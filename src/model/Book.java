@@ -146,7 +146,6 @@ public class Book {
                 publishingHouse + ", " +
                 publishedDate +
                 "\nnumber of pages: " + numberOfPages +
-                "\n" + category +
-                ", copies=" + bookCopies;
+                "\n" + category.getName() + " (" + category.getIndex() + ")";
     }
 }

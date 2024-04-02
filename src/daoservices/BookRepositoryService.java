@@ -1,13 +1,19 @@
 package daoservices;
 
+import dao.BookCopyDao;
+import dao.ReservationDao;
 import model.Book;
 import dao.BookDao;
+import model.BookCopy;
+import model.Reservation;
 
 import java.util.List;
 
 public class BookRepositoryService {
 
     private BookDao bookDao;
+    private ReservationDao reservationDao;
+    private BookCopyDao bookCopyDao;
 
     public BookRepositoryService() {
         this.bookDao = new BookDao();
@@ -29,8 +35,10 @@ public class BookRepositoryService {
         if(bookList != null){
             for(Book b : bookList) {
                 System.out.println(b.getTitle());
-                System.out.println(b.getAuthors());
-                System.out.println(b.getCategory());
+                List<String> authors = b.getAuthors();
+                for(String a : authors) {
+                    System.out.print(a + "; ");
+                }                System.out.println(b.getCategory().getName() + " (" + b.getCategory().getIndex() + ")");
                 System.out.println(b.getISBN());
             }
         }else {
@@ -46,8 +54,12 @@ public class BookRepositoryService {
         if(bookList != null){
             for(Book b : bookList) {
                 System.out.println(b.getTitle());
-                System.out.println(b.getAuthors());
-                System.out.println(b.getCategory());
+                List<String> authors = b.getAuthors();
+                for(String a : authors) {
+                    System.out.print(a + "; ");
+                }
+                System.out.println();
+                System.out.println(b.getCategory().getName() + " (" + b.getCategory().getIndex() + ")");
                 System.out.println(b.getISBN());
             }
         }else {
@@ -60,6 +72,18 @@ public class BookRepositoryService {
     public void removeBook(String isbn) {
         Book book = getBookByISBN(isbn);
         if (book == null) return;
+
+        List<Reservation> reservationList = book.getReservations();
+        //stergem toate rezervarile pentru carte
+        for(Reservation r : reservationList) {
+            reservationDao.delete(r);
+        }
+
+        //stergem toate copiile cartii
+        List<BookCopy> bookCopyList = book.getBookCopies();
+        for(BookCopy b : bookCopyList) {
+            bookCopyDao.delete(b);
+        }
 
         bookDao.delete(book);
 

@@ -5,15 +5,15 @@ import model.*;
 
 import java.util.Scanner;
 
-public class CopyService {
+public class BookCopyService {
 
     private BookRepositoryService bookRepositoryService;
     private LocationRepositoryService locationRepositoryService;
     private BranchLibraryRepositoryService branchLibraryRepositoryService;
-    private CopyRepositoryService databaseService;
+    private BookCopyRepositoryService databaseService;
 
-    public CopyService(){
-        this.databaseService = new CopyRepositoryService();
+    public BookCopyService(){
+        this.databaseService = new BookCopyRepositoryService();
         this.bookRepositoryService = new BookRepositoryService();
         this.locationRepositoryService = new LocationRepositoryService();
         this.branchLibraryRepositoryService = new BranchLibraryRepositoryService();

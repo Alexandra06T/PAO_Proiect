@@ -13,14 +13,14 @@ import static utils.Constants.*;
 public class TransactionService {
     private TransactionRepositoryService databaseService;
     private BookRepositoryService bookRepositoryService;
-    private CopyRepositoryService copyRepositoryService;
+    private BookCopyRepositoryService bookCopyRepositoryService;
     private LibraryMemberRepositoryService libraryMemberRepositoryService;
     private ReservationRepositoryService reservationRepositoryService;
 
     public TransactionService(){
         this.databaseService = new TransactionRepositoryService();
         this.bookRepositoryService = new BookRepositoryService();
-        this.copyRepositoryService = new CopyRepositoryService();
+        this.bookCopyRepositoryService = new BookCopyRepositoryService();
         this.libraryMemberRepositoryService = new LibraryMemberRepositoryService();
         this.reservationRepositoryService = new ReservationRepositoryService();
     }
@@ -125,7 +125,7 @@ public class TransactionService {
             System.out.println("Couldn't find the book");
             return null;
         }
-        List<BookCopy> availableCopies = copyRepositoryService.getAvailableCopies(book);
+        List<BookCopy> availableCopies = bookCopyRepositoryService.getAvailableCopies(book);
 
         if(availableCopies.isEmpty()){
             System.out.println("The book has no available copies");
@@ -133,7 +133,7 @@ public class TransactionService {
         System.out.println("Enter the id of the bookCopy");
         int id = scanner.nextInt();
         scanner.nextLine();
-        BookCopy bookCopy = copyRepositoryService.getCopyByBookAndId(book, id);
+        BookCopy bookCopy = bookCopyRepositoryService.getCopyByBookAndId(book, id);
         if(bookCopy == null || !bookCopy.isAvailable()) {
             System.out.println("wrong id");
             return null;

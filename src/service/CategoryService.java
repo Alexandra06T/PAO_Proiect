@@ -24,22 +24,21 @@ public class CategoryService {
     }
 
     private Category searchCategory(Scanner scanner) {
-        Category category = new Category();
         System.out.println("How do you want to search the category? [name/index]");
         String option = scanner.nextLine().toLowerCase();
         System.out.println("Enter:");
         switch (option) {
             case "name":
                 String name = scanner.nextLine();
-                category = databaseService.getCategoryByName(name);
+                return databaseService.getCategoryByName(name);
             case "index":
                 int index = scanner.nextInt();
                 scanner.nextLine();
-                category = databaseService.getCategoryByIndex(index);
+                return databaseService.getCategoryByIndex(index);
             default:
                 System.out.println("wrong option");
+                return null;
         }
-        return category;
     }
 
     public void read(Scanner scanner) {

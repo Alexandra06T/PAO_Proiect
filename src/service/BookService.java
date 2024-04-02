@@ -23,6 +23,10 @@ public class BookService {
         Book book = new Book();
         setGeneralInfo(scanner, book);
         setCategory(scanner, book);
+        if(book.getCategory() == null) {
+            System.out.println("Couldn't set the category.\nThe book was discarded.");
+            return;
+        }
         databaseService.addBook(book);
         System.out.println("The book was added to the catalogue");
     }
@@ -49,33 +53,42 @@ public class BookService {
         System.out.println("Enter the number of pages:");
         int nrPages = scanner.nextInt();
         scanner.nextLine();
+        book.setTitle(title);
+        book.setAuthors(authors);
+        book.setISBN(isbn);
+        book.setPublishingHouse(publishingHouse);
+        book.setPublishedDate(year);
+        book.setNumberOfPages(nrPages);
     }
 
     private void setCategory(Scanner scanner, Book book) {
-        System.out.println(categoryRepositoryService.getAll());
+        System.out.println("Available categories:");
+        List<Category> categories = categoryRepositoryService.getAll();
+        if(categories == null) return;
         System.out.println("Enter the index of the chosen category:");
         int index = scanner.nextInt();
         scanner.nextLine();
+        System.out.println("Chosen category:");
         Category category = categoryRepositoryService.getCategoryByIndex(index);
         book.setCategory(category);
-        if(book.getCategory() != null)  {
-            book.getCategory().removeBook(book);
-        }
         category.addBook(book);
     }
 
-    private String choose(Scanner scanner) {
+    private String chooseBook(Scanner scanner) {
         System.out.println("How do you want to search the book? [title/author]");
         String option = scanner.nextLine().toLowerCase();
         System.out.println("Enter:");
         String search = scanner.nextLine();
         switch (option) {
             case "title":
-                databaseService.getBooksByTitle(search);
+                if(databaseService.getBooksByTitle(search) == null) return null;
+                break;
             case "author":
-                databaseService.getBooksByAuthor(search);
+                if(databaseService.getBooksByAuthor(search) == null) return null;
+                break;
             default:
                 System.out.println("wrong option");
+                return null;
         }
         System.out.println("Enter the ISBN of the book:");
         String isbn = scanner.nextLine();
@@ -86,17 +99,24 @@ public class BookService {
     }
 
     public void read(Scanner scanner) {
-        String isbn = choose(scanner);
-        Book book = databaseService.getBookByISBN(isbn);
+        String isbn = chooseBook(scanner);
+        if(isbn == null) {
+            System.out.println("Couldn't find the book");
+            return;
+        }
     }
 
     public void delete(Scanner scanner) {
-        String isbn = choose(scanner);
+        String isbn = chooseBook(scanner);
+        Book book = databaseService.getBookByISBN(isbn);
+        if(book.getCategory() != null)  {
+            book.getCategory().removeBook(book);
+        }
         databaseService.removeBook(isbn);
     }
 
     public void update(Scanner scanner) {
-        String isbn = choose(scanner);
+        String isbn = chooseBook(scanner);
         Book book = databaseService.getBookByISBN(isbn);
         if (book == null) { return;}
         Book newBook = new Book();

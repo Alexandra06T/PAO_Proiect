@@ -16,7 +16,9 @@ public class CategoryRepositoryService {
     public List<Category> getAll(){
         List<Category> categories = categoryDao.getAll();
         if(categories != null){
-            System.out.println(categories);
+            for(Category c : categories) {
+                System.out.println(c.getName() + " (" + c.getIndex() + ")");
+            }
         }else {
             System.out.println("There is no category.");
         }
@@ -27,12 +29,12 @@ public class CategoryRepositoryService {
     public Category getCategoryByName(String name){
         Category category = categoryDao.readName(name);
         if(category != null){
-            System.out.println(category);
+            System.out.println(category.getName() + " (" + category.getIndex() + ")");
+            return category;
         }else {
             System.out.println("No category having this name");
+            return null;
         }
-
-        return category;
     }
 
     public Category getCategoryByIndex(int index){

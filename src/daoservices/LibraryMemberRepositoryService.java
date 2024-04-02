@@ -1,8 +1,9 @@
 package daoservices;
 
-import model.CheckIn;
-import model.LibraryMember;
-import model.Transaction;
+import dao.CheckInDao;
+import dao.CheckOutDao;
+import dao.ReservationDao;
+import model.*;
 import dao.LibraryMemberDao;
 
 import java.time.LocalDate;
@@ -14,6 +15,9 @@ import static utils.Constants.CHECKIN;
 public class LibraryMemberRepositoryService {
 
     private LibraryMemberDao libraryMemberDao;
+    private ReservationDao reservationDao;
+    private CheckInDao checkInDao;
+    private CheckOutDao checkOutDao;
 
     public LibraryMemberRepositoryService() {
         this.libraryMemberDao = new LibraryMemberDao();
@@ -64,6 +68,22 @@ public class LibraryMemberRepositoryService {
         LibraryMember libraryMember = getLibraryMemberById(memberId);
         if (libraryMember == null) return;
 
+        //stergem toate rezervarile member-ului
+        List<Reservation> reservationList = libraryMember.getReservations();
+        for(Reservation r : reservationList) {
+            reservationDao.delete(r);
+        }
+
+        //stergem toate tranzactiile member-ului
+        List<Transaction> transactionList = libraryMember.getTransactions();
+        for(Transaction t : transactionList) {
+            switch (t){
+                case CheckIn checkIn -> checkInDao.delete(checkIn);
+                case CheckOut checkOut -> checkOutDao.delete(checkOut);
+                default -> throw new IllegalStateException("Unexpected value: " + t);
+            }
+        }
+
         libraryMemberDao.delete(libraryMember);
 
         System.out.println("Removed " + libraryMember);
@@ -71,15 +91,6 @@ public class LibraryMemberRepositoryService {
 
     public void addLibraryMember(LibraryMember libraryMember) {
         if(libraryMember != null){
-            //verificare simpla a unui numar de telefon
-            if(!libraryMember.getPhoneNumber().matches("0([237])[0-9]{8}")) {
-                System.out.println("The phone number has an invalid format");
-                return;
-            }
-            if(!libraryMember.getEmailAddress().matches("[a-z]+(.[a-z0-9])*+@[a-z0-9]+.(com|org|ro|gov)")) {
-                System.out.println("The email address has an invalid format");
-                return;
-            }
             libraryMemberDao.create(libraryMember);
         }
     }
