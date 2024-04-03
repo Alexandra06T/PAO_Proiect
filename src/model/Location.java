@@ -82,10 +82,11 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{" +
-                "name='" + name + '\'' +
-                ", branchLibrary=" + branchLibrary +
-                ", copies=" + bookCopies +
-                '}';
+        StringBuilder res = new StringBuilder(name + '\n' + branchLibrary+ '\n');
+        for(BookCopy b : bookCopies) {
+            res.append(b);
+            res.append('\n');
+        }
+        return res.toString();
     }
 }

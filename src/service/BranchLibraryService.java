@@ -39,12 +39,7 @@ public class BranchLibraryService {
     public void delete(Scanner scanner) {
         System.out.println("Enter the name of the branch library:");
         String name = scanner.nextLine();
-        BranchLibrary branchLibrary = databaseService.getBranchLibrary(name);
-        if(branchLibrary == null) {
-            System.out.println("There is no branch library having this name");
-            return;
-        }
-        databaseService.removeBranchLibrary(branchLibrary.getName());
+        databaseService.removeBranchLibrary(name);
     }
 
     public void update(Scanner scanner) {
@@ -59,7 +54,7 @@ public class BranchLibraryService {
         String newName = scanner.nextLine();
         System.out.println("Enter the new address of the branch library:");
         String newAddress = scanner.nextLine();
-        branchLibrary.setName(name);
+        branchLibrary.setName(newName);
         branchLibrary.setAddress(newAddress);
     }
 }

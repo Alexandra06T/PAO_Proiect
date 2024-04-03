@@ -21,8 +21,6 @@ public class LocationRepositoryService {
         Location location = locationDao.read(branchLibrary, name);
         if(location != null){
             System.out.println(location);
-        }else {
-            System.out.println("No such location in this branch library");
         }
 
         return location;
@@ -30,7 +28,10 @@ public class LocationRepositoryService {
 
     public void removeLocation(BranchLibrary branchLibrary, String name) {
         Location location = getLocationByBranchAndName(branchLibrary, name);
-        if (location == null) return;
+        if (location == null) {
+            System.out.println("Couldn't find the location");
+            return;
+        }
 
         //sterg toate rezervarile pentru locatie
         List<Reservation> reservationList = location.getReservations();
@@ -38,14 +39,16 @@ public class LocationRepositoryService {
             reservationDao.delete(r);
         }
 
+        location.getBranchLibrary().removeLocation(location);
+
         locationDao.delete(location);
 
-        System.out.println("Removed " + location);
     }
 
     public void addLocation(Location location) {
         if(location != null){
             locationDao.create(location);
+            location.getBranchLibrary().addLocation(location);
         }
     }
 }

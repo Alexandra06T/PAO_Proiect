@@ -70,10 +70,6 @@ public class BranchLibrary {
 
     @Override
     public String toString() {
-        return "BranchLibrary{" +
-                "name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", locations=" + locations +
-                '}';
+        return name + '\n' + address;
     }
 }

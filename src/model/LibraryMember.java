@@ -113,14 +113,30 @@ public class LibraryMember {
 
     @Override
     public String toString() {
-        return "ID: " + memberID +
-                "\n" + name +
+        StringBuilder res = new StringBuilder("ID: " + memberID + "\n" + name +
                 "\nCONTACT DETAILS:\n" + emailAddress +
                 "\n" + phoneNumber +
-                "\n" + address +
-                "\nRESERVATIONS:\n" +
-                reservations +
-                "\nTRANSACTIONS:\n" +
-                transactions + "\n";
+                "\n" + address);
+        if(reservations.isEmpty()){
+            System.out.println(name + " hasn't made any reservation");
+        }
+        else{
+            res.append("\nRESERVATIONS:\n");
+            for(Reservation r : reservations) {
+                res.append(r);
+                res.append('\n');
+            }
+        }
+        if(transactions.isEmpty()) {
+            System.out.println(name + " hasn't made any transaction");
+        }
+        else{
+            res.append("\nTRANSACTIONS:\n");
+            for(Transaction t : transactions) {
+                res.append(t);
+                res.append('\n');
+            }
+        }
+        return res.toString();
     }
 }

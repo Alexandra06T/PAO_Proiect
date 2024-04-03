@@ -21,8 +21,6 @@ public class BranchLibraryRepositoryService {
         BranchLibrary branchLibrary = branchLibraryDao.read(name);
         if(branchLibrary != null){
             System.out.println(branchLibrary);
-        }else {
-            System.out.println("No branch library having this name");
         }
 
         return branchLibrary;
@@ -30,7 +28,10 @@ public class BranchLibraryRepositoryService {
 
     public void removeBranchLibrary(String name) {
         BranchLibrary branchLibrary = getBranchLibrary(name);
-        if (branchLibrary == null) return;
+        if (branchLibrary == null) {
+            System.out.println("There is no branch library having this name");
+            return;
+        }
 
         List<Location> locationList = branchLibrary.getLocations();
         //sterg toate locations din branchLibrary
@@ -39,8 +40,6 @@ public class BranchLibraryRepositoryService {
         }
 
         branchLibraryDao.delete(branchLibrary);
-
-        System.out.println("Removed " + branchLibrary.getName());
     }
 
     public void addBranchLibrary(BranchLibrary branchLibrary) {

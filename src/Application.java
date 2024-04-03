@@ -213,6 +213,9 @@ public class Application {
                             System.out.println("The chosen command couldn't be recognized");
                     }
                     break;
+                case "quit":
+                    System.out.println("Exiting");
+                    return;
                 default:
                     System.out.println("The chosen target couldn't be recognized.");
             }
@@ -239,6 +242,7 @@ public class Application {
         System.out.println("Branch Library");
         System.out.println("Reservation");
         System.out.println("Transaction");
+        System.out.println("quit");
         System.out.println("Enter target:");
     }
 

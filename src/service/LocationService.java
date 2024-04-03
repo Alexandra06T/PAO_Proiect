@@ -19,6 +19,7 @@ public class LocationService {
 
     public void create(Scanner scanner) {
         BranchLibrary branchLibrary = chooseBranchLibrary(scanner);
+        if(branchLibrary == null) return;
         System.out.println("Enter the name of the new location:");
         String name = scanner.nextLine();
         if(databaseService.getLocationByBranchAndName(branchLibrary, name) != null) {
@@ -34,13 +35,14 @@ public class LocationService {
         String name = scanner.nextLine();
         BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
         if(branchLibrary == null) {
-            System.out.println("wrong name");
+            System.out.println("Couldn't find the branch library");
         }
         return branchLibrary;
     }
 
     public void read(Scanner scanner) {
         BranchLibrary branchLibrary = chooseBranchLibrary(scanner);
+        if(branchLibrary == null) return;
         System.out.println("Enter the name of the location you are looking for:");
         String name = scanner.nextLine();
         Location location = databaseService.getLocationByBranchAndName(branchLibrary, name);
@@ -52,15 +54,10 @@ public class LocationService {
 
     public void delete(Scanner scanner) {
         BranchLibrary branchLibrary = chooseBranchLibrary(scanner);
+        if(branchLibrary == null) return;
         System.out.println("Enter the name of the location you are looking for:");
         String name = scanner.nextLine();
-        Location location = databaseService.getLocationByBranchAndName(branchLibrary, name);
-        if(location == null) {
-            System.out.println("Couldn't find the location");
-            return;
-        }
-        databaseService.removeLocation(location.getBranchLibrary(), location.getName());
-        branchLibrary.removeLocation(location);
+        databaseService.removeLocation(branchLibrary, name);
     }
 
     public void update(Scanner scanner) {

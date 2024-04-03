@@ -67,7 +67,7 @@ public class LibraryMemberService {
         }
         System.out.println("Enter the new name of the library member:");
         String newName = scanner.nextLine();
-        System.out.println("Enter the new emailAddress of the library member:");
+        System.out.println("Enter the new email address of the library member:");
         String newEmail = scanner.nextLine();
         System.out.println("Enter the new phone number of the library member:");
         String newPhone = scanner.nextLine();
