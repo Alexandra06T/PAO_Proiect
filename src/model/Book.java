@@ -140,12 +140,15 @@ public class Book {
 
     @Override
     public String toString() {
-        return title + '\n' +
-                authors + "\nISBN: " +
-                ISBN + '\n' +
-                publishingHouse + ", " +
-                publishedDate +
-                "\nnumber of pages: " + numberOfPages +
-                "\n" + category.getName() + " (" + category.getIndex() + ")";
+        StringBuilder res = new StringBuilder(title + '\n');
+        for(String a : authors) {
+            res.append(a);
+            res.append("; ");
+        }
+        res.append("\nISBN: ").append(ISBN).append('\n').append(publishingHouse).append(", ").append(publishedDate).append("\nnumber of pages: ").append(numberOfPages).append("\n");
+        if(category != null) {
+            res.append(category.getName()).append(" (").append(category.getIndex()).append(")");
+        }
+        return res.toString();
     }
 }

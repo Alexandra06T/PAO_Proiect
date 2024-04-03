@@ -28,7 +28,6 @@ public class BookService {
             return;
         }
         databaseService.addBook(book);
-        System.out.println("The book was added to the catalogue");
     }
 
     private void setGeneralInfo(Scanner scanner, Book book) {
@@ -74,7 +73,7 @@ public class BookService {
         category.addBook(book);
     }
 
-    private String chooseBook(Scanner scanner) {
+    private Book chooseBook(Scanner scanner) {
         System.out.println("How do you want to search the book? [title/author]");
         String option = scanner.nextLine().toLowerCase();
         System.out.println("Enter:");
@@ -92,34 +91,34 @@ public class BookService {
         }
         System.out.println("Enter the ISBN of the book:");
         String isbn = scanner.nextLine();
-        if(databaseService.getBookByISBN(isbn) == null) {
+        Book book = databaseService.getBookByISBN(isbn);
+        if(book == null) {
             System.out.println("wrong ISBN");
         }
-        return isbn;
+        return book;
     }
 
     public void read(Scanner scanner) {
-        String isbn = chooseBook(scanner);
-        if(isbn == null) {
+        Book book = chooseBook(scanner);
+        if(book == null) {
             System.out.println("Couldn't find the book");
-            return;
         }
     }
 
     public void delete(Scanner scanner) {
-        String isbn = chooseBook(scanner);
-        Book book = databaseService.getBookByISBN(isbn);
+        Book book = chooseBook(scanner);
         if(book.getCategory() != null)  {
             book.getCategory().removeBook(book);
         }
-        databaseService.removeBook(isbn);
+        System.out.println("Removed book:");
+        databaseService.removeBook(book.getISBN());
     }
 
     public void update(Scanner scanner) {
-        String isbn = chooseBook(scanner);
-        Book book = databaseService.getBookByISBN(isbn);
+        Book book = chooseBook(scanner);
         if (book == null) { return;}
         Book newBook = new Book();
+        System.out.println("Enter the updated information: ");
         setGeneralInfo(scanner, newBook);
         setCategory(scanner, newBook);
         book.setTitle(newBook.getTitle());

@@ -1,5 +1,6 @@
 package daoservices;
 
+import model.Book;
 import model.Category;
 import dao.CategoryDao;
 
@@ -40,7 +41,7 @@ public class CategoryRepositoryService {
     public Category getCategoryByIndex(int index){
         Category category = categoryDao.readIndex(index);
         if(category != null){
-            System.out.println(category);
+            System.out.println(category.getName() + " (" + category.getIndex() + ")");
         }else {
             System.out.println("No category having this name");
         }
@@ -52,9 +53,13 @@ public class CategoryRepositoryService {
         Category category = getCategoryByName(name);
         if (category == null) return;
 
+        List<Book> bookList = category.getBooks();
+        for(Book b : bookList) {
+            b.setCategory(null);
+        }
+
         categoryDao.delete(category);
 
-        System.out.println("Removed " + category);
     }
 
     public void addCategory(Category category) {

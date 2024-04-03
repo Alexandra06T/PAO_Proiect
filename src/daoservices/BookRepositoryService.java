@@ -23,6 +23,7 @@ public class BookRepositoryService {
         Book book = bookDao.readISBN(isbn);
         if(book != null){
             System.out.println(book);
+            System.out.println("-------------------------------");
         }else {
             System.out.println("No book having this ISBN");
         }
@@ -34,12 +35,8 @@ public class BookRepositoryService {
         List<Book> bookList = bookDao.readTitle(title);
         if(bookList != null){
             for(Book b : bookList) {
-                System.out.println(b.getTitle());
-                List<String> authors = b.getAuthors();
-                for(String a : authors) {
-                    System.out.print(a + "; ");
-                }                System.out.println(b.getCategory().getName() + " (" + b.getCategory().getIndex() + ")");
-                System.out.println(b.getISBN());
+                System.out.println(b);
+                System.out.println("-------------------------------");
             }
         }else {
             System.out.println("No book having this title");
@@ -53,14 +50,8 @@ public class BookRepositoryService {
 
         if(bookList != null){
             for(Book b : bookList) {
-                System.out.println(b.getTitle());
-                List<String> authors = b.getAuthors();
-                for(String a : authors) {
-                    System.out.print(a + "; ");
-                }
-                System.out.println();
-                System.out.println(b.getCategory().getName() + " (" + b.getCategory().getIndex() + ")");
-                System.out.println(b.getISBN());
+                System.out.println(b);
+                System.out.println("-------------------------------");
             }
         }else {
             System.out.println("No book having this title");
