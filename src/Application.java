@@ -68,7 +68,7 @@ public class Application {
                             System.out.println("The chosen command couldn't be recognized");
                     }
                     break;
-                case "copy":
+                case "book copy":
                     menuCRUD();
 
                     command = scanner.nextLine().toLowerCase();

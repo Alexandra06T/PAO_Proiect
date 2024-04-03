@@ -17,6 +17,8 @@ public class BookRepositoryService {
 
     public BookRepositoryService() {
         this.bookDao = new BookDao();
+        this.reservationDao = new ReservationDao();
+        this.bookCopyDao = new BookCopyDao();
     }
 
     public Book getBookByISBN(String isbn){

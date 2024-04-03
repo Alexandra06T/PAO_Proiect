@@ -115,13 +115,10 @@ public class BookCopy {
         if(available) av = "available";
         else av = "not available";
 
-        return "BookCopy{" +
-                "id=" + id +
-                ", book=" + book +
-                ", barcode='" + barcode + '\'' +
-                ", index='" + index + '\'' +
-                ", location=" + location +
-                ", available=" + av +
-                '}';
+        return "ID: " + id + '\n' +
+                book +
+                "barcode: " + barcode + '\n' +
+                "index: " + index + '\n' +
+                location + av;
     }
 }

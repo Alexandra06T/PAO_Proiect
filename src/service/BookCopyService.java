@@ -22,8 +22,7 @@ public class BookCopyService {
     public void create(Scanner scanner) {
         BookCopy bookCopy = new BookCopy();
         setGeneralInfo(scanner, bookCopy);
-        String isbn = chooseBook(scanner);
-        Book book = bookRepositoryService.getBookByISBN(isbn);
+        Book book = chooseBook(scanner);
         if(book == null) {
             System.out.println("Couldn't set the book");
             return;
@@ -53,7 +52,7 @@ public class BookCopyService {
     }
 
 
-    private String chooseBook(Scanner scanner) {
+    private Book chooseBook(Scanner scanner) {
         System.out.println("How do you want to search the book? [title/author]");
         String option = scanner.nextLine().toLowerCase();
         System.out.println("Enter:");
@@ -61,29 +60,32 @@ public class BookCopyService {
         switch (option) {
             case "title":
                 bookRepositoryService.getBooksByTitle(search);
+                break;
             case "author":
                 bookRepositoryService.getBooksByAuthor(search);
+                break;
             default:
                 System.out.println("wrong option");
         }
         System.out.println("Enter the ISBN of the book:");
         String isbn = scanner.nextLine();
-        if(bookRepositoryService.getBookByISBN(isbn) == null) {
+        Book book = bookRepositoryService.getBookByISBN(isbn);
+        if(book == null) {
             System.out.println("wrong ISBN");
         }
-        return isbn;
+        return book;
     }
 
     private Location chooseLocation(Scanner scanner) {
         System.out.println("Enter the branch library's name:");
-        String name = scanner.nextLine().toLowerCase();
-        System.out.println("Enter the location in the branch library:");
-        String loc = scanner.nextLine().toLowerCase();
+        String name = scanner.nextLine();
         BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
         if(branchLibrary == null) {
             System.out.println("There is no branch library having this name");
             return null;
         }
+        System.out.println("Enter the location in the branch library:");
+        String loc = scanner.nextLine();
         Location location = locationRepositoryService.getLocationByBranchAndName(branchLibrary, loc);
         if(location == null) {
             System.out.println("There is no location having this name");
@@ -93,14 +95,14 @@ public class BookCopyService {
     }
 
     private BookCopy findCopy(Scanner scanner) {
-        String isbn = chooseBook(scanner);
-        Book book = bookRepositoryService.getBookByISBN(isbn);
+        Book book = chooseBook(scanner);
         if(book == null) {
-            System.out.println("Couldn't find the bookCopy");
+            System.out.println("Couldn't find the book");
             return null;
         }
         if(book.getBookCopies().isEmpty()){
             System.out.println("The book has no copies");
+            return null;
         }
         System.out.println(book.getBookCopies());
         System.out.println("Enter the id of the bookCopy");

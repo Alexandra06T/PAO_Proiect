@@ -16,7 +16,12 @@ public class Book {
     private List<BookCopy> bookCopies;
     private List<Reservation> reservations;
 
-    public Book() {}
+    public Book() {
+        this.bookCopies = new ArrayList<>();
+        this.reservations = new ArrayList<>();
+        this.category = new Category();
+    }
+
 
     public Book(String title, List<String> authors, String ISBN, String publishingHouse, int publishedDate, int numberOfPages) {
         this.title = title;
