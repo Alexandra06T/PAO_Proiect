@@ -30,9 +30,8 @@ public class BranchLibraryService {
         System.out.println("Enter the name of the branch library:");
         String name = scanner.nextLine();
         BranchLibrary branchLibrary = databaseService.getBranchLibrary(name);
-        if(branchLibrary == null) {
-            System.out.println("There is no branch library having this name");
-            return;
+        if(branchLibrary != null) {
+            System.out.println(branchLibrary);
         }
     }
 
@@ -47,7 +46,6 @@ public class BranchLibraryService {
         String name = scanner.nextLine();
         BranchLibrary branchLibrary = databaseService.getBranchLibrary(name);
         if(branchLibrary == null) {
-            System.out.println("There is no branch library having this name");
             return;
         }
         System.out.println("Enter the new name of the branch library:");

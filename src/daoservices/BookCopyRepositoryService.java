@@ -19,11 +19,8 @@ public class BookCopyRepositoryService {
 
     public BookCopy getCopyByBookAndId(Book book, int id){
         BookCopy bookCopy = bookCopyDao.read(book, id);
-        if(bookCopy != null){
-            System.out.println(bookCopy);
-        }else {
-            System.out.println("No bookCopy of the specified book having this id");
-        }
+        if(bookCopy == null)
+            System.out.println("No book copy of the specified book having this id");
 
         return bookCopy;
     }
@@ -48,11 +45,13 @@ public class BookCopyRepositoryService {
 
         //stergem toate tranzactiile pentu copie
         List<Transaction> transactionList = bookCopy.getTransactions();
-        for(Transaction t : transactionList) {
-            switch (t){
-                case CheckIn checkIn -> checkInDao.delete(checkIn);
-                case CheckOut checkOut -> checkOutDao.delete(checkOut);
-                default -> throw new IllegalStateException("Unexpected value: " + t);
+        if(!transactionList.isEmpty()) {
+            for(Transaction t : transactionList) {
+                switch (t){
+                    case CheckIn checkIn -> checkInDao.delete(checkIn);
+                    case CheckOut checkOut -> checkOutDao.delete(checkOut);
+                    default -> throw new IllegalStateException("Unexpected value: " + t);
+                }
             }
         }
 

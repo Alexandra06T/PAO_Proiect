@@ -14,7 +14,9 @@ public class BookCopy {
     private boolean available;
     private List<Transaction> transactions;
 
-    public BookCopy() {}
+    public BookCopy() {
+        this.transactions = new ArrayList<>();
+    }
 
     public BookCopy(int id, Book book, String barcode, String index, Location location, boolean available) {
         this.id = id;
@@ -29,7 +31,7 @@ public class BookCopy {
     public BookCopy(BookCopy bookCopy) {
         this.id = bookCopy.getId();
         this.book = bookCopy.getBook();
-        this.barcode = getBarcode();
+        this.barcode = bookCopy.getBarcode();
         this.index = bookCopy.getIndex();
         this.location = bookCopy.getLocation();
         this.available = bookCopy.isAvailable();
@@ -116,9 +118,9 @@ public class BookCopy {
         else av = "not available";
 
         return "ID: " + id + '\n' +
-                book +
+                book + '\n' +
                 "barcode: " + barcode + '\n' +
                 "index: " + index + '\n' +
-                location + av;
+                location + "Availability: " + av;
     }
 }

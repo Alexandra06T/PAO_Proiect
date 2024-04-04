@@ -30,12 +30,10 @@ public class CategoryService {
         switch (option) {
             case "name":
                 String name = scanner.nextLine();
-                System.out.println("Removed:\n");
                 return databaseService.getCategoryByName(name);
             case "index":
                 int index = scanner.nextInt();
                 scanner.nextLine();
-                System.out.println("Removed:\n");
                 return databaseService.getCategoryByIndex(index);
             default:
                 System.out.println("wrong option");
@@ -44,7 +42,9 @@ public class CategoryService {
     }
 
     public void read(Scanner scanner) {
-        searchCategory(scanner);
+        Category category = searchCategory(scanner);
+        if(category != null)
+            System.out.println(category.getName() + " (" + category.getIndex() + ")\n");
     }
 
     public void delete(Scanner scanner) {

@@ -19,8 +19,8 @@ public class LocationRepositoryService {
 
     public Location getLocationByBranchAndName(BranchLibrary branchLibrary, String name){
         Location location = locationDao.read(branchLibrary, name);
-        if(location != null){
-            System.out.println(location);
+        if(location == null){
+            System.out.println("There is no location having this name");
         }
 
         return location;

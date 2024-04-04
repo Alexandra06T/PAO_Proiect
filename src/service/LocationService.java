@@ -50,6 +50,7 @@ public class LocationService {
             System.out.println("Couldn't find the location");
             return;
         }
+        System.out.println(location);
     }
 
     public void delete(Scanner scanner) {

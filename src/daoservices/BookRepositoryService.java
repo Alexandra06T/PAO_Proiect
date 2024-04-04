@@ -23,12 +23,8 @@ public class BookRepositoryService {
 
     public Book getBookByISBN(String isbn){
         Book book = bookDao.readISBN(isbn);
-        if(book != null){
-            System.out.println(book);
-            System.out.println("-------------------------------");
-        }else {
+        if(book == null)
             System.out.println("No book having this ISBN");
-        }
 
         return book;
     }

@@ -19,8 +19,8 @@ public class BranchLibraryRepositoryService {
 
     public BranchLibrary getBranchLibrary(String name){
         BranchLibrary branchLibrary = branchLibraryDao.read(name);
-        if(branchLibrary != null){
-            System.out.println(branchLibrary);
+        if(branchLibrary == null){
+            System.out.println("There is no branch library having this name");
         }
 
         return branchLibrary;

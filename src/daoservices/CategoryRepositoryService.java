@@ -29,22 +29,16 @@ public class CategoryRepositoryService {
 
     public Category getCategoryByName(String name){
         Category category = categoryDao.readName(name);
-        if(category != null){
-            System.out.println(category.getName() + " (" + category.getIndex() + ")");
-            return category;
-        }else {
+        if(category == null)
             System.out.println("No category having this name");
-            return null;
-        }
+
+        return category;
     }
 
     public Category getCategoryByIndex(int index){
         Category category = categoryDao.readIndex(index);
-        if(category != null){
-            System.out.println(category.getName() + " (" + category.getIndex() + ")");
-        }else {
+        if(category == null)
             System.out.println("No category having this name");
-        }
 
         return category;
     }

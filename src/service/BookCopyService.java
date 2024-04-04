@@ -3,6 +3,8 @@ package service;
 import daoservices.*;
 import model.*;
 
+import javax.print.attribute.standard.Copies;
+import java.util.List;
 import java.util.Scanner;
 
 public class BookCopyService {
@@ -34,10 +36,13 @@ public class BookCopyService {
             return;
         }
         bookCopy.setLocation(location);
-        int nr = book.getBookCopies().size();
+        int nr = 0;
+        if(book.getBookCopies().isEmpty())
+            nr = 0;
+        else nr = book.getBookCopies().getLast().getId();
         bookCopy.setId(nr+1);
         databaseService.addCopy(bookCopy);
-        System.out.println("The bookCopy was added to the catalogue");
+        System.out.println("The book copy was added to the catalogue");
         book.addBookCopy(bookCopy);
     }
 
@@ -48,7 +53,7 @@ public class BookCopyService {
         String index = scanner.nextLine();
         bookCopy.setBarcode(barcode);
         bookCopy.setIndex(index);
-        bookCopy.setAvailable(false);
+        bookCopy.setAvailable(true);
     }
 
 
@@ -59,13 +64,14 @@ public class BookCopyService {
         String search = scanner.nextLine();
         switch (option) {
             case "title":
-                bookRepositoryService.getBooksByTitle(search);
+                if(bookRepositoryService.getBooksByTitle(search) == null) return null;
                 break;
             case "author":
-                bookRepositoryService.getBooksByAuthor(search);
+                if(bookRepositoryService.getBooksByAuthor(search) == null) return null;
                 break;
             default:
                 System.out.println("wrong option");
+                return null;
         }
         System.out.println("Enter the ISBN of the book:");
         String isbn = scanner.nextLine();
@@ -81,14 +87,12 @@ public class BookCopyService {
         String name = scanner.nextLine();
         BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
         if(branchLibrary == null) {
-            System.out.println("There is no branch library having this name");
             return null;
         }
         System.out.println("Enter the location in the branch library:");
         String loc = scanner.nextLine();
         Location location = locationRepositoryService.getLocationByBranchAndName(branchLibrary, loc);
         if(location == null) {
-            System.out.println("There is no location having this name");
             return null;
         }
         return location;
@@ -104,8 +108,12 @@ public class BookCopyService {
             System.out.println("The book has no copies");
             return null;
         }
-        System.out.println(book.getBookCopies());
-        System.out.println("Enter the id of the bookCopy");
+        List<BookCopy> bookCopyList = book.getBookCopies();
+        for(BookCopy b : bookCopyList) {
+            System.out.println(b);
+            System.out.println("-------------------------");
+        }
+        System.out.println("Enter the id of the book copy");
         int id = scanner.nextInt();
         scanner.nextLine();
         BookCopy bookCopy = databaseService.getCopyByBookAndId(book, id);
@@ -123,6 +131,7 @@ public class BookCopyService {
             return;
         }
         System.out.println(bookCopy);
+        System.out.println();
     }
 
     public void delete(Scanner scanner) {

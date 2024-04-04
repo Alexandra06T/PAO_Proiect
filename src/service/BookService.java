@@ -67,7 +67,6 @@ public class BookService {
         System.out.println("Enter the index of the chosen category:");
         int index = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Chosen category:");
         Category category = categoryRepositoryService.getCategoryByIndex(index);
         book.setCategory(category);
         category.addBook(book);
@@ -103,6 +102,10 @@ public class BookService {
         if(book == null) {
             System.out.println("Couldn't find the book");
         }
+        else {
+            System.out.println(book);
+            System.out.println();
+        }
     }
 
     public void delete(Scanner scanner) {
@@ -110,7 +113,6 @@ public class BookService {
         if(book.getCategory() != null)  {
             book.getCategory().removeBook(book);
         }
-        System.out.println("Removed book:");
         databaseService.removeBook(book.getISBN());
     }
 
