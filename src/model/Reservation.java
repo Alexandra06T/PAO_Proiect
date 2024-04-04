@@ -75,11 +75,10 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation{" +
-                "libraryMember=" + libraryMember +
-                ", book=" + book +
-                ", expiryDate=" + expiryDate +
-                ", pickupLocation=" + pickupLocation +
-                '}';
+        return "ID: " + id +
+                "\nLIBRARY MEMBER:\n" + libraryMember +
+                "\nBOOK:\n" + book +
+                "\nEXPIRES ON: " + expiryDate +
+                "\nPICK UP LOCATION:\n" + pickupLocation;
     }
 }

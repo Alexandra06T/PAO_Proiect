@@ -35,10 +35,8 @@ public class CheckIn extends Transaction {
 
     @Override
     public String toString() {
-        return "CheckIn{" +
-                "numberDays=" + numberDays +
-                ", type='" + type + '\'' +
-                ", checkedOut=" + checkedOut +
-                '}';
+        return  "Check in for: " + numberDays +
+                "\nType of the check in: " + type +
+                "\nchecked out: " + checkedOut;
     }
 }

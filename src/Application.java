@@ -68,7 +68,23 @@ public class Application {
         bookDao.create(Algebra);
         bookDao.create(FratiiKaramazov);
 
+        BookCopyDao bookCopyDao = new BookCopyDao();
+        BookCopy Inocentii1 = new BookCopy(1, Inocentii, "9787485054694", "A.45889", SalaL, true);
+        BookCopy Inocentii2 = new BookCopy(2, Inocentii, "9787485054694", "A.45889", SalaL, true);
+        BookCopy VanatorulZmeie1 = new BookCopy(3, VanatorulZmeie, "9737480927", "A.87236", SalaL, false);
+        BookCopy FratiiKaramazov1 = new BookCopy(4, FratiiKaramazov, "9739505597", "A.64589", SalaL, true);
+        BookCopy Algebra1 = new BookCopy(5, Algebra, "9738795671", "II35498", Depozit1, true);
+        bookCopyDao.create(Inocentii1);
+        bookCopyDao.create(Inocentii2);
+        bookCopyDao.create(VanatorulZmeie1);
+        bookCopyDao.create(FratiiKaramazov1);
+        bookCopyDao.create(Algebra1);
 
+        ReservationDao reservationDao = new ReservationDao();
+        Reservation reservation1 = new Reservation(AnaP, VanatorulZmeie, java.time.LocalDate.now().plusDays(7), SalaL);
+        Reservation reservation2 = new Reservation(AndreeaI, VanatorulZmeie, java.time.LocalDate.now().plusDays(14), SalaL);
+        reservationDao.create(reservation1);
+        reservationDao.create(reservation2);
 
         while (true){
 

@@ -53,10 +53,12 @@ public class TransactionRepositoryService {
     public void addTransaction(Transaction transaction) {
         if(transaction != null){
             switch (transaction){
-                case CheckIn checkIn -> checkInDao.create(checkIn);
-                case CheckOut checkOut -> checkOutDao.create(checkOut);
+                case CheckIn checkIn -> {checkInDao.create(checkIn); checkIn.getBookCopy().setAvailable(false);}
+                case CheckOut checkOut -> {checkOutDao.create(checkOut); checkOut.getBookCopy().setAvailable(true);}
                 default -> throw new IllegalStateException("Unexpected value: " + transaction);
             }
+            transaction.getLibraryMember().addTransaction(transaction);
+            transaction.getBookCopy().addTransaction(transaction);
         }
     }
 

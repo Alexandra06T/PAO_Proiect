@@ -90,6 +90,7 @@ public class BookRepositoryService {
                 return;
             }
             bookDao.create(book);
+            book.getCategory().addBook(book);
         }
     }
 }

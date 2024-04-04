@@ -69,7 +69,6 @@ public class BookService {
         scanner.nextLine();
         Category category = categoryRepositoryService.getCategoryByIndex(index);
         book.setCategory(category);
-        category.addBook(book);
     }
 
     private Book chooseBook(Scanner scanner) {

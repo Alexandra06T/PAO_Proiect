@@ -18,11 +18,8 @@ public class ReservationRepositoryService {
 
     public Reservation getReservationById(int id){
         Reservation reservation = reservationDao.readId(id);
-        if(reservation != null){
-            System.out.println(reservation);
-        }else {
+        if(reservation == null)
             System.out.println("No reservation having this id");
-        }
 
         return reservation;
     }
@@ -37,7 +34,7 @@ public class ReservationRepositoryService {
                 System.out.println(r.getExpiryDate());
             }
         }else {
-            System.out.println("No reservation for this book");
+            System.out.println("No reservations for this book");
         }
 
         return reservationList;
@@ -51,9 +48,8 @@ public class ReservationRepositoryService {
                 System.out.println(r.getBook());
                 System.out.println(r.getPickupLocation());
                 System.out.println(r.getExpiryDate());
+                System.out.println("---------------------------");
             }
-        }else {
-            System.out.println("No reservation for this library member");
         }
 
         return reservationList;
@@ -86,6 +82,9 @@ public class ReservationRepositoryService {
 
     public void addReservation(Reservation reservation) {
         if(reservation != null){
+            reservation.getBook().addReservation(reservation);
+            reservation.getLibraryMember().addReservation(reservation);
+            reservation.getPickupLocation().addReservation(reservation);
             reservationDao.create(reservation);
         }
     }

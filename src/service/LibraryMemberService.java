@@ -41,8 +41,8 @@ public class LibraryMemberService {
         int memberId = scanner.nextInt();
         scanner.nextLine();
         LibraryMember libraryMember = databaseService.getLibraryMemberById(memberId);
-        if(libraryMember == null) {
-            return;
+        if(libraryMember != null) {
+            System.out.println(libraryMember);
         }
     }
 

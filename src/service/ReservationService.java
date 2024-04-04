@@ -40,10 +40,12 @@ public class ReservationService {
         }
 
         List<Reservation> reservations = databaseService.getReservationByMember(libraryMember);
-        for(Reservation r : reservations) {
-            if(r.getBook().equals(book) && r.getPickupLocation().equals(location) && r.getExpiryDate().isAfter(java.time.LocalDate.now())) {
-                System.out.println("There is already a reservation");
-                return;
+        if(reservations != null) {
+            for (Reservation r : reservations) {
+                if (r.getBook().equals(book) && r.getPickupLocation().equals(location) && r.getExpiryDate().isAfter(java.time.LocalDate.now())) {
+                    System.out.println("There is already a reservation");
+                    return;
+                }
             }
         }
         System.out.println("Enter the number of days until the reservation expires:");
@@ -51,9 +53,7 @@ public class ReservationService {
         scanner.nextLine();
 
         Reservation reservation = new Reservation(libraryMember, book, java.time.LocalDate.now().plusDays(nrDays), location);
-        libraryMember.addReservation(reservation);
-        book.addReservation(reservation);
-        location.addReservation(reservation);
+        databaseService.addReservation(reservation);
     }
 
     private Book chooseBook(Scanner scanner) {
@@ -64,10 +64,13 @@ public class ReservationService {
         switch (option) {
             case "title":
                 bookRepositoryService.getBooksByTitle(search);
+                break;
             case "author":
                 bookRepositoryService.getBooksByAuthor(search);
+                break;
             default:
                 System.out.println("wrong option");
+                return null;
         }
         System.out.println("Enter the ISBN of the book:");
         String isbn = scanner.nextLine();
@@ -80,17 +83,15 @@ public class ReservationService {
 
     private Location chooseLocation(Scanner scanner) {
         System.out.println("Enter the branch library's name:");
-        String name = scanner.nextLine().toLowerCase();
+        String name = scanner.nextLine();
         System.out.println("Enter the location in the branch library:");
-        String loc = scanner.nextLine().toLowerCase();
+        String loc = scanner.nextLine();
         BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
         if(branchLibrary == null) {
-            System.out.println("There is no branch library having this name");
             return null;
         }
         Location location = locationRepositoryService.getLocationByBranchAndName(branchLibrary, loc);
         if(location == null) {
-            System.out.println("There is no location having this name");
             return null;
         }
         return location;
@@ -109,7 +110,7 @@ public class ReservationService {
     }
 
     private Reservation findReservation(Scanner scanner) {
-        System.out.println("Enter the search option for the reservation [book/library member/location");
+        System.out.println("Enter the search option for the reservation [book/library member/location]");
         String option = scanner.nextLine().toLowerCase();
         Reservation reservation = new Reservation();
         List<Reservation> reservations = new ArrayList<>();
@@ -118,9 +119,10 @@ public class ReservationService {
         switch (option) {
             case "book":
                 Book book = chooseBook(scanner);
+                if (book == null) return null;
                 reservations = databaseService.getReservationByBook(book);
-                if(reservations.isEmpty()) {
-                    System.out.println("There are no reservations for thos book");
+                if(reservations == null) {
+                    System.out.println("There are no reservations for this book");
                     return null;
                 }
                 System.out.println("Enter reservation ID:");
@@ -134,9 +136,10 @@ public class ReservationService {
                 break;
             case "library member":
                 LibraryMember libraryMember = chooseLibraryMember(scanner);
+                if(libraryMember == null) return null;
                 reservations = databaseService.getReservationByMember(libraryMember);
-                if(reservations.isEmpty()) {
-                    System.out.println("There are no reservations for thos book");
+                if(reservations == null) {
+                    System.out.println("There are no reservations for this library member");
                     return null;
                 }
                 System.out.println("Enter reservation ID:");
@@ -150,9 +153,10 @@ public class ReservationService {
                 break;
             case "location":
                 Location location = chooseLocation(scanner);
+                if(location == null) return null;
                 reservations = databaseService.getReservationByLocation(location);
-                if(reservations.isEmpty()) {
-                    System.out.println("There are no reservations for thos book");
+                if(reservations == null) {
+                    System.out.println("There are no reservations for this location");
                     return null;
                 }
                 System.out.println("Enter reservation ID:");
@@ -198,6 +202,7 @@ public class ReservationService {
             System.out.println("Couldn't find the reservation");
             return;
         }
+        System.out.println("Update the information:");
         Location newLocation = chooseLocation(scanner);
         System.out.println("Enter the number of days you want to add to the expiring date:");
         int nrDays = scanner.nextInt();

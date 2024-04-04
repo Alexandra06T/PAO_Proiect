@@ -25,11 +25,8 @@ public class LibraryMemberRepositoryService {
 
     public LibraryMember getLibraryMemberById(int memberId){
         LibraryMember libraryMember = libraryMemberDao.read(memberId);
-        if(libraryMember != null){
-            System.out.println(libraryMember);
-        }else {
+        if(libraryMember == null)
             System.out.println("No library member having this Id");
-        }
 
         return libraryMember;
     }

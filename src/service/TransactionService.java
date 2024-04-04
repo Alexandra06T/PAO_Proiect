@@ -104,10 +104,13 @@ public class TransactionService {
         switch (option) {
             case "title":
                 bookRepositoryService.getBooksByTitle(search);
+                break;
             case "author":
                 bookRepositoryService.getBooksByAuthor(search);
+                break;
             default:
                 System.out.println("wrong option");
+                return null;
         }
         System.out.println("Enter the ISBN of the book:");
         String isbn = scanner.nextLine();
@@ -170,7 +173,6 @@ public class TransactionService {
             CheckIn checkIn = new CheckIn(transaction);
             checkInInit(scanner, checkIn);
             transaction = checkIn;
-            transaction.getBookCopy().setAvailable(false);
 
             //daca exista rezervare, o anulam
             List<Reservation> reservations = reservationRepositoryService.getReservationByMember(libraryMember);
@@ -203,13 +205,10 @@ public class TransactionService {
             checkOutInit(scanner, currentCheckIn, checkOut);
             transaction = checkOut;
 
-            transaction.getBookCopy().setAvailable(true);
         }
 
         databaseService.addTransaction(transaction);
         System.out.println("Created " + transaction);
-        transaction.getLibraryMember().addTransaction(transaction);
-        transaction.getBookCopy().addTransaction(transaction);
     }
 
     private Transaction setGeneralInfo(Scanner scanner) {

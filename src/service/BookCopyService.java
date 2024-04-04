@@ -43,7 +43,6 @@ public class BookCopyService {
         bookCopy.setId(nr+1);
         databaseService.addCopy(bookCopy);
         System.out.println("The book copy was added to the catalogue");
-        book.addBookCopy(bookCopy);
     }
 
     private void setGeneralInfo(Scanner scanner, BookCopy bookCopy) {

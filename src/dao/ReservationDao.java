@@ -24,7 +24,7 @@ public class ReservationDao {
         List<Reservation> reservationList = new ArrayList<>();
         if(!reservations.isEmpty()){
             for(Reservation r : reservations){
-                if(r.getBook().equals(book) && r.getExpiryDate().isBefore(LocalDate.now())){
+                if(r.getBook().equals(book) && r.getExpiryDate().isAfter(LocalDate.now())){
                     reservationList.add(r);
                 }
             }
@@ -38,7 +38,7 @@ public class ReservationDao {
         List<Reservation> reservationList = new ArrayList<>();
         if(!reservations.isEmpty()){
             for(Reservation r : reservations){
-                if(r.getLibraryMember().equals(libraryMember) && r.getExpiryDate().isBefore(LocalDate.now())){
+                if(r.getLibraryMember().equals(libraryMember) && r.getExpiryDate().isAfter(LocalDate.now())){
                     reservationList.add(r);
                 }
             }
@@ -52,7 +52,7 @@ public class ReservationDao {
         List<Reservation> reservationList = new ArrayList<>();
         if(!reservations.isEmpty()){
             for(Reservation r : reservations){
-                if(r.getPickupLocation().equals(location) && r.getExpiryDate().isBefore(LocalDate.now())){
+                if(r.getPickupLocation().equals(location) && r.getExpiryDate().isAfter(LocalDate.now())){
                     reservationList.add(r);
                 }
             }

@@ -67,6 +67,7 @@ public class BookCopyRepositoryService {
                 return;
             }
             bookCopyDao.create(bookCopy);
+            bookCopy.getBook().addBookCopy(bookCopy);
         }
     }
 
