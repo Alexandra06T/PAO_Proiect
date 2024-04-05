@@ -24,10 +24,9 @@ public class CheckOut extends Transaction {
 
     @Override
     public String toString() {
-        return "CheckOut{" +
-                "bookStatus='" + bookStatus + '\'' +
-                ", overdueDays=" + overdueDays +
-                ", penalty=" + penalty +
-                '}';
+        return  super.toString() +
+                "\nBook state: " + bookStatus +
+                "\nOverdue days: " + overdueDays + " days" +
+                "\nPenalty: " + penalty;
     }
 }

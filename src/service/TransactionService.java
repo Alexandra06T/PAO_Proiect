@@ -46,17 +46,19 @@ public class TransactionService {
             System.out.println(checkOut);
             return;
         }
-        System.out.println("No transaction having this id");
+        System.out.println("Couldn't find the transaction");
+        System.out.println();
     }
 
     public void delete(Scanner scanner) {
-        System.out.println("Enter the id of the transaction:");
+        System.out.println("Enter the id of the check in:");
         int id = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Enter the type of the transaction:");
-        String typeOfTransaction = scanner.nextLine();
-        if(!typeOfTransactionValidation(typeOfTransaction)) { return; }
-        databaseService.removeTransaction(typeOfTransaction, id);
+        if(databaseService.getCheckInById(id) == null) {
+            System.out.println("There is no check in having this id");
+            return;
+        }
+        databaseService.removeTransaction(CHECKIN, id);
     }
 
     public void update(Scanner scanner) {
@@ -64,7 +66,7 @@ public class TransactionService {
         String typeOfTransaction = scanner.nextLine();
         if(!typeOfTransactionValidation(typeOfTransaction)) { return; }
         System.out.println("Enter the id of the transaction:");
-        int id = scanner.nextInt();;
+        int id = scanner.nextInt();
         scanner.nextLine();
         Transaction transaction = databaseService.getTransaction(typeOfTransaction, id);
         if (transaction == null) { return;}
@@ -164,10 +166,12 @@ public class TransactionService {
 
     private void transactionInit(Scanner scanner, String typeOfTransaction) {
 
-        Transaction transaction = setGeneralInfo(scanner);
-        if(transaction == null) return;
+        Transaction transaction;
 
         if(typeOfTransaction.equals(CHECKIN)) {
+            transaction = setGeneralInfo(scanner);
+            if(transaction == null) return;
+
             LibraryMember libraryMember = transaction.getLibraryMember();
 
             //verificam daca are voie sa imprumute
@@ -195,25 +199,30 @@ public class TransactionService {
             }
         }
         else {
-            LibraryMember libraryMember = transaction.getLibraryMember();
+            LibraryMember libraryMember = chooseLibraryMember(scanner);
+            if(libraryMember == null) return;
 
-            CheckIn currentCheckIn = null;
             //cautam daca exista imprumut
             List<CheckIn> checkIns = libraryMemberRepositoryService.getCurrentCheckIns(libraryMember.getMemberID());
-            for(CheckIn checkIn : checkIns) {
-                if(checkIn.getBookCopy().equals(transaction.getBookCopy())) {
-                    checkIn.setCheckedOut(true);
-                    currentCheckIn = new CheckIn(checkIn);
-                    break;
-                }
+            if(checkIns.isEmpty()) {
+                System.out.println("The library member hasn't borrowed any book");
+                return;
             }
+            for(CheckIn checkIn : checkIns) {
+                System.out.println(checkIn);
+                System.out.println("-----------------------");
+            }
+            System.out.println("Enter the id of the check in:");
+            int id = scanner.nextInt();
+            scanner.nextLine();
 
+            CheckIn currentCheckIn = databaseService.getCheckInById(id);
             if(currentCheckIn == null) {
-                System.out.println("There is no such check in");
+                System.out.println("wrong id");
                 return;
             }
 
-            CheckOut checkOut = new CheckOut(transaction);
+            CheckOut checkOut = new CheckOut(currentCheckIn);
             checkOutInit(scanner, currentCheckIn, checkOut);
             transaction = checkOut;
 
@@ -252,7 +261,10 @@ public class TransactionService {
 
         //calculeaza penalitatea
         LocalDate expectedDate = currentCheckIn.getDate().plusDays(currentCheckIn.getNumberDays());
-        int delay = between(expectedDate, java.time.LocalDate.now()).getDays();
+        int delay;
+        if(expectedDate.isBefore(java.time.LocalDate.now()))
+            delay = between(expectedDate, java.time.LocalDate.now()).getDays();
+        else delay = 0;
         double penalty = delay * penaltyPerDay;
         checkOut.setPenalty(penalty);
         checkOut.setOverdueDays(delay);

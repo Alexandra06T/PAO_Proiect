@@ -9,6 +9,7 @@ import dao.LibraryMemberDao;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static utils.Constants.CHECKIN;
 
@@ -36,9 +37,8 @@ public class LibraryMemberRepositoryService {
         LibraryMember libraryMember = libraryMemberDao.read(memberId);
         List<Transaction> transactions = libraryMember.getTransactions();
         for(Transaction t : transactions) {
-            if(t.getClass().getName().equals(CHECKIN)) {
-                CheckIn checkIn = (CheckIn) t;
-                if(!checkIn.isCheckedOut()) {
+            if (t instanceof CheckIn checkIn) {
+                if (!checkIn.isCheckedOut()) {
                     checkIns.add(checkIn);
                 }
             }
@@ -51,8 +51,7 @@ public class LibraryMemberRepositoryService {
         LibraryMember libraryMember = libraryMemberDao.read(memberId);
         List<Transaction> transactions = libraryMember.getTransactions();
         for(Transaction t : transactions) {
-            if(t.getClass().getName().equals(CHECKIN)) {
-                CheckIn checkIn = (CheckIn) t;
+            if(t instanceof CheckIn checkIn) {
                 if(!checkIn.isCheckedOut() && currentDate.isAfter(t.getDate().plusDays(((CheckIn) t).getNumberDays()))) {
                     return true;
                 }
