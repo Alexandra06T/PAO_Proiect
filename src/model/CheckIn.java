@@ -6,7 +6,8 @@ public class CheckIn extends Transaction {
     private boolean checkedOut = false;
 
     public CheckIn(Transaction transaction) {
-        super(transaction.getLibraryMember(), transaction.getBookCopy(), transaction.getDate());
+        super(transaction);
+
     }
 
     public int getNumberDays() {
@@ -35,8 +36,9 @@ public class CheckIn extends Transaction {
 
     @Override
     public String toString() {
-        return  "Check in for: " + numberDays +
+        return  super.toString() +
+                "\nCheck in for: " + numberDays + " days" +
                 "\nType of the check in: " + type +
-                "\nchecked out: " + checkedOut;
+                "\nChecked out: " + checkedOut;
     }
 }

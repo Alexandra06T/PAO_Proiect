@@ -20,7 +20,7 @@ public class BookCopyRepositoryService {
     public BookCopy getCopyByBookAndId(Book book, int id){
         BookCopy bookCopy = bookCopyDao.read(book, id);
         if(bookCopy == null)
-            System.out.println("No book copy of the specified book having this id");
+            System.out.println("No copy of the specified book having this id");
 
         return bookCopy;
     }
@@ -30,8 +30,8 @@ public class BookCopyRepositoryService {
         List<BookCopy> bookCopyList = bookCopyDao.readAvailable(book);
         if(bookCopyList != null){
             for(BookCopy c : bookCopyList) {
-                System.out.print(c.getId());
-                System.out.println(c.getLocation() + c.getIndex());
+                System.out.println("ID: " + c.getId());
+                System.out.println(c.getLocation().getBranchLibrary() + ", " + c.getLocation().getName() + ", " + c.getIndex());
             }
         }else {
             System.out.println("No available copies for this book");

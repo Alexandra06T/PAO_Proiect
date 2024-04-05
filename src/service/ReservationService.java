@@ -138,7 +138,15 @@ public class ReservationService {
                 LibraryMember libraryMember = chooseLibraryMember(scanner);
                 if(libraryMember == null) return null;
                 reservations = databaseService.getReservationByMember(libraryMember);
-                if(reservations == null) {
+                if(reservations != null){
+                    for(Reservation r: reservations) {
+                        System.out.println(r.getId());
+                        System.out.println(r.getBook());
+                        System.out.println(r.getPickupLocation());
+                        System.out.println(r.getExpiryDate());
+                        System.out.println("---------------------------");
+                    }
+                } else {
                     System.out.println("There are no reservations for this library member");
                     return null;
                 }

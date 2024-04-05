@@ -42,15 +42,6 @@ public class ReservationRepositoryService {
 
     public List<Reservation> getReservationByMember(LibraryMember libraryMember){
         List<Reservation> reservationList = reservationDao.readMember(libraryMember);
-        if(reservationList != null){
-            for(Reservation r: reservationList) {
-                System.out.println(r.getId());
-                System.out.println(r.getBook());
-                System.out.println(r.getPickupLocation());
-                System.out.println(r.getExpiryDate());
-                System.out.println("---------------------------");
-            }
-        }
 
         return reservationList;
     }

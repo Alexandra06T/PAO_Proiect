@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class Transaction {
@@ -12,6 +13,7 @@ public class Transaction {
     private LocalDate date;
 
     public Transaction() {
+
     }
 
     public Transaction(LibraryMember libraryMember, BookCopy bookCopy, LocalDate date) {
@@ -20,6 +22,13 @@ public class Transaction {
         this.date = date;
         nrTransactions++;
         this.id = nrTransactions;
+    }
+
+    public Transaction(Transaction transaction) {
+        this.libraryMember = transaction.getLibraryMember();
+        this.bookCopy = transaction.getBookCopy();
+        this.date = transaction.getDate();
+        this.id = transaction.getId();
     }
 
     public int getId() {
@@ -65,10 +74,17 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" +
-                "libraryMember=" + libraryMember +
-                ", bookCopy=" + bookCopy +
-                ", date=" + date +
-                '}';
+        StringBuilder res = new StringBuilder("ID: " + id +
+                "\nLIBRARY MEMBER:\n" + libraryMember.getName() + ", ID: " + libraryMember.getMemberID() +
+                "\nBOOK COPY:\n" + bookCopy.getBook().getTitle() + '\n');
+        List<String> authors = bookCopy.getBook().getAuthors();
+        for(String a : authors) {
+            res.append(a);
+            res.append("; ");
+        }
+        res.append('\n' + bookCopy.getLocation().getBranchLibrary().getName() + ", " + bookCopy.getLocation().getName() +
+                "\nON: " + date);
+
+        return res.toString();
     }
 }

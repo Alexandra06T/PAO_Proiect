@@ -17,24 +17,13 @@ public class TransactionRepositoryService {
     }
 
     public CheckIn getCheckInById(int id){
-        CheckIn checkIn = checkInDao.read(id);
-        if(checkIn != null){
-            System.out.println(checkIn);
-        }else {
-            System.out.println("No check in having this id");
-        }
+        return checkInDao.read(id);
 
-        return checkIn;
     }
 
     public CheckOut getCheckOutById(int id){
-        CheckOut checkOut = checkOutDao.read(id);
-        if(checkOut != null){
-            System.out.println(checkOut);
-        }else {
-            System.out.println("No check out having this id");
-        }
-        return checkOut;
+        return checkOutDao.read(id);
+
     }
 
     public void removeTransaction(String typeOfTransaction, int id) {

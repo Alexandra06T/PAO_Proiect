@@ -36,8 +36,17 @@ public class TransactionService {
         System.out.println("Enter the id of the transaction:");
         int id = scanner.nextInt();
         scanner.nextLine();
-        databaseService.getCheckInById(id);
-        databaseService.getCheckOutById(id);
+        CheckIn checkIn = databaseService.getCheckInById(id);
+        if(checkIn != null) {
+            System.out.println(checkIn);
+            return;
+        }
+        CheckOut checkOut = databaseService.getCheckOutById(id);
+        if(checkOut != null) {
+            System.out.println(checkOut);
+            return;
+        }
+        System.out.println("No transaction having this id");
     }
 
     public void delete(Scanner scanner) {
@@ -60,10 +69,6 @@ public class TransactionService {
         Transaction transaction = databaseService.getTransaction(typeOfTransaction, id);
         if (transaction == null) { return;}
 
-        Transaction transactionGeneralInfo = setGeneralInfo(scanner);
-        transaction.setLibraryMember(transactionGeneralInfo.getLibraryMember());
-        transaction.setBookCopy(transactionGeneralInfo.getBookCopy());
-        transaction.setDate(transactionGeneralInfo.getDate());
         if(typeOfTransaction.equals(CHECKIN)){
             checkInInit(scanner, (CheckIn) transaction);
         }else{
@@ -103,10 +108,10 @@ public class TransactionService {
         String search = scanner.nextLine();
         switch (option) {
             case "title":
-                bookRepositoryService.getBooksByTitle(search);
+                if(bookRepositoryService.getBooksByTitle(search) == null) return null;
                 break;
             case "author":
-                bookRepositoryService.getBooksByAuthor(search);
+                if(bookRepositoryService.getBooksByAuthor(search) == null) return null;
                 break;
             default:
                 System.out.println("wrong option");
@@ -117,6 +122,7 @@ public class TransactionService {
         Book book = bookRepositoryService.getBookByISBN(isbn);
         if(book == null) {
             System.out.println("wrong ISBN");
+            return null;
         }
         return book;
     }
@@ -130,8 +136,8 @@ public class TransactionService {
         }
         List<BookCopy> availableCopies = bookCopyRepositoryService.getAvailableCopies(book);
 
-        if(availableCopies.isEmpty()){
-            System.out.println("The book has no available copies");
+        if(availableCopies == null){
+            return null;
         }
         System.out.println("Enter the id of the bookCopy");
         int id = scanner.nextInt();
@@ -159,6 +165,7 @@ public class TransactionService {
     private void transactionInit(Scanner scanner, String typeOfTransaction) {
 
         Transaction transaction = setGeneralInfo(scanner);
+        if(transaction == null) return;
 
         if(typeOfTransaction.equals(CHECKIN)) {
             LibraryMember libraryMember = transaction.getLibraryMember();
@@ -171,14 +178,19 @@ public class TransactionService {
             }
 
             CheckIn checkIn = new CheckIn(transaction);
-            checkInInit(scanner, checkIn);
+            if(!checkInInit(scanner, checkIn)) {
+                System.out.println("The check in was discarded");
+                return;
+            }
             transaction = checkIn;
 
             //daca exista rezervare, o anulam
             List<Reservation> reservations = reservationRepositoryService.getReservationByMember(libraryMember);
-            for(Reservation r : reservations) {
-                if(r.getBook().equals(transaction.getBookCopy().getBook()) && r.getExpiryDate().isBefore(java.time.LocalDate.now())) {
-                    r.setExpiryDate(java.time.LocalDate.now());
+            if(reservations != null) {
+                for(Reservation r : reservations) {
+                    if(r.getBook().equals(transaction.getBookCopy().getBook()) && r.getExpiryDate().isAfter(java.time.LocalDate.now())) {
+                        r.setExpiryDate(java.time.LocalDate.now());
+                    }
                 }
             }
         }
@@ -208,29 +220,32 @@ public class TransactionService {
         }
 
         databaseService.addTransaction(transaction);
-        System.out.println("Created " + transaction);
+        System.out.println("Created " + transaction + '\n');
     }
 
     private Transaction setGeneralInfo(Scanner scanner) {
         BookCopy bookCopy = chooseCopy(scanner);
+        if(bookCopy == null) return null;
         LibraryMember libraryMember = chooseLibraryMember(scanner);
+        if(libraryMember == null) return null;
         LocalDate localDate = java.time.LocalDate.now();
         return new Transaction(libraryMember, bookCopy, localDate);
     }
 
-    private void checkInInit(Scanner scanner, CheckIn checkIn) {
-        checkIn.setCheckedOut(false);
+    private boolean checkInInit(Scanner scanner, CheckIn checkIn) {
         System.out.println("Enter the number of days:");
         int nrDays = scanner.nextInt();
         scanner.nextLine();
         if(nrDays > maxNrBorrowDays) {
             System.out.println("The period exceeds the maximum period");
-            return;
+            return false;
         }
         System.out.println("Enter the type of the check in:");
         String type = scanner.nextLine();
         checkIn.setNumberDays(nrDays);
         checkIn.setType(type);
+        checkIn.setCheckedOut(false);
+        return true;
     }
 
     private void checkOutInit(Scanner scanner, CheckIn currentCheckIn, CheckOut checkOut) {
