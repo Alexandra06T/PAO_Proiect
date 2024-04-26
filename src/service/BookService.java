@@ -78,10 +78,18 @@ public class BookService {
         String search = scanner.nextLine();
         switch (option) {
             case "title":
-                if(databaseService.getBooksByTitle(search) == null) return null;
+                System.out.println("Books having the title '" + search + "':");
+                List<Book> titleSearchedBooks = databaseService.getBooksByTitle(search);
+                if(titleSearchedBooks == null) return null;
+                //daca avem o singura carte, o returnam
+                if(titleSearchedBooks.size() == 1) return titleSearchedBooks.getFirst();
+                //daca avem mai multe carti, cerem isbn-ul
                 break;
             case "author":
-                if(databaseService.getBooksByAuthor(search) == null) return null;
+                System.out.println("Books of " + search + ":");
+                List<Book> authorSearchedBooks = databaseService.getBooksByAuthor(search);
+                if(authorSearchedBooks == null) return null;
+                if(authorSearchedBooks.size() == 1) return authorSearchedBooks.getFirst();
                 break;
             default:
                 System.out.println("wrong option");
@@ -102,6 +110,7 @@ public class BookService {
             System.out.println("Couldn't find the book");
         }
         else {
+            System.out.println("The book you are looking for:");
             System.out.println(book);
             System.out.println();
         }

@@ -22,7 +22,6 @@ public class Application {
 
         ObjectsExamples();
 
-
         while (true){
 
             menuTarget();
@@ -165,3 +164,6 @@ public class Application {
 
 
 }
+
+//TODO: create audit system
+//TODO: throw and handle exceptions

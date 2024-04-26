@@ -1,0 +1,11 @@
+--CREATE TABLE `libraryms`.`book` (
+--                                        `ISBN` VARCHAR(13) NOT NULL,
+--                                        `title` VARCHAR(50) NULL,
+--                                        `publishingHouse` VARCHAR(50) NULL,
+--                                        `publishedDate` DATE NULL,
+--                                        `numberOfPages` INT NULL,
+--                                        `emailAddress` VARCHAR(45) NULL,
+--                                        PRIMARY KEY (`ISBN`));
+
+--TODO: create tables for all classes
+--TODO: insert examples into the database
