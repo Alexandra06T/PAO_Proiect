@@ -5,6 +5,7 @@ import daoservices.CategoryRepositoryService;
 import model.Book;
 import model.Category;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class BookService {
     private BookRepositoryService databaseService;
     private CategoryRepositoryService categoryRepositoryService;
 
-    public BookService(){
+    public BookService() throws SQLException {
         this.databaseService = new BookRepositoryService();
         this.categoryRepositoryService = new CategoryRepositoryService();
     }

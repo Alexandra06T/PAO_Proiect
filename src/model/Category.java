@@ -5,20 +5,20 @@ import java.util.List;
 
 public class Category {
     private String name;
-    private int index;
+    private int categoryIndex;
     private List<Book> books;
 
     public Category() {}
 
-    public Category(String name, int index) {
+    public Category(String name, int categoryIndex) {
         this.name = name;
-        this.index = index;
+        this.categoryIndex = categoryIndex;
         this.books = new ArrayList<>();
     }
 
     public Category(Category category) {
         this.name = category.getName();
-        this.index = category.getIndex();
+        this.categoryIndex = category.getCategoryIndex();
         this.books = category.getBooks();
     }
 
@@ -30,12 +30,12 @@ public class Category {
         this.name = name;
     }
 
-    public int getIndex() {
-        return index;
+    public int getCategoryIndex() {
+        return categoryIndex;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setCategoryIndex(int categoryIndex) {
+        this.categoryIndex = categoryIndex;
     }
 
     public List<Book> getBooks() {
@@ -53,7 +53,6 @@ public class Category {
     @Override
     public String toString() {
         return name +
-                " (" + index + ")\n" +
-                "BOOKS:\n" + books + "\n";
+                " (" + categoryIndex + ")";
     }
 }

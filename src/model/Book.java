@@ -152,7 +152,7 @@ public class Book {
         }
         res.append("\nISBN: ").append(ISBN).append('\n').append(publishingHouse).append(", ").append(publishedDate).append("\nnumber of pages: ").append(numberOfPages).append("\n");
         if(category != null) {
-            res.append(category.getName()).append(" (").append(category.getIndex()).append(")");
+            res.append(category.getName()).append(" (").append(category.getCategoryIndex()).append(")");
         }
         return res.toString();
     }

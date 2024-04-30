@@ -2,13 +2,15 @@ package service;
 
 import daoservices.CategoryRepositoryService;
 import model.Category;
+import utils.InvalidDataException;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class CategoryService {
     private CategoryRepositoryService databaseService;
 
-    public CategoryService(){
+    public CategoryService() throws SQLException {
         this.databaseService = new CategoryRepositoryService();
     }
 
@@ -19,8 +21,13 @@ public class CategoryService {
         int index = scanner.nextInt();
         scanner.nextLine();
         Category category = new Category(name, index);
-        databaseService.addCategory(category);
-        System.out.println("Category added to the catalogue");
+
+        try {
+            databaseService.addCategory(category);
+        }
+        catch (InvalidDataException e) {
+            System.out.println("Creation failed: " + e.getMessage());
+        }
     }
 
     private Category searchCategory(Scanner scanner) {
@@ -41,10 +48,16 @@ public class CategoryService {
         }
     }
 
+    public void view() {
+        System.out.println("CATEGORIES:");
+        databaseService.printAll();
+        System.out.println();
+    }
+
     public void read(Scanner scanner) {
         Category category = searchCategory(scanner);
         if(category != null)
-            System.out.println(category.getName() + " (" + category.getIndex() + ")\n");
+            System.out.println(category);
     }
 
     public void delete(Scanner scanner) {
@@ -53,7 +66,9 @@ public class CategoryService {
             System.out.println("Couldn't find the category");
             return;
         }
+
         databaseService.removeCategory(category.getName());
+        System.out.println("Category removed successfully!");
     }
 
     public void update(Scanner scanner) {
@@ -61,11 +76,15 @@ public class CategoryService {
 
         System.out.println("Enter the new name of the category:");
         String name = scanner.nextLine();
-        System.out.println("Enter the new index of the category:");
-        int index = scanner.nextInt();
-        scanner.nextLine();
         category.setName(name);
-        category.setIndex(index);
+
+        try {
+            databaseService.updateCategory(category);
+        }
+        catch (InvalidDataException e) {
+            System.out.println("The update of the category " + category + " failed: " + e.getMessage());
+        }
+
     }
 
 }

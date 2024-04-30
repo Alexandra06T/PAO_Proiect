@@ -7,6 +7,7 @@ public class LibraryService {
     private static void menuCRUD() {
         System.out.println("Choose the operation you want to perform:");
         System.out.println("create");
+        System.out.println("list");
         System.out.println("read");
         System.out.println("update");
         System.out.println("delete");
@@ -21,6 +22,9 @@ public class LibraryService {
         switch (command){
             case "create":
                 categoryService.create(scanner);
+                break;
+            case "list":
+                categoryService.view();
                 break;
             case "read":
                 categoryService.read(scanner);
