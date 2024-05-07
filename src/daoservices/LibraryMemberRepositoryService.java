@@ -24,49 +24,44 @@ public class LibraryMemberRepositoryService {
 
     public LibraryMemberRepositoryService() throws SQLException {}
 
-    public void printAll() {
+    public void printAll() throws InvalidDataException {
         try {
             List<LibraryMember> libraryMembers = libraryMemberDao.getAll();
-            if(libraryMembers != null){
-                libraryMembers.forEach(System.out:: println);
-            }else {
-                System.out.println("There is no library member.");
-            }
-
+            if(libraryMembers == null)
+                throw new InvalidDataException("There is no library member.");
+            libraryMembers.forEach(System.out:: println);
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
     }
 
-    public List<LibraryMember> getAll() {
-        List<LibraryMember> libraryMembers = null;
-
+    public List<LibraryMember> getAll() throws InvalidDataException {
         try {
-            libraryMembers = libraryMemberDao.getAll();
+            List<LibraryMember> libraryMembers = libraryMemberDao.getAll();
             if(libraryMembers == null){
-                System.out.println("There is no library member.");
+                throw new InvalidDataException("There is no library member.");
             }
+            return libraryMembers;
 
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
 
-        return libraryMembers;
+        return null;
     }
 
 
-    public LibraryMember getLibraryMemberById(int memberId){
-        LibraryMember libraryMember = null;
-
+    public LibraryMember getLibraryMemberById(int memberId) throws InvalidDataException{
         try {
-            libraryMember = libraryMemberDao.read(String.valueOf(memberId));
+            LibraryMember libraryMember = libraryMemberDao.read(String.valueOf(memberId));
             if(libraryMember == null)
-                System.out.println("No library member having this id");
+                throw new InvalidDataException("No library member having this id");
+            return libraryMember;
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
 
-        return libraryMember;
+        return null;
     }
 
     public int getNrCurrentCheckIns(int memberID) {
@@ -92,8 +87,8 @@ public class LibraryMemberRepositoryService {
         return false;
     }
 
-    public void removeLibraryMember(LibraryMember libraryMember) {
-        if (libraryMember == null) return;
+    public void removeLibraryMember(LibraryMember libraryMember) throws InvalidDataException {
+        if (libraryMember == null) throw new InvalidDataException("Invalid library member");
         try {
             libraryMemberDao.delete(libraryMember);
         } catch (SQLException e) {
@@ -101,22 +96,21 @@ public class LibraryMemberRepositoryService {
         }
     }
 
-    public void addLibraryMember(LibraryMember libraryMember) {
+    public void addLibraryMember(LibraryMember libraryMember) throws InvalidDataException {
         try {
-            if(libraryMember != null){
-                libraryMemberDao.add(libraryMember);
-            }
+            if(libraryMember == null)
+                throw new InvalidDataException("Invalid library member");
+            libraryMemberDao.add(libraryMember);
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
     }
 
-    public void updateLibraryMember(LibraryMember libraryMember) {
+    public void updateLibraryMember(LibraryMember libraryMember) throws InvalidDataException {
         try {
-            if(libraryMember != null){
-                libraryMemberDao.update(libraryMember);
-                System.out.println("Library member's details updated successfully!");
-            }
+            if(libraryMember == null)
+                throw new InvalidDataException("Invalid library member");
+            libraryMemberDao.update(libraryMember);
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }

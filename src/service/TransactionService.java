@@ -155,15 +155,16 @@ public class TransactionService {
     }
 
     private LibraryMember chooseLibraryMember(Scanner scanner) {
-        System.out.println("Enter the ID of the library member:");
-        int memberId = scanner.nextInt();
-        scanner.nextLine();
-        LibraryMember libraryMember = libraryMemberRepositoryService.getLibraryMemberById(memberId);
-        if(libraryMember == null) {
-            System.out.println("There is no library member having this ID");
-            return null;
-        }
-        return libraryMember;
+//        System.out.println("Enter the ID of the library member:");
+//        int memberId = scanner.nextInt();
+//        scanner.nextLine();
+//        LibraryMember libraryMember = libraryMemberRepositoryService.getLibraryMemberById(memberId);
+//        if(libraryMember == null) {
+//            System.out.println("There is no library member having this ID");
+//            return null;
+//        }
+//        return libraryMember;
+        return null;
     }
 
     private void transactionInit(Scanner scanner, String typeOfTransaction) {

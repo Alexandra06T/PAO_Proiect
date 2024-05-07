@@ -2,6 +2,7 @@ package service;
 
 import daoservices.LibraryMemberRepositoryService;
 import model.LibraryMember;
+import utils.InvalidDataException;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -15,9 +16,13 @@ public class LibraryMemberService {
     }
 
     public void view() {
-        System.out.println("LIBRARY MEMBERS:");
-        databaseService.printAll();
-        System.out.println();
+        try {
+            System.out.println("LIBRARY MEMBERS:");
+            databaseService.printAll();
+            System.out.println();
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void create(Scanner scanner) {
@@ -39,17 +44,23 @@ public class LibraryMemberService {
         System.out.println("Enter the address of the member:");
         String address = scanner.nextLine();
         LibraryMember libraryMember = new LibraryMember(name, emailAddress, phoneNumber, address);
-        databaseService.addLibraryMember(libraryMember);
-        System.out.println("Library member enrolled");
+        try {
+            databaseService.addLibraryMember(libraryMember);
+            System.out.println("Library member enrolled");
+        } catch (InvalidDataException e) {
+            System.out.println("Creation failed: " + e.getMessage());
+        }
     }
 
     public void read(Scanner scanner) {
         System.out.println("Enter the ID of the library member:");
         int memberId = scanner.nextInt();
         scanner.nextLine();
-        LibraryMember libraryMember = databaseService.getLibraryMemberById(memberId);
-        if(libraryMember != null) {
+        try {
+            LibraryMember libraryMember = databaseService.getLibraryMemberById(memberId);
             System.out.println(libraryMember);
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -57,39 +68,41 @@ public class LibraryMemberService {
         System.out.println("Enter the ID of the library member:");
         int id = scanner.nextInt();
         scanner.nextLine();
-        LibraryMember libraryMember = databaseService.getLibraryMemberById(id);
-        if(libraryMember == null) {
-            return;
+        try {
+            LibraryMember libraryMember = databaseService.getLibraryMemberById(id);
+            if(databaseService.getNrCurrentCheckIns(libraryMember.getMemberID()) == 0) {
+                databaseService.removeLibraryMember(libraryMember);
+                System.out.println("Library member removed");
+            }
+            else throw new InvalidDataException("The library member has not returned all the books!");
+        } catch (InvalidDataException e) {
+            System.out.println("Removal failed: " + e.getMessage());
         }
-        if(databaseService.getNrCurrentCheckIns(libraryMember.getMemberID()) == 0) {
-            databaseService.removeLibraryMember(libraryMember);
-            System.out.println("Library member removed");
-        }
-        else System.out.println("Unsuccessful removal! The library member has not returned all the books!");
     }
 
     public void update(Scanner scanner) {
         System.out.println("Enter the ID of the library member:");
         int memberId = scanner.nextInt();
         scanner.nextLine();
-        LibraryMember libraryMember = databaseService.getLibraryMemberById(memberId);
-        if(libraryMember == null) {
-            return;
-        }
-        System.out.println("Enter the new name of the library member:");
-        String newName = scanner.nextLine();
-        System.out.println("Enter the new email address of the library member:");
-        String newEmail = scanner.nextLine();
-        System.out.println("Enter the new phone number of the library member:");
-        String newPhone = scanner.nextLine();
-        System.out.println("Enter the new address of the library member:");
-        String newAddress = scanner.nextLine();
-        libraryMember.setName(newName);
-        libraryMember.setEmailAddress(newEmail);
-        libraryMember.setPhoneNumber(newPhone);
-        libraryMember.setAddress(newAddress);
+        try {
+            LibraryMember libraryMember = databaseService.getLibraryMemberById(memberId);
+            System.out.println("Enter the new name of the library member:");
+            String newName = scanner.nextLine();
+            System.out.println("Enter the new email address of the library member:");
+            String newEmail = scanner.nextLine();
+            System.out.println("Enter the new phone number of the library member:");
+            String newPhone = scanner.nextLine();
+            System.out.println("Enter the new address of the library member:");
+            String newAddress = scanner.nextLine();
+            libraryMember.setName(newName);
+            libraryMember.setEmailAddress(newEmail);
+            libraryMember.setPhoneNumber(newPhone);
+            libraryMember.setAddress(newAddress);
 
-        databaseService.updateLibraryMember(libraryMember);
-        System.out.println("Library member's details updated successfully!");
+            databaseService.updateLibraryMember(libraryMember);
+            System.out.println("Library member's details updated successfully!");
+        } catch (InvalidDataException e) {
+            System.out.println("Update failed: " + e.getMessage());
+        }
     }
 }
