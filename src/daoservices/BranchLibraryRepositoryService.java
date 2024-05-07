@@ -59,6 +59,20 @@ public class BranchLibraryRepositoryService {
         return null;
     }
 
+    public BranchLibrary getBranchLibraryByID(int id) throws InvalidDataException {
+        try {
+            BranchLibrary branchLibrary = branchLibraryDao.readByID(String.valueOf(id));
+            if(branchLibrary == null){
+                throw new InvalidDataException("There is no branch library having this id");
+            }
+            return branchLibrary;
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
+
+        return null;
+    }
+
     public void removeBranchLibrary(BranchLibrary branchLibrary) throws InvalidDataException {
         if (branchLibrary == null) throw new InvalidDataException("Invalid branch library");
         try {

@@ -1,74 +1,158 @@
 package daoservices;
 
-import dao.CheckInDao;
-import dao.CheckOutDao;
+import dao.*;
 import model.*;
-import dao.BookCopyDao;
+import utils.InvalidDataException;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 public class BookCopyRepositoryService {
 
-    private BookCopyDao bookCopyDao;
+    private BookCopyDao bookCopyDao = BookCopyDao.getInstance();
+    private LocationDao locationDao = LocationDao.getInstance();
+    private BranchLibraryDao branchLibraryDao = BranchLibraryDao.getInstance();
+    private BookDao bookDao = BookDao.getInstance();
     private CheckInDao checkInDao;
     private CheckOutDao checkOutDao;
 
-    public BookCopyRepositoryService() {
-        this.bookCopyDao = new BookCopyDao();
+    public BookCopyRepositoryService() throws SQLException {}
+
+    public void printAll() throws InvalidDataException {
+        try {
+            List<BookCopy> bookCopies = bookCopyDao.getAll();
+            if(bookCopies == null)
+                throw new InvalidDataException("There is no book copy.");
+
+            bookCopies.stream().collect(groupingBy(BookCopy::getLocationID, groupingBy(BookCopy::getBookISBN))).forEach((lid, gr) -> {
+                try {
+                    Location l = locationDao.read(String.valueOf(lid));
+                    BranchLibrary bl = branchLibraryDao.readByID(String.valueOf(l.getBranchLibraryID()));
+                    System.out.println(bl.getName() + ", " + l.getName().toUpperCase() + "\n#############################################\n");
+                    gr.forEach((b, lb) -> {
+                        try {
+                            Book book = bookDao.read(b);
+                            System.out.println(book.getTitle() + " by " + book.getAuthors().stream().collect(Collectors.joining("; ")) + "\n--------------------------------");
+                            lb.forEach(System.out::println);
+                        } catch (SQLException e) {
+                            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+                        }
+                        System.out.println();
+                    });
+                    System.out.println();
+                } catch (SQLException e) {
+                    System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+                }
+            });
+
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
     }
 
-    public BookCopy getCopyByBookAndId(Book book, int id){
-        BookCopy bookCopy = bookCopyDao.read(book, id);
-        if(bookCopy == null)
-            System.out.println("No copy of the specified book having this id");
+    public List<BookCopy> getAll() throws InvalidDataException {
+        try {
+            List<BookCopy> bookCopies = bookCopyDao.getAll();
+            if(bookCopies == null)
+                throw new InvalidDataException("There is no book copy.");
+            return bookCopies;
 
-        return bookCopy;
-    }
-
-
-    public List<BookCopy> getAvailableCopies(Book book){
-//        List<BookCopy> bookCopyList = bookCopyDao.readAvailable(book);
-//        if(bookCopyList != null){
-//            for(BookCopy c : bookCopyList) {
-//                System.out.println("ID: " + c.getId());
-//                System.out.println(c.getLocation().getBranchLibrary() + ", " + c.getLocation().getName() + ", " + c.getIndex());
-//            }
-//        }else {
-//            System.out.println("No available copies for this book");
-//        }
-//        return bookCopyList;
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
         return null;
     }
 
-    public void removeCopy(Book book, int id) {
-        BookCopy bookCopy = getCopyByBookAndId(book, id);
-        if (bookCopy == null) return;
-
-        //stergem toate tranzactiile pentu copie
-        List<Transaction> transactionList = bookCopy.getTransactions();
-        if(!transactionList.isEmpty()) {
-            for(Transaction t : transactionList) {
-                switch (t){
-                    case CheckIn checkIn -> checkInDao.delete(checkIn);
-                    case CheckOut checkOut -> checkOutDao.delete(checkOut);
-                    default -> throw new IllegalStateException("Unexpected value: " + t);
-                }
+    public BookCopy getBookCopyById(int id) throws InvalidDataException {
+        try {
+            BookCopy bookCopy = bookCopyDao.read(String.valueOf(id));
+            if(bookCopy == null){
+                throw new InvalidDataException("There is no book copy having this ID");
             }
+            return bookCopy;
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
-
-        bookCopyDao.delete(bookCopy);
-
-        System.out.println("Removed " + bookCopy);
+        return null;
     }
 
-    public void addCopy(BookCopy bookCopy) {
-        if(bookCopy != null){
-            if(bookCopyDao.read(bookCopy.getBook(), bookCopy.getId()) != null) {
-                System.out.println("There is already a bookCopy of this book having this id");
-                return;
+    public List<BookCopy> getBookCopiesByBook(String bookISBN) throws InvalidDataException {
+        try {
+            List<BookCopy> bookCopies = bookCopyDao.readByBook(String.valueOf(bookISBN));
+            if(bookCopies == null){
+                throw new InvalidDataException("There is no copy of this book");
             }
-            bookCopyDao.create(bookCopy);
-            bookCopy.getBook().addBookCopy(bookCopy);
+            return bookCopies;
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
+        return null;
+    }
+
+
+    public List<BookCopy> printAvailableBookCopies(String bookISBN) throws InvalidDataException {
+        try {
+            List<BookCopy> bookCopies = bookCopyDao.readByBook(bookISBN).stream().filter(BookCopy::isAvailable).toList();
+            if(bookCopies == null)
+                throw new InvalidDataException("No available copies for this book");
+            bookCopies.stream().collect(groupingBy(BookCopy::getLocationID, groupingBy(BookCopy::getBookISBN))).forEach((lid, gr) -> {
+                try {
+                    Location l = locationDao.read(String.valueOf(lid));
+                    BranchLibrary bl = branchLibraryDao.readByID(String.valueOf(l.getBranchLibraryID()));
+                    System.out.println(bl.getName() + ", " + l.getName().toUpperCase() + ": ");
+                    gr.forEach((b, lb) -> {
+                        try {
+                            Book book = bookDao.read(b);
+                            System.out.println(book.getTitle() + " by " + book.getAuthors() + "--------------------------------");
+                            lb.forEach(System.out::println);
+                            System.out.println();
+                        } catch (SQLException e) {
+                            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+                        }
+                        System.out.println();
+                    });
+                    System.out.println();
+                } catch (SQLException e) {
+                    System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+                }
+            });
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
+
+        return null;
+    }
+
+    public void removeBookCopy(BookCopy bookCopy) throws InvalidDataException {
+        if (bookCopy == null) throw new InvalidDataException("Invalid book copy");
+        if(!bookCopy.isAvailable()) throw new InvalidDataException("The book copy is not available yet");
+        try {
+            bookCopyDao.delete(bookCopy);
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
+    }
+
+    public void addBookCopy(BookCopy bookCopy) throws InvalidDataException {
+        if (bookCopy == null)
+            throw new InvalidDataException("Invalid book copy");
+        try {
+            bookCopyDao.add(bookCopy);
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
+    }
+
+    public void updateBookCopy(BookCopy bookCopy) throws InvalidDataException {
+        if(bookCopy == null)
+            throw new InvalidDataException("Invalid book copy");
+        try {
+            bookCopyDao.update(bookCopy);
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
     }
 

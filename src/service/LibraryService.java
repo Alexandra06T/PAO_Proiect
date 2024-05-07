@@ -79,6 +79,9 @@ public class LibraryService {
             case "create":
                 bookCopyService.create(scanner);
                 break;
+            case "list":
+                bookCopyService.view();
+                break;
             case "read":
                 bookCopyService.read(scanner);
                 break;

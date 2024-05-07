@@ -6,11 +6,11 @@ import java.util.Objects;
 
 public class BookCopy {
 
-    private int id;
-    private Book book;
+    private int bookCopyID;
+    private String bookISBN;
     private String barcode;
     private String index;
-    private Location location;
+    private int locationID;
     private boolean available;
     private List<Transaction> transactions;
 
@@ -18,32 +18,31 @@ public class BookCopy {
         this.transactions = new ArrayList<>();
     }
 
-    public BookCopy(int id, Book book, String barcode, String index, Location location, boolean available) {
-        this.id = id;
-        this.book = book;
+    public BookCopy(String bookISBN, String barcode, String index, int locationID, boolean available) {
+        this.bookISBN = bookISBN;
         this.barcode = barcode;
         this.index = index;
-        this.location = location;
+        this.locationID = locationID;
         this.available = available;
         this.transactions = new ArrayList<>();
     }
 
     public BookCopy(BookCopy bookCopy) {
-        this.id = bookCopy.getId();
-        this.book = bookCopy.getBook();
+        this.bookCopyID = bookCopy.getBookCopyID();
+        this.bookISBN = bookCopy.getBookISBN();
         this.barcode = bookCopy.getBarcode();
         this.index = bookCopy.getIndex();
-        this.location = bookCopy.getLocation();
+        this.locationID = bookCopy.getLocationID();
         this.available = bookCopy.isAvailable();
         this.transactions = bookCopy.getTransactions();
     }
 
-    public int getId() {
-        return id;
+    public int getBookCopyID() {
+        return bookCopyID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBookCopyID(int id) {
+        this.bookCopyID = id;
     }
 
     public String getBarcode() {
@@ -62,12 +61,12 @@ public class BookCopy {
         this.index = index;
     }
 
-    public Location getLocation() {
-        return location;
+    public int getLocationID() {
+        return locationID;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocationID(int locationID) {
+        this.locationID = locationID;
     }
 
     public boolean isAvailable() {
@@ -78,12 +77,12 @@ public class BookCopy {
         this.available = available;
     }
 
-    public Book getBook() {
-        return book;
+    public String getBookISBN() {
+        return bookISBN;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookISBN(String bookISBN) {
+        this.bookISBN = bookISBN;
     }
 
     public List<Transaction> getTransactions() {
@@ -103,12 +102,12 @@ public class BookCopy {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookCopy bookCopy = (BookCopy) o;
-        return id == bookCopy.id && available == bookCopy.available && Objects.equals(book, bookCopy.book) && Objects.equals(barcode, bookCopy.barcode) && Objects.equals(index, bookCopy.index) && Objects.equals(location, bookCopy.location);
+        return bookCopyID == bookCopy.getBookCopyID() && available == bookCopy.available && bookISBN.equals(bookCopy.getBookISBN()) && Objects.equals(barcode, bookCopy.barcode) && Objects.equals(index, bookCopy.index) && locationID == bookCopy.getLocationID();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, book, barcode, index, location, available);
+        return Objects.hash(bookCopyID, bookISBN, barcode, index, locationID, available);
     }
 
     @Override
@@ -117,10 +116,8 @@ public class BookCopy {
         if(available) av = "available";
         else av = "not available";
 
-        return "ID: " + id + '\n' +
-                book + '\n' +
+        return "ID: " + bookCopyID + '\n' +
                 "barcode: " + barcode + '\n' +
-                "index: " + index + '\n' +
-                location + "Availability: " + av;
+                "index: " + index + '\n' + "Availability: " + av;
     }
 }

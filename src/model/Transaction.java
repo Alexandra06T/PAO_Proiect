@@ -76,16 +76,17 @@ public class Transaction {
 
     @Override
     public String toString() {
-        StringBuilder res = new StringBuilder("ID: " + id +
-                "\nLIBRARY MEMBER:\n" + libraryMember.getName() + ", ID: " + libraryMember.getMemberID() +
-                "\nBOOK COPY:\n" + bookCopy.getBook().getTitle() + '\n');
-        List<String> authors = bookCopy.getBook().getAuthors();
-        for(String a : authors) {
-            res.append(a);
-            res.append("; ");
-        }
-        res.append('\n').append(bookCopy.getLocation().getName()).append("\nON: ").append(date);
-
-        return res.toString();
+//        StringBuilder res = new StringBuilder("ID: " + id +
+//                "\nLIBRARY MEMBER:\n" + libraryMember.getName() + ", ID: " + libraryMember.getMemberID() +
+//                "\nBOOK COPY:\n" + bookCopy.getBook().getTitle() + '\n');
+//        List<String> authors = bookCopy.getBook().getAuthors();
+//        for(String a : authors) {
+//            res.append(a);
+//            res.append("; ");
+//        }
+//        res.append('\n').append(bookCopy.getLocation().getName()).append("\nON: ").append(date);
+//
+//        return res.toString();
+        return null;
     }
 }

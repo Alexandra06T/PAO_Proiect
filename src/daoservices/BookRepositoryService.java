@@ -18,13 +18,8 @@ public class BookRepositoryService {
 
     private BookDao bookDao = BookDao.getInstance();
     private CategoryDao categoryDao;
-    private ReservationDao reservationDao;
-    private BookCopyDao bookCopyDao;
 
-    public BookRepositoryService() throws SQLException {
-        this.reservationDao = new ReservationDao();
-        this.bookCopyDao = new BookCopyDao();
-    }
+    public BookRepositoryService() throws SQLException {}
 
     public void printAll() throws InvalidDataException {
         try {
@@ -128,7 +123,6 @@ public class BookRepositoryService {
             throw new InvalidDataException("Invalid book");
         try {
             bookDao.update(book);
-            System.out.println("Book updated successfully!");
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }

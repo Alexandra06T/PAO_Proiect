@@ -75,7 +75,7 @@ public class BookDao implements DaoInterface<Book> {
 
     public List<Book> readTitle(String title) throws SQLException {
         String sql = "SELECT * FROM libraryms.book b INNER JOIN libraryms.category c ON c.categoryIndex = b.categoryID " +
-                "WHERE UPPER(b.title) LIKE UPPER(?)";
+                "WHERE UPPER(b.title) LIKE UPPER(?) ORDER BY b.title";
         ResultSet rs = null;
         List<Book> books = new ArrayList<>();
         try(PreparedStatement statement = connection.prepareStatement(sql)) {

@@ -86,35 +86,30 @@ public class BookService {
         String search = scanner.nextLine();
         List<Book> searchedBooks;
 
-        try {
-            switch (option) {
-                case "title":
-                    searchedBooks = databaseService.getBooksByTitle(search);
-                    //daca avem o singura carte, o returnam
-                    if(searchedBooks.size() == 1) return searchedBooks.getFirst();
-                    //daca avem mai multe carti, cerem isbn-ul
-                    break;
-                case "author":
-                    searchedBooks = databaseService.getBooksByAuthor(search);
-                    if(searchedBooks.size() == 1) return searchedBooks.getFirst();
-                    break;
-                default:
-                    System.out.println("wrong option");
-                    return null;
-            }
-            System.out.println("Results for '" + search + "':");
-            for(Book b : searchedBooks) {
-                System.out.println(b);
-                System.out.println("-------------------------------");
-            }
-            System.out.println("Enter the ISBN of the book:");
-            String isbn = scanner.nextLine();
-            Book book = databaseService.getBookByISBN(isbn);
-            return book;
-
-        } catch (InvalidDataException e) {
-            throw e;
+        switch (option) {
+            case "title":
+                searchedBooks = databaseService.getBooksByTitle(search);
+                //daca avem o singura carte, o returnam
+                if(searchedBooks.size() == 1) return searchedBooks.getFirst();
+                //daca avem mai multe carti, cerem isbn-ul
+                break;
+            case "author":
+                searchedBooks = databaseService.getBooksByAuthor(search);
+                if(searchedBooks.size() == 1) return searchedBooks.getFirst();
+                break;
+            default:
+                throw new InvalidDataException("Wrong option");
         }
+        System.out.println("Results for '" + search + "':");
+        for(Book b : searchedBooks) {
+            System.out.println(b);
+            System.out.println("-------------------------------");
+        }
+        System.out.println("Enter the ISBN of the book:");
+        String isbn = scanner.nextLine();
+        Book book = databaseService.getBookByISBN(isbn);
+        return book;
+
     }
 
     public void view() {
@@ -144,7 +139,7 @@ public class BookService {
             databaseService.removeBook(book);
             System.out.println("Book removed successfully!");
         } catch (InvalidDataException e) {
-        System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -157,6 +152,7 @@ public class BookService {
             setGeneralInfo(scanner, newBook);
             setCategory(scanner, newBook);
             databaseService.updateBook(newBook);
+            System.out.println("Book updated successfully!");
         } catch (InvalidDataException e) {
             System.out.println("Update failed: " + e.getMessage());
         }

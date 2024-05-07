@@ -8,6 +8,7 @@ import javax.print.attribute.standard.Copies;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class BookCopyService {
 
@@ -25,32 +26,51 @@ public class BookCopyService {
 
     public void create(Scanner scanner) {
         BookCopy bookCopy = new BookCopy();
-        setGeneralInfo(scanner, bookCopy);
-//        Book book = chooseBook(scanner);
-//        bookCopy.setBook(book);
-        Location location = chooseLocation(scanner);
-        if(location == null) {
-            System.out.println("Couldn't set the location");
-            return;
+        try {
+            setGeneralInfo(scanner, bookCopy);
+            Book book = chooseBook(scanner);
+            bookCopy.setBookISBN(book.getISBN());
+            Location location = chooseLocation(scanner);
+            bookCopy.setLocationID(location.getLocationID());
+            databaseService.addBookCopy(bookCopy);
+            System.out.println("The book copy was added to the catalogue");
+        } catch (InvalidDataException e) {
+            System.out.println("Creation failed: " + e.getMessage());
         }
-        bookCopy.setLocation(location);
-        int nr = 0;
-//        if(book.getBookCopies().isEmpty())
-//            nr = 0;
-//        else nr = book.getBookCopies().getLast().getId();
-        bookCopy.setId(nr+1);
-        databaseService.addCopy(bookCopy);
-        System.out.println("The book copy was added to the catalogue");
     }
 
-    private void setGeneralInfo(Scanner scanner, BookCopy bookCopy) {
+    private void setGeneralInfo(Scanner scanner, BookCopy bookCopy) throws InvalidDataException {
         System.out.println("Enter the barcode of the bookCopy:");
         String barcode = scanner.nextLine();
+        if(barcode.isEmpty()) throw new InvalidDataException("Barcode missing");
         System.out.println("Enter the index of the bookCopy:");
         String index = scanner.nextLine();
+        if(index.isEmpty()) throw new InvalidDataException("Index missing");
         bookCopy.setBarcode(barcode);
         bookCopy.setIndex(index);
-        bookCopy.setAvailable(true);
+        System.out.println("Is the book copy available? [y/n]");
+        String option = scanner.nextLine();
+        switch (option) {
+            case "y":
+                bookCopy.setAvailable(true);
+                break;
+            case "n":
+                bookCopy.setAvailable(false);
+                break;
+            default:
+                throw new InvalidDataException("Wrong option");
+        }
+
+    }
+
+    public void view() {
+        try {
+            System.out.println("BOOK COPIES:");
+            databaseService.printAll();
+            System.out.println();
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
@@ -59,103 +79,107 @@ public class BookCopyService {
         String option = scanner.nextLine().toLowerCase();
         System.out.println("Enter:");
         String search = scanner.nextLine();
+        List<Book> searchedBooks;
+
         switch (option) {
             case "title":
-                if(bookRepositoryService.getBooksByTitle(search) == null) return null;
+                searchedBooks = bookRepositoryService.getBooksByTitle(search);
+                //daca avem o singura carte, o returnam
+                if(searchedBooks.size() == 1) return searchedBooks.getFirst();
+                //daca avem mai multe carti, cerem isbn-ul
                 break;
             case "author":
-                if(bookRepositoryService.getBooksByAuthor(search) == null) return null;
+                searchedBooks = bookRepositoryService.getBooksByAuthor(search);
+                if(searchedBooks.size() == 1) return searchedBooks.getFirst();
                 break;
             default:
-                System.out.println("wrong option");
-                return null;
+                throw new InvalidDataException("Wrong option");
+        }
+        System.out.println("Results for '" + search + "':");
+        for(Book b : searchedBooks) {
+            System.out.println(b);
+            System.out.println("-------------------------------");
         }
         System.out.println("Enter the ISBN of the book:");
         String isbn = scanner.nextLine();
         Book book = bookRepositoryService.getBookByISBN(isbn);
-        if(book == null) {
-            System.out.println("wrong ISBN");
-        }
         return book;
+
     }
 
-    private Location chooseLocation(Scanner scanner) {
-//        System.out.println("Enter the branch library's name:");
-//        String name = scanner.nextLine();
-//        BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
-//        if(branchLibrary == null) {
-//            return null;
-//        }
-//        System.out.println("Enter the location in the branch library:");
-//        String loc = scanner.nextLine();
-//        Location location = locationRepositoryService.getLocationByBranchAndName(branchLibrary, loc);
-//        if(location == null) {
-//            return null;
-//        }
-//        return location;
-        return null;
+    private Location chooseLocation(Scanner scanner) throws InvalidDataException {
+        System.out.println("Enter the branch library's name:");
+        String name = scanner.nextLine();
+        BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
+        if(branchLibrary == null) {
+            throw new InvalidDataException("No branch library having this name");
+        }
+        System.out.println("Enter the location in the branch library:");
+        String loc = scanner.nextLine();
+        Location location = locationRepositoryService.getLocationByBranchAndName(loc, branchLibrary.getBranchLibraryID());
+        if(location == null) {
+            throw new InvalidDataException("No location in the branch library having this name");
+        }
+        return location;
     }
 
-    private BookCopy findCopy(Scanner scanner) {
-//        Book book = chooseBook(scanner);
-//        if(book == null) {
-//            System.out.println("Couldn't find the book");
-//            return null;
-//        }
-//        if(book.getBookCopies().isEmpty()){
-//            System.out.println("The book has no copies");
-//            return null;
-//        }
-//        List<BookCopy> bookCopyList = book.getBookCopies();
-//        for(BookCopy b : bookCopyList) {
-//            System.out.println(b);
-//            System.out.println("-------------------------");
-//        }
+    private BookCopy findCopy(Scanner scanner) throws InvalidDataException {
+        Book book = chooseBook(scanner);
+        List<BookCopy> bookCopyList = databaseService.getBookCopiesByBook(book.getISBN());
+        if(bookCopyList.size() == 1) return bookCopyList.getFirst();
+        for(BookCopy b : bookCopyList) {
+            System.out.println(b);
+            System.out.println("-------------------------");
+        }
         System.out.println("Enter the id of the book copy");
         int id = scanner.nextInt();
         scanner.nextLine();
-//        BookCopy bookCopy = databaseService.getCopyByBookAndId(book, id);
-//        if(bookCopy == null) {
-//            System.out.println("wrong id");
-//            return null;
-//        }
-//        return bookCopy;
-        return null;
+        BookCopy bookCopy = databaseService.getBookCopyById(id);
+        return bookCopy;
     }
 
     public void read(Scanner scanner) {
-        BookCopy bookCopy = findCopy(scanner);
-        if(bookCopy == null) {
-            System.out.println("Couldn't find the bookCopy");
-            return;
+        try {
+            BookCopy bookCopy = findCopy(scanner);
+            Book book = bookRepositoryService.getBookByISBN(bookCopy.getBookISBN());
+            System.out.println(book.getTitle() + " by " + book.getAuthors().stream().collect(Collectors.joining("; ")));
+            System.out.println(bookCopy);
+            Location location = locationRepositoryService.getLocationByID(bookCopy.getLocationID());
+            BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibraryByID(location.getBranchLibraryID());
+            System.out.println(location.getName() + ", " + branchLibrary.getName());
+            System.out.println();
+            System.out.println();
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println(bookCopy);
-        System.out.println();
     }
 
     public void delete(Scanner scanner) {
-        BookCopy bookCopy = findCopy(scanner);
-        if(bookCopy == null) {
-            System.out.println("Couldn't find the bookCopy");
+        try {
+            BookCopy bookCopy = findCopy(scanner);
+            databaseService.removeBookCopy(bookCopy);
+            System.out.println("Book copy removed successfully!");
+        } catch (InvalidDataException e) {
+            System.out.println("Removal failed: " + e.getMessage());
         }
-        databaseService.removeCopy(bookCopy.getBook(), bookCopy.getId());
-        bookCopy.getBook().removeBookCopy(bookCopy);
     }
 
     public void update(Scanner scanner) {
-        BookCopy bookCopy = findCopy(scanner);
-        if(bookCopy == null) {
-            System.out.println("Couldn't find the bookCopy");
+        try {
+            BookCopy bookCopy = findCopy(scanner);
+            BookCopy newcopy = new BookCopy();
+            setGeneralInfo(scanner, newcopy);
+            bookCopy.setBarcode(newcopy.getBarcode());
+            bookCopy.setIndex(newcopy.getIndex());
+            bookCopy.setAvailable(newcopy.isAvailable());
+            Location location = chooseLocation(scanner);
+            bookCopy.setLocationID(location.getLocationID());
+
+            databaseService.updateBookCopy(bookCopy);
+            System.out.println("Book copy updated successfully!");
+
+        } catch (InvalidDataException e) {
+            System.out.println("Update failed: " + e.getMessage());
         }
-        BookCopy newcopy = new BookCopy();
-        setGeneralInfo(scanner, newcopy);
-        bookCopy.setBarcode(newcopy.getBarcode());
-        bookCopy.setIndex(newcopy.getIndex());
-        Location location = chooseLocation(scanner);
-        if(location == null) {
-            System.out.println("Couldn't set the location");
-            return;
-        }
-        bookCopy.setLocation(location);
     }
 }

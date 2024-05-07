@@ -57,7 +57,20 @@ public class LocationRepositoryService {
         return null;
     }
 
-    //TODO: de terminat repository + service + test
+    public Location getLocationByID(int id) throws InvalidDataException {
+        try {
+            Location location = locationDao.read(String.valueOf(id));
+            if(location == null){
+                throw new InvalidDataException("There is no location having this id");
+            }
+            return location;
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
+        return null;
+
+    }
+
 
     public Location getLocationByBranchAndName(String name, int branchLibraryID) throws InvalidDataException {
         try {

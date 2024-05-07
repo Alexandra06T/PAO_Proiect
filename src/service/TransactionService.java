@@ -133,25 +133,26 @@ public class TransactionService {
 
     private BookCopy chooseCopy(Scanner scanner) {
 
-        Book book = chooseBook(scanner);
-        if(book == null) {
-            System.out.println("Couldn't find the book");
-            return null;
-        }
-        List<BookCopy> availableCopies = bookCopyRepositoryService.getAvailableCopies(book);
-
-        if(availableCopies == null){
-            return null;
-        }
-        System.out.println("Enter the id of the bookCopy");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        BookCopy bookCopy = bookCopyRepositoryService.getCopyByBookAndId(book, id);
-        if(bookCopy == null || !bookCopy.isAvailable()) {
-            System.out.println("wrong id");
-            return null;
-        }
-        return bookCopy;
+//        Book book = chooseBook(scanner);
+//        if(book == null) {
+//            System.out.println("Couldn't find the book");
+//            return null;
+//        }
+//        List<BookCopy> availableCopies = bookCopyRepositoryService.getAvailableCopies(book);
+//
+//        if(availableCopies == null){
+//            return null;
+//        }
+//        System.out.println("Enter the id of the bookCopy");
+//        int id = scanner.nextInt();
+//        scanner.nextLine();
+//        BookCopy bookCopy = bookCopyRepositoryService.getCopyByBookAndId(book, id);
+//        if(bookCopy == null || !bookCopy.isAvailable()) {
+//            System.out.println("wrong id");
+//            return null;
+//        }
+//        return bookCopy;
+        return null;
     }
 
     private LibraryMember chooseLibraryMember(Scanner scanner) {
@@ -192,14 +193,14 @@ public class TransactionService {
             transaction = checkIn;
 
             //daca exista rezervare, o anulam
-            List<Reservation> reservations = reservationRepositoryService.getReservationByMember(libraryMember);
-            if(reservations != null) {
-                for(Reservation r : reservations) {
-                    if(r.getBook().equals(transaction.getBookCopy().getBook()) && r.getExpiryDate().isAfter(java.time.LocalDate.now())) {
-                        r.setExpiryDate(java.time.LocalDate.now());
-                    }
-                }
-            }
+//            List<Reservation> reservations = reservationRepositoryService.getReservationByMember(libraryMember);
+//            if(reservations != null) {
+//                for(Reservation r : reservations) {
+//                    if(r.getBook().equals(transaction.getBookCopy().getBook()) && r.getExpiryDate().isAfter(java.time.LocalDate.now())) {
+//                        r.setExpiryDate(java.time.LocalDate.now());
+//                    }
+//                }
+//            }
         }
         else {
             LibraryMember libraryMember = chooseLibraryMember(scanner);

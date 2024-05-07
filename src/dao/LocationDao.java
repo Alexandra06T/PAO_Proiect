@@ -29,7 +29,7 @@ public class LocationDao implements DaoInterface<Location> {
 
     @Override
     public List<Location> getAll() throws SQLException{
-        String sql = "SELECT * FROM libraryms.location l JOIN libraryms.branchlibrary b ON l.branchlibraryID = b.ID";
+        String sql = "SELECT * FROM libraryms.location";
         ResultSet rs = null;
         List<Location> locations = new ArrayList<>();
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -52,8 +52,7 @@ public class LocationDao implements DaoInterface<Location> {
     @Override
     public Location read(String id) throws SQLException{
         String sql = "SELECT * " +
-                "FROM libraryms.location l INNER JOIN libraryms.branchlibrary b ON l.branchlibraryID = b.ID " +
-                "WHERE l.ID = ?";
+                "FROM libraryms.location WHERE ID = ?";
         ResultSet rs = null;
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, id);
@@ -85,6 +84,7 @@ public class LocationDao implements DaoInterface<Location> {
         }
     }
 
+    @Override
     public void delete(Location location) throws SQLException {
         String sql = "DELETE FROM libraryms.location WHERE ID = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
