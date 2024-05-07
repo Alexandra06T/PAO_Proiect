@@ -30,7 +30,7 @@ public class CategoryService {
         }
     }
 
-    private Category searchCategory(Scanner scanner) {
+    private Category searchCategory(Scanner scanner) throws InvalidDataException {
         System.out.println("How do you want to search the category? [name/index]");
         String option = scanner.nextLine().toLowerCase();
         System.out.println("Enter:");
@@ -49,40 +49,44 @@ public class CategoryService {
     }
 
     public void view() {
-        System.out.println("CATEGORIES:");
-        databaseService.printAll();
-        System.out.println();
+        try {
+            System.out.println("CATEGORIES:");
+            databaseService.printAll();
+            System.out.println();
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void read(Scanner scanner) {
-        Category category = searchCategory(scanner);
-        if(category != null)
+        try {
+            Category category = searchCategory(scanner);
             System.out.println(category);
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void delete(Scanner scanner) {
-        Category category = searchCategory(scanner);
-        if(category == null) {
-            System.out.println("Couldn't find the category");
-            return;
+        try {
+            Category category = searchCategory(scanner);
+            databaseService.removeCategory(category);
+            System.out.println("Category removed successfully!");
+        } catch (InvalidDataException e) {
+            System.out.println("Removal failed: " + e.getMessage());
         }
-
-        databaseService.removeCategory(category.getName());
-        System.out.println("Category removed successfully!");
     }
 
     public void update(Scanner scanner) {
-        Category category = searchCategory(scanner);
-
-        System.out.println("Enter the new name of the category:");
-        String name = scanner.nextLine();
-        category.setName(name);
-
         try {
+            Category category = searchCategory(scanner);
+            System.out.println("Enter the new name of the category:");
+            String name = scanner.nextLine();
+            category.setName(name);
             databaseService.updateCategory(category);
         }
         catch (InvalidDataException e) {
-            System.out.println("The update of the category " + category + " failed: " + e.getMessage());
+            System.out.println("Update failed: " + e.getMessage());
         }
 
     }

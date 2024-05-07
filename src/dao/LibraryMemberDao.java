@@ -1,21 +1,130 @@
 package dao;
 
-import model.LibraryMember;
+import daoservices.DatabaseConnection;
+import model.*;
 
-import java.util.HashMap;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class LibraryMemberDao {
-    private static HashMap<Integer, LibraryMember> libraryMembers = new HashMap<>();
 
-    public LibraryMember read(int memberId) {
-        return libraryMembers.get(memberId);
+public class LibraryMemberDao implements DaoInterface<LibraryMember> {
+
+    private static LibraryMemberDao libraryMemberDao;
+
+    private Connection connection = DatabaseConnection.getConnection();
+
+    private LibraryMemberDao() throws SQLException {}
+
+    public static LibraryMemberDao getInstance() throws SQLException {
+        if(libraryMemberDao == null){
+             libraryMemberDao = new LibraryMemberDao();
+        }
+        return libraryMemberDao;
     }
 
-    public void delete(LibraryMember libraryMember) {
-        libraryMembers.remove(libraryMember.getMemberID());
+    @Override
+    public void add(LibraryMember libraryMember) throws SQLException {
+        String sql = "INSERT INTO libraryms.librarymember (name, emailaddress, phonenumber, address) VALUES (?, ?, ?, ?);";
+
+        try(PreparedStatement statement = connection.prepareStatement(sql);) {
+            statement.setString(1, libraryMember.getName());
+            statement.setString(2, libraryMember.getEmailAddress());
+            statement.setString(3, libraryMember.getPhoneNumber());
+            statement.setString(4, libraryMember.getAddress());
+            statement.executeUpdate();
+        }
     }
 
-    public void create(LibraryMember libraryMember) {
-        libraryMembers.put(libraryMember.getMemberID(), libraryMember);
+    @Override
+    public List<LibraryMember> getAll() throws SQLException {
+        String sql = "SELECT * FROM libraryms.librarymember";
+        ResultSet rs = null;
+        List<LibraryMember> libraryMembers = new ArrayList<>();
+        try(PreparedStatement statement = connection.prepareStatement(sql)) {
+            rs = statement.executeQuery();
+            while(rs.next()) {
+                LibraryMember libraryMember = new LibraryMember(rs.getString("name"), rs.getString("emailAddress"), rs.getString("phoneNumber"), rs.getString("address"));
+                libraryMember.setMemberID(rs.getInt("ID"));
+                libraryMembers.add(libraryMember);
+            }
+
+        }finally {
+            if(rs != null) {
+                rs.close();
+            }
+            else libraryMembers = null;
+        }
+
+        return libraryMembers;
+    }
+
+    @Override
+    public LibraryMember read(String memberId) throws SQLException {
+        String sql = "SELECT * FROM libraryms.librarymember WHERE ID = ?";
+        ResultSet rs = null;
+        try(PreparedStatement statement = connection.prepareStatement(sql);) {
+            statement.setInt(1, Integer.parseInt(memberId));
+            rs = statement.executeQuery();
+
+            while (rs.next()){
+                LibraryMember libraryMember = new LibraryMember();
+                libraryMember.setMemberID(rs.getInt("ID"));
+                libraryMember.setName(rs.getString("name"));
+                libraryMember.setEmailAddress(rs.getString("emailAddress"));
+                libraryMember.setPhoneNumber(rs.getString("phoneNumber"));
+                libraryMember.setAddress(rs.getString("address"));
+                return libraryMember;
+            }
+        }finally {
+            if(rs != null) {
+                rs.close();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void delete(LibraryMember libraryMember) throws SQLException {
+        String sql = "DELETE FROM libraryms.librarymember WHERE ID = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql);) {
+            statement.setInt(1, libraryMember.getMemberID());
+            statement.executeUpdate();
+        }
+    }
+
+    @Override
+    public void update(LibraryMember libraryMember) throws SQLException {
+        String sql = "UPDATE libraryms.librarymember set name = ?, emailaddress = ?, phonenumber = ?, address = ? where ID = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql);) {
+            statement.setString(1, libraryMember.getName());
+            statement.setString(2, libraryMember.getEmailAddress());
+            statement.setString(3, libraryMember.getPhoneNumber());
+            statement.setString(4, libraryMember.getAddress());
+            statement.setInt(5, libraryMember.getMemberID());
+            statement.executeUpdate();
+        }
+    }
+
+    public int getNrCurrentCheckIns(int memberId) throws SQLException {
+        String sql = "SELECT COUNT(c.checkinID) AS nr FROM libraryms.checkin c INNER JOIN libraryms.transaction t ON (c.checkinID = t.ID) " +
+                "WHERE t.librarymemberID = ? AND c.checkedout IS FALSE";
+        ResultSet rs = null;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, memberId);
+            rs = statement.executeQuery();
+            if(rs.next()) {
+                int nrCheckins = rs.getInt("nr");
+                return nrCheckins;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return 0;
     }
 }

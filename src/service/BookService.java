@@ -4,6 +4,7 @@ import daoservices.BookRepositoryService;
 import daoservices.CategoryRepositoryService;
 import model.Book;
 import model.Category;
+import utils.InvalidDataException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,13 +23,21 @@ public class BookService {
 
     public void create(Scanner scanner) {
         Book book = new Book();
+        setISBN(scanner, book);
         setGeneralInfo(scanner, book);
-        setCategory(scanner, book);
-        if(book.getCategory() == null) {
-            System.out.println("Couldn't set the category.\nThe book was discarded.");
-            return;
+        try {
+            setCategory(scanner, book);
+            databaseService.addBook(book);
         }
-        databaseService.addBook(book);
+        catch (InvalidDataException e) {
+            System.out.println("Creation failed: " + e.getMessage());
+        }
+    }
+
+    private void setISBN(Scanner scanner, Book book) {
+        System.out.println("Enter the ISBN:");
+        String isbn = scanner.nextLine();
+        book.setISBN(isbn);
     }
 
     private void setGeneralInfo(Scanner scanner, Book book) {
@@ -43,8 +52,6 @@ public class BookService {
             String name = scanner.nextLine();
             authors.add(name);
         }
-        System.out.println("Enter the ISBN:");
-        String isbn = scanner.nextLine();
         System.out.println("Enter the name of the publishing house:");
         String publishingHouse = scanner.nextLine();
         System.out.println("Enter the publishing year:");
@@ -55,90 +62,105 @@ public class BookService {
         scanner.nextLine();
         book.setTitle(title);
         book.setAuthors(authors);
-        book.setISBN(isbn);
         book.setPublishingHouse(publishingHouse);
         book.setPublishedDate(year);
         book.setNumberOfPages(nrPages);
     }
 
-    private void setCategory(Scanner scanner, Book book) {
+    private void setCategory(Scanner scanner, Book book) throws InvalidDataException {
         System.out.println("Available categories:");
-        List<Category> categories = categoryRepositoryService.getAll();
-        if(categories == null) return;
+        if(categoryRepositoryService.getAll() == null) return;
+        categoryRepositoryService.printAll();
         System.out.println("Enter the index of the chosen category:");
         int index = scanner.nextInt();
         scanner.nextLine();
-        Category category = categoryRepositoryService.getCategoryByIndex(index);
-        book.setCategory(category);
+        categoryRepositoryService.getCategoryByIndex(index);
+        book.setCategoryID(index);
+
     }
 
-    private Book chooseBook(Scanner scanner) {
+    private Book chooseBook(Scanner scanner) throws InvalidDataException {
         System.out.println("How do you want to search the book? [title/author]");
         String option = scanner.nextLine().toLowerCase();
         System.out.println("Enter:");
         String search = scanner.nextLine();
-        switch (option) {
-            case "title":
-                System.out.println("Books having the title '" + search + "':");
-                List<Book> titleSearchedBooks = databaseService.getBooksByTitle(search);
-                if(titleSearchedBooks == null) return null;
-                //daca avem o singura carte, o returnam
-                if(titleSearchedBooks.size() == 1) return titleSearchedBooks.getFirst();
-                //daca avem mai multe carti, cerem isbn-ul
-                break;
-            case "author":
-                System.out.println("Books of " + search + ":");
-                List<Book> authorSearchedBooks = databaseService.getBooksByAuthor(search);
-                if(authorSearchedBooks == null) return null;
-                if(authorSearchedBooks.size() == 1) return authorSearchedBooks.getFirst();
-                break;
-            default:
-                System.out.println("wrong option");
-                return null;
+        List<Book> searchedBooks;
+
+        try {
+            switch (option) {
+                case "title":
+                    searchedBooks = databaseService.getBooksByTitle(search);
+                    //daca avem o singura carte, o returnam
+                    if(searchedBooks.size() == 1) return searchedBooks.getFirst();
+                    //daca avem mai multe carti, cerem isbn-ul
+                    break;
+                case "author":
+                    searchedBooks = databaseService.getBooksByAuthor(search);
+                    if(searchedBooks.size() == 1) return searchedBooks.getFirst();
+                    break;
+                default:
+                    System.out.println("wrong option");
+                    return null;
+            }
+            System.out.println("Results for '" + search + "':");
+            for(Book b : searchedBooks) {
+                System.out.println(b);
+                System.out.println("-------------------------------");
+            }
+            System.out.println("Enter the ISBN of the book:");
+            String isbn = scanner.nextLine();
+            Book book = databaseService.getBookByISBN(isbn);
+            return book;
+
+        } catch (InvalidDataException e) {
+            throw e;
         }
-        System.out.println("Enter the ISBN of the book:");
-        String isbn = scanner.nextLine();
-        Book book = databaseService.getBookByISBN(isbn);
-        if(book == null) {
-            System.out.println("wrong ISBN");
+    }
+
+    public void view() {
+        try {
+            System.out.println("BOOKS:");
+            databaseService.printAll();
+            System.out.println();
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
         }
-        return book;
     }
 
     public void read(Scanner scanner) {
-        Book book = chooseBook(scanner);
-        if(book == null) {
-            System.out.println("Couldn't find the book");
-        }
-        else {
+        try {
+            Book book = chooseBook(scanner);
             System.out.println("The book you are looking for:");
             System.out.println(book);
             System.out.println();
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     public void delete(Scanner scanner) {
-        Book book = chooseBook(scanner);
-        if(book.getCategory() != null)  {
-            book.getCategory().removeBook(book);
+        try {
+            Book book = chooseBook(scanner);
+            databaseService.removeBook(book);
+            System.out.println("Book removed successfully!");
+        } catch (InvalidDataException e) {
+        System.out.println(e.getMessage());
         }
-        databaseService.removeBook(book.getISBN());
     }
 
     public void update(Scanner scanner) {
-        Book book = chooseBook(scanner);
-        if (book == null) { return;}
-        Book newBook = new Book();
-        System.out.println("Enter the updated information: ");
-        setGeneralInfo(scanner, newBook);
-        setCategory(scanner, newBook);
-        book.setTitle(newBook.getTitle());
-        book.setAuthors(newBook.getAuthors());
-        book.setPublishedDate(newBook.getPublishedDate());
-        book.setNumberOfPages(newBook.getNumberOfPages());
-        book.setPublishingHouse(newBook.getPublishingHouse());
-        book.setCategory(newBook.getCategory());
-    }
+        try {
+            Book book = chooseBook(scanner);
+            Book newBook = new Book();
+            System.out.println("Enter the updated information: ");
+            newBook.setISBN(book.getISBN());
+            setGeneralInfo(scanner, newBook);
+            setCategory(scanner, newBook);
+            databaseService.updateBook(newBook);
+        } catch (InvalidDataException e) {
+            System.out.println("Update failed: " + e.getMessage());
+        }
 
+    }
 
 }

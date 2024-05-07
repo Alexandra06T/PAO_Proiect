@@ -12,14 +12,13 @@ public class Book {
     private String publishingHouse;
     private int publishedDate;
     private int numberOfPages;
-    private Category category;
+    private int categoryID;
     private List<BookCopy> bookCopies;
     private List<Reservation> reservations;
 
     public Book() {
         this.bookCopies = new ArrayList<>();
         this.reservations = new ArrayList<>();
-        this.category = new Category();
     }
 
 
@@ -30,9 +29,9 @@ public class Book {
         this.publishingHouse = publishingHouse;
         this.publishedDate = publishedDate;
         this.numberOfPages = numberOfPages;
-        this.category = new Category();
         this.bookCopies = new ArrayList<>();
         this.reservations = new ArrayList<>();
+        this.categoryID = -1;
     }
 
     public Book(Book book) {
@@ -42,12 +41,12 @@ public class Book {
         this.publishingHouse = book.getPublishingHouse();
         this.publishedDate = book.getPublishedDate();
         this.numberOfPages = book.getNumberOfPages();
-        this.category = book.getCategory();
         this.reservations = book.getReservations();
         this.bookCopies = new ArrayList<>();
         for(BookCopy b : book.getBookCopies()) {
             this.bookCopies.add(new BookCopy(b));
         }
+        this.categoryID = -1;
     }
 
     public String getTitle() {
@@ -98,12 +97,12 @@ public class Book {
         this.numberOfPages = numberOfPages;
     }
 
-    public Category getCategory() {
-        return category;
+    public int getCategoryID() {
+        return categoryID;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryID(int category) {
+        this.categoryID = category;
     }
 
     public List<BookCopy> getBookCopies() {
@@ -135,12 +134,12 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return publishedDate == book.publishedDate && numberOfPages == book.numberOfPages && Objects.equals(title, book.title) && Objects.equals(authors, book.authors) && Objects.equals(ISBN, book.ISBN) && Objects.equals(publishingHouse, book.publishingHouse) && Objects.equals(category, book.category);
+        return publishedDate == book.publishedDate && numberOfPages == book.numberOfPages && Objects.equals(title, book.title) && Objects.equals(authors, book.authors) && Objects.equals(ISBN, book.ISBN) && Objects.equals(publishingHouse, book.publishingHouse) && categoryID == book.getCategoryID();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, authors, ISBN, publishingHouse, publishedDate, numberOfPages, category);
+        return Objects.hash(title, authors, ISBN, publishingHouse, publishedDate, numberOfPages, categoryID);
     }
 
     @Override
@@ -151,9 +150,6 @@ public class Book {
             res.append("; ");
         }
         res.append("\nISBN: ").append(ISBN).append('\n').append(publishingHouse).append(", ").append(publishedDate).append("\nnumber of pages: ").append(numberOfPages).append("\n");
-        if(category != null) {
-            res.append(category.getName()).append(" (").append(category.getCategoryIndex()).append(")");
-        }
         return res.toString();
     }
 }

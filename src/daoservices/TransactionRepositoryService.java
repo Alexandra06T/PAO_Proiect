@@ -35,7 +35,6 @@ public class TransactionRepositoryService {
             case CheckOut checkOut -> checkOutDao.delete(checkOut);
             default -> throw new IllegalStateException("Unexpected value: " + transaction);
         }
-        transaction.getLibraryMember().removeTransaction(transaction);
         transaction.getBookCopy().removeTransaction(transaction);
 
     }
@@ -47,7 +46,6 @@ public class TransactionRepositoryService {
                 case CheckOut checkOut -> {checkOutDao.create(checkOut); checkOut.getBookCopy().setAvailable(true);}
                 default -> throw new IllegalStateException("Unexpected value: " + transaction);
             }
-            transaction.getLibraryMember().addTransaction(transaction);
             transaction.getBookCopy().addTransaction(transaction);
         }
     }

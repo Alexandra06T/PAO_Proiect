@@ -6,25 +6,29 @@ import java.util.Objects;
 
 public class BranchLibrary {
 
+    private int branchLibraryID;
     private String name;
     private String address;
-    private List<Location> locations;
 
     public BranchLibrary() {}
 
     public BranchLibrary(String name, String address) {
         this.name = name;
         this.address = address;
-        this.locations = new ArrayList<>();
     }
 
     public BranchLibrary(BranchLibrary branchLibrary) {
+        this.branchLibraryID = branchLibrary.getBranchLibraryID();
         this.name = branchLibrary.getName();
         this.address = branchLibrary.getAddress();
-        this.locations = new ArrayList<>();
-        for(Location l: branchLibrary.getLocations()) {
-            this.locations.add(new Location(l));
-        }
+    }
+
+    public int getBranchLibraryID() {
+        return branchLibraryID;
+    }
+
+    public void setBranchLibraryID(int branchLibraryID) {
+        this.branchLibraryID = branchLibraryID;
     }
 
     public String getName() {
@@ -43,33 +47,21 @@ public class BranchLibrary {
         this.address = address;
     }
 
-    public List<Location> getLocations() {
-        return locations;
-    }
-
-    public void addLocation(Location location) {
-        locations.add(new Location(location));
-    }
-
-    public void removeLocation(Location location) {
-        locations.remove(location);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BranchLibrary that = (BranchLibrary) o;
-        return Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(locations, that.locations);
+        return Objects.equals(name, that.name) && Objects.equals(address, that.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, address, locations);
+        return Objects.hash(name, address);
     }
 
     @Override
     public String toString() {
-        return name + '\n' + address;
+        return name + '\n' + address + '\n';
     }
 }

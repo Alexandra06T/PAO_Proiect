@@ -2,8 +2,10 @@ package service;
 
 import daoservices.*;
 import model.*;
+import utils.InvalidDataException;
 
 import javax.print.attribute.standard.Copies;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,7 +16,7 @@ public class BookCopyService {
     private BranchLibraryRepositoryService branchLibraryRepositoryService;
     private BookCopyRepositoryService databaseService;
 
-    public BookCopyService(){
+    public BookCopyService() throws SQLException {
         this.databaseService = new BookCopyRepositoryService();
         this.bookRepositoryService = new BookRepositoryService();
         this.locationRepositoryService = new LocationRepositoryService();
@@ -24,12 +26,8 @@ public class BookCopyService {
     public void create(Scanner scanner) {
         BookCopy bookCopy = new BookCopy();
         setGeneralInfo(scanner, bookCopy);
-        Book book = chooseBook(scanner);
-        if(book == null) {
-            System.out.println("Couldn't set the book");
-            return;
-        }
-        bookCopy.setBook(book);
+//        Book book = chooseBook(scanner);
+//        bookCopy.setBook(book);
         Location location = chooseLocation(scanner);
         if(location == null) {
             System.out.println("Couldn't set the location");
@@ -37,9 +35,9 @@ public class BookCopyService {
         }
         bookCopy.setLocation(location);
         int nr = 0;
-        if(book.getBookCopies().isEmpty())
-            nr = 0;
-        else nr = book.getBookCopies().getLast().getId();
+//        if(book.getBookCopies().isEmpty())
+//            nr = 0;
+//        else nr = book.getBookCopies().getLast().getId();
         bookCopy.setId(nr+1);
         databaseService.addCopy(bookCopy);
         System.out.println("The book copy was added to the catalogue");
@@ -56,7 +54,7 @@ public class BookCopyService {
     }
 
 
-    private Book chooseBook(Scanner scanner) {
+    private Book chooseBook(Scanner scanner) throws InvalidDataException {
         System.out.println("How do you want to search the book? [title/author]");
         String option = scanner.nextLine().toLowerCase();
         System.out.println("Enter:");
@@ -98,29 +96,30 @@ public class BookCopyService {
     }
 
     private BookCopy findCopy(Scanner scanner) {
-        Book book = chooseBook(scanner);
-        if(book == null) {
-            System.out.println("Couldn't find the book");
-            return null;
-        }
-        if(book.getBookCopies().isEmpty()){
-            System.out.println("The book has no copies");
-            return null;
-        }
-        List<BookCopy> bookCopyList = book.getBookCopies();
-        for(BookCopy b : bookCopyList) {
-            System.out.println(b);
-            System.out.println("-------------------------");
-        }
+//        Book book = chooseBook(scanner);
+//        if(book == null) {
+//            System.out.println("Couldn't find the book");
+//            return null;
+//        }
+//        if(book.getBookCopies().isEmpty()){
+//            System.out.println("The book has no copies");
+//            return null;
+//        }
+//        List<BookCopy> bookCopyList = book.getBookCopies();
+//        for(BookCopy b : bookCopyList) {
+//            System.out.println(b);
+//            System.out.println("-------------------------");
+//        }
         System.out.println("Enter the id of the book copy");
         int id = scanner.nextInt();
         scanner.nextLine();
-        BookCopy bookCopy = databaseService.getCopyByBookAndId(book, id);
-        if(bookCopy == null) {
-            System.out.println("wrong id");
-            return null;
-        }
-        return bookCopy;
+//        BookCopy bookCopy = databaseService.getCopyByBookAndId(book, id);
+//        if(bookCopy == null) {
+//            System.out.println("wrong id");
+//            return null;
+//        }
+//        return bookCopy;
+        return null;
     }
 
     public void read(Scanner scanner) {

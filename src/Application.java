@@ -2,6 +2,7 @@ import dao.*;
 import daoservices.*;
 import model.*;
 import service.*;
+import utils.InvalidDataException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.Scanner;
 
 public class Application {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, InvalidDataException {
         Scanner scanner = new Scanner(System.in);
 
         BookService bookService = new BookService();

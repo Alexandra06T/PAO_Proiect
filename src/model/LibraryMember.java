@@ -6,25 +6,19 @@ import java.util.Objects;
 
 public class LibraryMember {
 
-    private static int nrMembers = 0;
     private int memberID;
     private String name;
     private String emailAddress;
     private String phoneNumber;
     private String address;
-    private List<Reservation> reservations;
-    private List<Transaction> transactions;
 
     public LibraryMember() {}
 
     public LibraryMember(String name, String emailAddress, String phoneNumber, String address) {
-        this.memberID = ++nrMembers;
         this.name = name;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.reservations = new ArrayList<>();
-        this.transactions = new ArrayList<>();
     }
 
     public LibraryMember(LibraryMember libraryMember) {
@@ -33,13 +27,13 @@ public class LibraryMember {
         this.emailAddress = libraryMember.getEmailAddress();
         this.phoneNumber = libraryMember.getPhoneNumber();
         this.address = libraryMember.getAddress();
-        this.transactions = libraryMember.getTransactions();
-        this.reservations = libraryMember.getReservations();
     }
 
     public int getMemberID() {
         return memberID;
     }
+
+    public void setMemberID(int memberID) { this.memberID = memberID; }
 
     public String getName() {
         return name;
@@ -73,31 +67,6 @@ public class LibraryMember {
         this.address = address;
     }
 
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void addReservation(Reservation reservation) {
-        reservations.add(reservation);
-    }
-
-    public void removeReservation(Reservation reservation) {
-        reservations.remove(reservation);
-    }
-
-    public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
-    }
-
-    public void removeTransaction(Transaction transaction) {
-        transactions.remove(transaction);
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -117,6 +86,6 @@ public class LibraryMember {
         return "ID: " + memberID + "\n" + name +
                 "\nCONTACT DETAILS:\n" + emailAddress +
                 "\n" + phoneNumber +
-                "\n" + address;
+                "\n" + address + "\n";
     }
 }

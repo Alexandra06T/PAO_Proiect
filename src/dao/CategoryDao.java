@@ -81,7 +81,7 @@ public class CategoryDao implements DaoInterface<Category> {
     }
 
     public Category readByName(String name) throws SQLException {
-        String sql = "SELECT * FROM libraryms.category c WHERE c.name = ?";
+        String sql = "SELECT * FROM libraryms.category c WHERE UPPER(c.name) LIKE UPPER(?)";
         ResultSet rs = null;
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, name);
@@ -104,7 +104,7 @@ public class CategoryDao implements DaoInterface<Category> {
 
     @Override
     public void delete(Category category) throws SQLException {
-        String sql = "DELETE FROM libraryms.category c WHERE c.name = ?";
+        String sql = "DELETE FROM libraryms.category c WHERE c.name LIKE ?";
         try(PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setString(1, category.getName());
             statement.executeUpdate();
@@ -121,16 +121,4 @@ public class CategoryDao implements DaoInterface<Category> {
         }
     }
 
-    public boolean checkUniqueName(String name) throws SQLException, InvalidDataException {
-        String sql = "SELECT * FROM libraryms.category WHERE name = ?";
-        ResultSet rs = null;
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1, name);
-            rs = statement.executeQuery();
-            if(rs.getRow() == 0) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

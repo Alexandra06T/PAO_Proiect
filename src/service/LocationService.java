@@ -5,6 +5,7 @@ import daoservices.LocationRepositoryService;
 import model.BranchLibrary;
 import model.Location;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class LocationService {
@@ -12,7 +13,7 @@ public class LocationService {
     private LocationRepositoryService databaseService;
     private BranchLibraryRepositoryService branchLibraryRepositoryService;
 
-    public LocationService(){
+    public LocationService() throws SQLException {
         this.databaseService = new LocationRepositoryService();
         this.branchLibraryRepositoryService = new BranchLibraryRepositoryService();
     }

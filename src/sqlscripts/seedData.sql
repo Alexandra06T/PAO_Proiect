@@ -51,11 +51,11 @@ INSERT INTO reservation (expirydate, bookID, librarymemberID, pickuplocation)
 VALUES ('2024-05-23', '973-748-092-7', 3, 3);
 
 INSERT INTO transaction (date, transactiontype, librarymemberID, bookcopyID)
-VALUES ('2024-04-27', 'checkin', 1, 2);
+VALUES ('2024-04-27', 'checkin', 1, 1);
 INSERT INTO transaction (date, transactiontype, librarymemberID, bookcopyID)
-VALUES ('2024-04-25', 'checkin', 1, 6);
+VALUES ('2024-04-25', 'checkin', 1, 5);
 INSERT INTO transaction (date, transactiontype, librarymemberID, bookcopyID)
-VALUES ('2024-04-26', 'checkin', 2, 5);
+VALUES ('2024-04-26', 'checkin', 2, 4);
 
 INSERT INTO checkin (checkinID, numberdays, checkedout, type)
 VALUES (1, 14, false, 'imprumut normal');

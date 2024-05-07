@@ -3,6 +3,7 @@ package service;
 import daoservices.*;
 import model.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class ReservationService {
     private LibraryMemberRepositoryService libraryMemberRepositoryService;
     private ReservationRepositoryService databaseService;
 
-    public ReservationService(){
+    public ReservationService() throws SQLException {
         this.databaseService = new ReservationRepositoryService();
         this.bookRepositoryService = new BookRepositoryService();
         this.locationRepositoryService = new LocationRepositoryService();
@@ -57,28 +58,29 @@ public class ReservationService {
     }
 
     private Book chooseBook(Scanner scanner) {
-        System.out.println("How do you want to search the book? [title/author]");
-        String option = scanner.nextLine().toLowerCase();
-        System.out.println("Enter:");
-        String search = scanner.nextLine();
-        switch (option) {
-            case "title":
-                bookRepositoryService.getBooksByTitle(search);
-                break;
-            case "author":
-                bookRepositoryService.getBooksByAuthor(search);
-                break;
-            default:
-                System.out.println("wrong option");
-                return null;
-        }
-        System.out.println("Enter the ISBN of the book:");
-        String isbn = scanner.nextLine();
-        Book book = bookRepositoryService.getBookByISBN(isbn);
-        if(book == null) {
-            System.out.println("wrong ISBN");
-        }
-        return book;
+//        System.out.println("How do you want to search the book? [title/author]");
+//        String option = scanner.nextLine().toLowerCase();
+//        System.out.println("Enter:");
+//        String search = scanner.nextLine();
+//        switch (option) {
+//            case "title":
+//                bookRepositoryService.getBooksByTitle(search);
+//                break;
+//            case "author":
+//                bookRepositoryService.getBooksByAuthor(search);
+//                break;
+//            default:
+//                System.out.println("wrong option");
+//                return null;
+//        }
+//        System.out.println("Enter the ISBN of the book:");
+//        String isbn = scanner.nextLine();
+//        Book book = bookRepositoryService.getBookByISBN(isbn);
+//        if(book == null) {
+//            System.out.println("wrong ISBN");
+//        }
+//        return book;
+        return null;
     }
 
     private Location chooseLocation(Scanner scanner) {
@@ -200,7 +202,6 @@ public class ReservationService {
         }
         databaseService.removeReservation(reservation.getId());
         reservation.getBook().removeReservation(reservation);
-        reservation.getLibraryMember().removeReservation(reservation);
         reservation.getPickupLocation().removeReservation(reservation);
     }
 

@@ -5,7 +5,9 @@ import dao.CheckOutDao;
 import dao.ReservationDao;
 import model.*;
 import dao.LibraryMemberDao;
+import utils.InvalidDataException;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,79 +17,108 @@ import static utils.Constants.CHECKIN;
 
 public class LibraryMemberRepositoryService {
 
-    private LibraryMemberDao libraryMemberDao;
+    private LibraryMemberDao libraryMemberDao = LibraryMemberDao.getInstance();
     private ReservationDao reservationDao;
     private CheckInDao checkInDao;
     private CheckOutDao checkOutDao;
 
-    public LibraryMemberRepositoryService() {
-        this.libraryMemberDao = new LibraryMemberDao();
+    public LibraryMemberRepositoryService() throws SQLException {}
+
+    public void printAll() {
+        try {
+            List<LibraryMember> libraryMembers = libraryMemberDao.getAll();
+            if(libraryMembers != null){
+                libraryMembers.forEach(System.out:: println);
+            }else {
+                System.out.println("There is no library member.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
     }
 
+    public List<LibraryMember> getAll() {
+        List<LibraryMember> libraryMembers = null;
+
+        try {
+            libraryMembers = libraryMemberDao.getAll();
+            if(libraryMembers == null){
+                System.out.println("There is no library member.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
+
+        return libraryMembers;
+    }
+
+
     public LibraryMember getLibraryMemberById(int memberId){
-        LibraryMember libraryMember = libraryMemberDao.read(memberId);
-        if(libraryMember == null)
-            System.out.println("No library member having this Id");
+        LibraryMember libraryMember = null;
+
+        try {
+            libraryMember = libraryMemberDao.read(String.valueOf(memberId));
+            if(libraryMember == null)
+                System.out.println("No library member having this id");
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
 
         return libraryMember;
     }
 
-    public List<CheckIn> getCurrentCheckIns(int memberId) {
-        List<CheckIn> checkIns = new ArrayList<>();
-        LibraryMember libraryMember = libraryMemberDao.read(memberId);
-        List<Transaction> transactions = libraryMember.getTransactions();
-        for(Transaction t : transactions) {
-            if (t instanceof CheckIn checkIn) {
-                if (!checkIn.isCheckedOut()) {
-                    checkIns.add(checkIn);
-                }
-            }
+    public int getNrCurrentCheckIns(int memberID) {
+        try {
+             return libraryMemberDao.getNrCurrentCheckIns(memberID);
         }
-
-        return checkIns;
+        catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
+        return 0;
     }
 
     public boolean hasOverdueCopies(int memberId, LocalDate currentDate) {
-        LibraryMember libraryMember = libraryMemberDao.read(memberId);
-        List<Transaction> transactions = libraryMember.getTransactions();
-        for(Transaction t : transactions) {
-            if(t instanceof CheckIn checkIn) {
-                if(!checkIn.isCheckedOut() && currentDate.isAfter(t.getDate().plusDays(((CheckIn) t).getNumberDays()))) {
-                    return true;
-                }
-            }
-        }
+//        LibraryMember libraryMember = libraryMemberDao.read(String.valueOf(memberId));
+//        List<Transaction> transactions = libraryMember.getTransactions();
+//        for(Transaction t : transactions) {
+//            if(t instanceof CheckIn checkIn) {
+//                if(!checkIn.isCheckedOut() && currentDate.isAfter(t.getDate().plusDays(((CheckIn) t).getNumberDays()))) {
+//                    return true;
+//                }
+//            }
+//        }
         return false;
     }
 
-    public void removeLibraryMember(int memberId) {
-        LibraryMember libraryMember = getLibraryMemberById(memberId);
+    public void removeLibraryMember(LibraryMember libraryMember) {
         if (libraryMember == null) return;
-
-        //stergem toate rezervarile member-ului
-        List<Reservation> reservationList = libraryMember.getReservations();
-        for(Reservation r : reservationList) {
-            reservationDao.delete(r);
+        try {
+            libraryMemberDao.delete(libraryMember);
+        } catch (SQLException e) {
+            System.out.println("remove SQLException " + e.getSQLState() + " " + e.getMessage());
         }
-
-        //stergem toate tranzactiile member-ului
-        List<Transaction> transactionList = libraryMember.getTransactions();
-        for(Transaction t : transactionList) {
-            switch (t){
-                case CheckIn checkIn -> checkInDao.delete(checkIn);
-                case CheckOut checkOut -> checkOutDao.delete(checkOut);
-                default -> throw new IllegalStateException("Unexpected value: " + t);
-            }
-        }
-
-        libraryMemberDao.delete(libraryMember);
-
-        System.out.println("Removed " + libraryMember);
     }
 
     public void addLibraryMember(LibraryMember libraryMember) {
-        if(libraryMember != null){
-            libraryMemberDao.create(libraryMember);
+        try {
+            if(libraryMember != null){
+                libraryMemberDao.add(libraryMember);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        }
+    }
+
+    public void updateLibraryMember(LibraryMember libraryMember) {
+        try {
+            if(libraryMember != null){
+                libraryMemberDao.update(libraryMember);
+                System.out.println("Library member's details updated successfully!");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
     }
 }

@@ -74,7 +74,6 @@ public class ReservationRepositoryService {
     public void addReservation(Reservation reservation) {
         if(reservation != null){
             reservation.getBook().addReservation(reservation);
-            reservation.getLibraryMember().addReservation(reservation);
             reservation.getPickupLocation().addReservation(reservation);
             reservationDao.create(reservation);
         }

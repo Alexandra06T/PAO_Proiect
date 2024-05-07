@@ -39,7 +39,6 @@ public class LocationRepositoryService {
             reservationDao.delete(r);
         }
 
-        location.getBranchLibrary().removeLocation(location);
 
         locationDao.delete(location);
 
@@ -48,7 +47,6 @@ public class LocationRepositoryService {
     public void addLocation(Location location) {
         if(location != null){
             locationDao.create(location);
-            location.getBranchLibrary().addLocation(location);
         }
     }
 }

@@ -35,6 +35,8 @@ public class Transaction {
         return id;
     }
 
+    public void setId(int id) {this.id = id;}
+
     public LibraryMember getLibraryMember() {
         return libraryMember;
     }

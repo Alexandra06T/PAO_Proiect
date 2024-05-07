@@ -15,27 +15,25 @@ public class CategoryRepositoryService {
 
     public CategoryRepositoryService() throws SQLException {}
 
-    public void printAll() {
+    public void printAll() throws InvalidDataException {
         try {
             List<Category> categories = categoryDao.getAll();
-            if(categories != null){
-                categories.forEach(System.out:: println);
-            }else {
-                System.out.println("There is no category.");
-            }
+            if(categories == null)
+                throw new InvalidDataException("There is no category.");
+            categories.forEach(System.out:: println);
 
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
     }
 
-    public List<Category> getAll() {
+    public List<Category> getAll() throws InvalidDataException {
         List<Category> categories = null;
 
         try {
             categories = categoryDao.getAll();
             if(categories == null){
-                System.out.println("There is no category.");
+                throw new InvalidDataException("There is no category.");
             }
 
         } catch (SQLException e) {
@@ -45,13 +43,13 @@ public class CategoryRepositoryService {
         return categories;
     }
 
-    public Category getCategoryByName(String name){
+    public Category getCategoryByName(String name) throws InvalidDataException {
         Category category = null;
 
         try {
             category = categoryDao.readByName(name);
             if(category == null)
-                System.out.println("No category having this name");
+                throw new InvalidDataException("No category having this name");
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
@@ -59,13 +57,13 @@ public class CategoryRepositoryService {
         return category;
     }
 
-    public Category getCategoryByIndex(int index){
+    public Category getCategoryByIndex(int index) throws InvalidDataException {
         Category category = null;
         try {
 
             category = categoryDao.read(String.valueOf(index));
             if(category == null)
-                System.out.println("No category having this index");
+                throw new InvalidDataException("No category having this index");
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
@@ -73,22 +71,11 @@ public class CategoryRepositoryService {
         return category;
     }
 
-    public void removeCategory(String name) {
-        Category category = null;
-
+    public void removeCategory(Category category) throws InvalidDataException {
+        if (category == null)
+            throw new InvalidDataException("Invalid category");
         try {
-            category = getCategoryByName(name);
-            if (category == null) return;
-
-            List<Book> bookList = category.getBooks();
-            if(bookList != null) {
-                for(Book b : bookList) {
-                    b.setCategory(null);
-                }
-            }
-
             categoryDao.delete(category);
-
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
@@ -97,16 +84,16 @@ public class CategoryRepositoryService {
 
     public void addCategory(Category category) throws InvalidDataException {
         try {
-            if(category != null){
-                //verificam sa nu mai existe o alta categorie avand acelasi nume sau index
-                if(categoryDao.read(String.valueOf(category.getCategoryIndex())) != null)
-                    throw new InvalidDataException("There is already a category having this index!");
-                if(categoryDao.readByName(category.getName()) != null)
-                    throw new InvalidDataException("There is already a category having this name!");
+            if(category == null)
+                throw new InvalidDataException("Invalid category");
+            //verificam sa nu mai existe o alta categorie avand acelasi nume sau index
+            if(categoryDao.read(String.valueOf(category.getCategoryIndex())) != null)
+                throw new InvalidDataException("There is already a category having this index!");
+            if(categoryDao.readByName(category.getName()) != null)
+                throw new InvalidDataException("There is already a category having this name!");
 
-                categoryDao.add(category);
-                System.out.println("Category added to the catalogue");
-            }
+            categoryDao.add(category);
+            System.out.println("Category added to the catalogue");
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
@@ -114,14 +101,15 @@ public class CategoryRepositoryService {
 
     public void updateCategory(Category category) throws InvalidDataException {
         try {
-            if(category != null){
-                //verificam sa nu mai existe o alta categorie avand acelasi nume
-                if(!categoryDao.checkUniqueName(category.getName()))
-                    throw new InvalidDataException("There is already a category having this name!");
+            if(category == null)
+                throw new InvalidDataException("Invalid category");
+            //verificam sa nu mai existe o alta categorie avand acelasi nume
+            Category dupl = categoryDao.readByName(category.getName());
+            if(dupl != null && dupl.getCategoryIndex() != category.getCategoryIndex())
+                throw new InvalidDataException("There is already a category having this name!");
 
-                categoryDao.update(category);
-                System.out.println("Category updated successfully!");
-            }
+            categoryDao.update(category);
+            System.out.println("Category updated successfully!");
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }

@@ -51,6 +51,9 @@ public class LibraryService {
             case "create":
                 bookService.create(scanner);
                 break;
+            case "list":
+                bookService.view();
+                break;
             case "read":
                 bookService.read(scanner);
                 break;
@@ -101,6 +104,9 @@ public class LibraryService {
             case "create":
                 libraryMemberService.create(scanner);
                 break;
+            case "list":
+                libraryMemberService.view();
+                break;
             case "read":
                 libraryMemberService.read(scanner);
                 break;
@@ -125,6 +131,9 @@ public class LibraryService {
         switch (command){
             case "create":
                 branchLibraryService.create(scanner);
+                break;
+            case "list":
+                branchLibraryService.view();
                 break;
             case "read":
                 branchLibraryService.read(scanner);

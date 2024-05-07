@@ -14,7 +14,7 @@ CREATE TABLE `libraryms`.`book` (
                                        `numberOfPages` INT NULL,
                                        `categoryID` INT NOT NULL,
                                        PRIMARY KEY (`ISBN`),
-                                       FOREIGN KEY (`categoryID`) REFERENCES category (`categoryIndex`));
+                                       FOREIGN KEY (`categoryID`) REFERENCES category (`categoryIndex`) ON DELETE CASCADE );
 
 CREATE TABLE `libraryms`.`branchlibrary` (
                                     `ID` INT NOT NULL AUTO_INCREMENT,
@@ -85,4 +85,4 @@ CREATE TABLE `libraryms`.`checkout` (
                                        `penalty` DOUBLE NULL
 );
 
-DROP TABLE category;
+DROP TABLE transaction;

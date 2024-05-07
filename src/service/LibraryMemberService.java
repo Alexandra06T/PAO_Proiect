@@ -3,14 +3,21 @@ package service;
 import daoservices.LibraryMemberRepositoryService;
 import model.LibraryMember;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class LibraryMemberService {
 
     private LibraryMemberRepositoryService databaseService;
 
-    public LibraryMemberService(){
+    public LibraryMemberService() throws SQLException {
         this.databaseService = new LibraryMemberRepositoryService();
+    }
+
+    public void view() {
+        System.out.println("LIBRARY MEMBERS:");
+        databaseService.printAll();
+        System.out.println();
     }
 
     public void create(Scanner scanner) {
@@ -54,7 +61,11 @@ public class LibraryMemberService {
         if(libraryMember == null) {
             return;
         }
-        databaseService.removeLibraryMember(libraryMember.getMemberID());
+        if(databaseService.getNrCurrentCheckIns(libraryMember.getMemberID()) == 0) {
+            databaseService.removeLibraryMember(libraryMember);
+            System.out.println("Library member removed");
+        }
+        else System.out.println("Unsuccessful removal! The library member has not returned all the books!");
     }
 
     public void update(Scanner scanner) {
@@ -77,5 +88,8 @@ public class LibraryMemberService {
         libraryMember.setEmailAddress(newEmail);
         libraryMember.setPhoneNumber(newPhone);
         libraryMember.setAddress(newAddress);
+
+        databaseService.updateLibraryMember(libraryMember);
+        System.out.println("Library member's details updated successfully!");
     }
 }

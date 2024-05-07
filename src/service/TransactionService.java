@@ -3,6 +3,7 @@ package service;
 import daoservices.*;
 import model.*;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -17,7 +18,7 @@ public class TransactionService {
     private LibraryMemberRepositoryService libraryMemberRepositoryService;
     private ReservationRepositoryService reservationRepositoryService;
 
-    public TransactionService(){
+    public TransactionService() throws SQLException {
         this.databaseService = new TransactionRepositoryService();
         this.bookRepositoryService = new BookRepositoryService();
         this.bookCopyRepositoryService = new BookCopyRepositoryService();
@@ -76,14 +77,14 @@ public class TransactionService {
         }else{
             CheckIn currentCheckIn = null;
             //cautam daca exista imprumut
-            List<CheckIn> checkIns = libraryMemberRepositoryService.getCurrentCheckIns(transaction.getLibraryMember().getMemberID());
-            for(CheckIn checkIn : checkIns) {
-                if(checkIn.getBookCopy().equals(transaction.getBookCopy())) {
-                    checkIn.setCheckedOut(true);
-                    currentCheckIn = new CheckIn(checkIn);
-                    break;
-                }
-            }
+//            List<CheckIn> checkIns = libraryMemberRepositoryService.getCurrentCheckIns(transaction.getLibraryMember().getMemberID());
+//            for(CheckIn checkIn : checkIns) {
+//                if(checkIn.getBookCopy().equals(transaction.getBookCopy())) {
+//                    checkIn.setCheckedOut(true);
+//                    currentCheckIn = new CheckIn(checkIn);
+//                    break;
+//                }
+//            }
 
             if(currentCheckIn == null) {
                 System.out.println("There is no such check in");
@@ -104,29 +105,30 @@ public class TransactionService {
     }
 
     private Book chooseBook(Scanner scanner) {
-        System.out.println("How do you want to search the book? [title/author]");
-        String option = scanner.nextLine().toLowerCase();
-        System.out.println("Enter:");
-        String search = scanner.nextLine();
-        switch (option) {
-            case "title":
-                if(bookRepositoryService.getBooksByTitle(search) == null) return null;
-                break;
-            case "author":
-                if(bookRepositoryService.getBooksByAuthor(search) == null) return null;
-                break;
-            default:
-                System.out.println("wrong option");
-                return null;
-        }
-        System.out.println("Enter the ISBN of the book:");
-        String isbn = scanner.nextLine();
-        Book book = bookRepositoryService.getBookByISBN(isbn);
-        if(book == null) {
-            System.out.println("wrong ISBN");
-            return null;
-        }
-        return book;
+//        System.out.println("How do you want to search the book? [title/author]");
+//        String option = scanner.nextLine().toLowerCase();
+//        System.out.println("Enter:");
+//        String search = scanner.nextLine();
+//        switch (option) {
+//            case "title":
+//                if(bookRepositoryService.getBooksByTitle(search) == null) return null;
+//                break;
+//            case "author":
+//                if(bookRepositoryService.getBooksByAuthor(search) == null) return null;
+//                break;
+//            default:
+//                System.out.println("wrong option");
+//                return null;
+//        }
+//        System.out.println("Enter the ISBN of the book:");
+//        String isbn = scanner.nextLine();
+//        Book book = bookRepositoryService.getBookByISBN(isbn);
+//        if(book == null) {
+//            System.out.println("wrong ISBN");
+//            return null;
+//        }
+//        return book;
+        return null;
     }
 
     private BookCopy chooseCopy(Scanner scanner) {
@@ -175,7 +177,7 @@ public class TransactionService {
             LibraryMember libraryMember = transaction.getLibraryMember();
 
             //verificam daca are voie sa imprumute
-            if(libraryMemberRepositoryService.getCurrentCheckIns(libraryMember.getMemberID()).size() >= maxNrBorrowedBooks ||
+            if(libraryMemberRepositoryService.getNrCurrentCheckIns(libraryMember.getMemberID()) >= maxNrBorrowedBooks ||
             libraryMemberRepositoryService.hasOverdueCopies(libraryMember.getMemberID(), java.time.LocalDate.now())) {
                 System.out.println("The library member is not allowed to borrow books");
                 return;
@@ -202,16 +204,16 @@ public class TransactionService {
             LibraryMember libraryMember = chooseLibraryMember(scanner);
             if(libraryMember == null) return;
 
-            //cautam daca exista imprumut
-            List<CheckIn> checkIns = libraryMemberRepositoryService.getCurrentCheckIns(libraryMember.getMemberID());
-            if(checkIns.isEmpty()) {
-                System.out.println("The library member hasn't borrowed any book");
-                return;
-            }
-            for(CheckIn checkIn : checkIns) {
-                System.out.println(checkIn);
-                System.out.println("-----------------------");
-            }
+//            //cautam daca exista imprumut
+//            List<CheckIn> checkIns = libraryMemberRepositoryService.getCurrentCheckIns(libraryMember.getMemberID());
+//            if(checkIns.isEmpty()) {
+//                System.out.println("The library member hasn't borrowed any book");
+//                return;
+//            }
+//            for(CheckIn checkIn : checkIns) {
+//                System.out.println(checkIn);
+//                System.out.println("-----------------------");
+//            }
             System.out.println("Enter the id of the check in:");
             int id = scanner.nextInt();
             scanner.nextLine();
