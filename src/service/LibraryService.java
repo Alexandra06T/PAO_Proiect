@@ -160,6 +160,9 @@ public class LibraryService {
             case "create":
                 locationService.create(scanner);
                 break;
+            case "list":
+                locationService.view();
+                break;
             case "read":
                 locationService.read(scanner);
                 break;

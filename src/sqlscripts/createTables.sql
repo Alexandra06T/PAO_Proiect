@@ -29,7 +29,7 @@ CREATE TABLE `libraryms`.`location` (
                                     `name` VARCHAR(50) NULL,
                                     `branchlibraryID` INT NOT NULL  ,
                                     PRIMARY KEY (`ID`),
-                                    FOREIGN KEY (`branchlibraryID`) REFERENCES branchlibrary (`ID`));
+                                    FOREIGN KEY (`branchlibraryID`) REFERENCES branchlibrary (`ID`) ON DELETE CASCADE);
 
 
 CREATE TABLE `libraryms`.`bookcopy` (
@@ -40,7 +40,7 @@ CREATE TABLE `libraryms`.`bookcopy` (
                                     `bookID` VARCHAR(13) NOT NULL,
                                     `locationID` INT NOT NULL,
                                     PRIMARY KEY (`ID`),
-                                    FOREIGN KEY (`bookID`) REFERENCES book (`ISBN`),
+                                    FOREIGN KEY (`bookID`) REFERENCES book (`ISBN`) ON DELETE CASCADE,
                                     FOREIGN KEY (locationID) REFERENCES location (`ID`));
 
 CREATE TABLE `libraryms`.`librarymember` (
@@ -58,9 +58,9 @@ CREATE TABLE `libraryms`.`reservation` (
                                     `librarymemberID` INT NOT NULL ,
                                     `pickuplocation` INT NOT NULL,
                                     PRIMARY KEY (`ID`),
-                                    FOREIGN KEY (`bookID`) REFERENCES book (`ISBN`),
-                                    FOREIGN KEY (`librarymemberID`) REFERENCES librarymember (`ID`),
-                                    FOREIGN KEY (`pickuplocation`) REFERENCES location (`ID`));
+                                    FOREIGN KEY (`bookID`) REFERENCES book (`ISBN`) ON DELETE CASCADE ,
+                                    FOREIGN KEY (`librarymemberID`) REFERENCES librarymember (`ID`) ON DELETE CASCADE,
+                                    FOREIGN KEY (`pickuplocation`) REFERENCES location (`ID`) ON DELETE CASCADE);
 
 CREATE TABLE `libraryms`.`transaction` (
                                     `ID` INT NOT NULL AUTO_INCREMENT,
@@ -69,20 +69,18 @@ CREATE TABLE `libraryms`.`transaction` (
                                     `librarymemberID` INT NOT NULL,
                                     `bookcopyID` INT NOT NULL,
                                     PRIMARY KEY (`ID`),
-                                    FOREIGN KEY (`librarymemberID`) REFERENCES librarymember (`ID`),
-                                    FOREIGN KEY (`bookcopyID`) REFERENCES bookcopy (`ID`));
+                                    FOREIGN KEY (`librarymemberID`) REFERENCES librarymember (`ID`) ON DELETE CASCADE,
+                                    FOREIGN KEY (`bookcopyID`) REFERENCES bookcopy (`ID`) ON DELETE CASCADE);
 
 CREATE TABLE `libraryms`.`checkin` (
-                                    `checkinID` INT PRIMARY KEY REFERENCES transaction (`ID`),
+                                    `checkinID` INT PRIMARY KEY REFERENCES transaction (`ID`) ON DELETE CASCADE,
                                     `numberdays` INT NULL,
                                     `checkedout` BOOLEAN NULL DEFAULT FALSE,
                                     `type` VARCHAR(50) NULL
                                     );
 CREATE TABLE `libraryms`.`checkout` (
-                                       `checkoutID` INT PRIMARY KEY REFERENCES transaction (`ID`),
+                                       `checkoutID` INT PRIMARY KEY REFERENCES transaction (`ID`) ON DELETE CASCADE,
                                        `bookstatus` VARCHAR(50) NULL,
                                        `overduedays` INT NULL,
                                        `penalty` DOUBLE NULL
 );
-
-DROP TABLE transaction;

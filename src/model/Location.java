@@ -6,25 +6,35 @@ import java.util.Objects;
 
 public class Location {
 
+    private int locationID;
     private String name;
-    private BranchLibrary branchLibrary;
+    private int branchLibraryID;
     private List<BookCopy> bookCopies;
     private List<Reservation> reservations;
 
     public Location() {}
 
-    public Location(String name, BranchLibrary branchLibrary) {
+    public Location(String name, int branchLibraryID) {
         this.name = name;
-        this.branchLibrary = branchLibrary;
+        this.branchLibraryID = branchLibraryID;
         this.bookCopies = new ArrayList<>();
         this.reservations = new ArrayList<>();
     }
 
     public Location(Location location) {
         this.name = location.getName();
-        this.branchLibrary = location.getBranchLibrary();
+        this.branchLibraryID = location.getBranchLibraryID();
+        this.locationID = location.getLocationID();
         this.bookCopies = location.getBookCopies();
         this.reservations = location.getReservations();
+    }
+
+    public int getLocationID() {
+        return locationID;
+    }
+
+    public void setLocationID(int locationID) {
+        this.locationID = locationID;
     }
 
     public String getName() {
@@ -35,12 +45,12 @@ public class Location {
         this.name = name;
     }
 
-    public BranchLibrary getBranchLibrary() {
-        return branchLibrary;
+    public int getBranchLibraryID() {
+        return branchLibraryID;
     }
 
-    public void setBranchLibrary(BranchLibrary branchLibrary) {
-        this.branchLibrary = branchLibrary;
+    public void setBranchLibrary(int branchLibraryID) {
+        this.branchLibraryID = branchLibraryID;
     }
 
     public List<BookCopy> getBookCopies() {
@@ -72,21 +82,16 @@ public class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return Objects.equals(name, location.name) && Objects.equals(branchLibrary, location.branchLibrary);
+        return Objects.equals(name, location.name) && branchLibraryID == location.branchLibraryID;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, branchLibrary);
+        return Objects.hash(name, branchLibraryID);
     }
 
     @Override
     public String toString() {
-        StringBuilder res = new StringBuilder(name + '\n' + branchLibrary+ '\n');
-        for(BookCopy b : bookCopies) {
-            res.append(b);
-            res.append('\n');
-        }
-        return res.toString();
+        return name + '\n';
     }
 }

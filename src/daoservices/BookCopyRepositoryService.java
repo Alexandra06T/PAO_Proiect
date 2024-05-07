@@ -27,16 +27,17 @@ public class BookCopyRepositoryService {
 
 
     public List<BookCopy> getAvailableCopies(Book book){
-        List<BookCopy> bookCopyList = bookCopyDao.readAvailable(book);
-        if(bookCopyList != null){
-            for(BookCopy c : bookCopyList) {
-                System.out.println("ID: " + c.getId());
-                System.out.println(c.getLocation().getBranchLibrary() + ", " + c.getLocation().getName() + ", " + c.getIndex());
-            }
-        }else {
-            System.out.println("No available copies for this book");
-        }
-        return bookCopyList;
+//        List<BookCopy> bookCopyList = bookCopyDao.readAvailable(book);
+//        if(bookCopyList != null){
+//            for(BookCopy c : bookCopyList) {
+//                System.out.println("ID: " + c.getId());
+//                System.out.println(c.getLocation().getBranchLibrary() + ", " + c.getLocation().getName() + ", " + c.getIndex());
+//            }
+//        }else {
+//            System.out.println("No available copies for this book");
+//        }
+//        return bookCopyList;
+        return null;
     }
 
     public void removeCopy(Book book, int id) {

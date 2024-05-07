@@ -84,8 +84,7 @@ public class Transaction {
             res.append(a);
             res.append("; ");
         }
-        res.append('\n' + bookCopy.getLocation().getBranchLibrary().getName() + ", " + bookCopy.getLocation().getName() +
-                "\nON: " + date);
+        res.append('\n').append(bookCopy.getLocation().getName()).append("\nON: ").append(date);
 
         return res.toString();
     }

@@ -16,13 +16,12 @@ import java.util.List;
 
 public class BookRepositoryService {
 
-    private BookDao bookDao;
+    private BookDao bookDao = BookDao.getInstance();
     private CategoryDao categoryDao;
     private ReservationDao reservationDao;
     private BookCopyDao bookCopyDao;
 
     public BookRepositoryService() throws SQLException {
-        this.bookDao = BookDao.getInstance();
         this.reservationDao = new ReservationDao();
         this.bookCopyDao = new BookCopyDao();
     }

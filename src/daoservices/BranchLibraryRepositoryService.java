@@ -18,52 +18,49 @@ public class BranchLibraryRepositoryService {
 
     public BranchLibraryRepositoryService() throws SQLException {}
 
-    public void printAll() {
+    public void printAll() throws InvalidDataException {
         try {
             List<BranchLibrary> branchLibraries = branchLibraryDao.getAll();
-            if(branchLibraries != null){
-                branchLibraries.forEach(System.out:: println);
-            }else {
-                System.out.println("There is no branch library.");
-            }
+            if(branchLibraries == null)
+                throw new InvalidDataException("There is no branch library");
+            branchLibraries.forEach(System.out:: println);
 
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
     }
 
-    public List<BranchLibrary> getAll() {
-        List<BranchLibrary> branchLibraries = null;
-
+    public List<BranchLibrary> getAll() throws InvalidDataException {
         try {
-            branchLibraries = branchLibraryDao.getAll();
+            List<BranchLibrary> branchLibraries = branchLibraryDao.getAll();
             if(branchLibraries == null){
-                System.out.println("There is no branch library.");
+                throw new InvalidDataException("There is no branch library.");
             }
+            return branchLibraries;
 
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
 
-        return branchLibraries;
+        return null;
     }
 
-    public BranchLibrary getBranchLibrary(String name) {
-        BranchLibrary branchLibrary = null;
+    public BranchLibrary getBranchLibrary(String name) throws InvalidDataException {
         try {
-            branchLibrary = branchLibraryDao.read(name);
+            BranchLibrary branchLibrary = branchLibraryDao.read(name);
             if(branchLibrary == null){
-                System.out.println("There is no branch library having this name");
+                throw new InvalidDataException("There is no branch library having this name");
             }
+            return branchLibrary;
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
 
-        return branchLibrary;
+        return null;
     }
 
-    public void removeBranchLibrary(BranchLibrary branchLibrary) {
-        if (branchLibrary == null) return;
+    public void removeBranchLibrary(BranchLibrary branchLibrary) throws InvalidDataException {
+        if (branchLibrary == null) throw new InvalidDataException("Invalid branch library");
         try {
             branchLibraryDao.delete(branchLibrary);
         } catch (SQLException e) {
@@ -73,12 +70,14 @@ public class BranchLibraryRepositoryService {
 
     public void addBranchLibrary(BranchLibrary branchLibrary) throws InvalidDataException {
         try {
-            if(branchLibrary != null){
-                //verificam sa nu mai existe o alta categorie avand acelasi nume
-                if(branchLibraryDao.read(branchLibrary.getName()) != null)
-                    throw new InvalidDataException("There is already a branch library having this name!");
-                branchLibraryDao.add(branchLibrary);
-            }
+            if(branchLibrary == null)
+                throw new InvalidDataException("Invalid branch library");
+
+            //verificam sa nu mai existe o alta categorie avand acelasi nume
+            if(branchLibraryDao.read(branchLibrary.getName()) != null)
+                throw new InvalidDataException("There is already a branch library having this name!");
+
+            branchLibraryDao.add(branchLibrary);
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
@@ -86,15 +85,15 @@ public class BranchLibraryRepositoryService {
 
     public void updateBranchLibrary(BranchLibrary branchLibrary) throws InvalidDataException {
         try {
-            if(branchLibrary != null){
-                //verificam sa nu mai existe o alta categorie avand acelasi nume
-                BranchLibrary dupl = branchLibraryDao.read(branchLibrary.getName());
+            if(branchLibrary == null)
+                throw new InvalidDataException("Invalid branch library");
+            //verificam sa nu mai existe o alta categorie avand acelasi nume
+            BranchLibrary dupl = branchLibraryDao.read(branchLibrary.getName());
 
-                if(dupl != null && dupl.getBranchLibraryID() != branchLibrary.getBranchLibraryID())
-                    throw new InvalidDataException("There is already a branch library having this name!");
+            if(dupl != null && dupl.getBranchLibraryID() != branchLibrary.getBranchLibraryID())
+                throw new InvalidDataException("There is already a branch library having this name!");
 
-                branchLibraryDao.update(branchLibrary);
-            }
+            branchLibraryDao.update(branchLibrary);
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }

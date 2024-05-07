@@ -118,6 +118,7 @@ public class BookDao implements DaoInterface<Book> {
         }
     }
 
+    @Override
     public void delete(Book book) throws SQLException {
         String sql = "DELETE FROM libraryms.book b WHERE b.ISBN LIKE ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)) {

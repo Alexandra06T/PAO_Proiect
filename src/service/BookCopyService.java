@@ -80,19 +80,20 @@ public class BookCopyService {
     }
 
     private Location chooseLocation(Scanner scanner) {
-        System.out.println("Enter the branch library's name:");
-        String name = scanner.nextLine();
-        BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
-        if(branchLibrary == null) {
-            return null;
-        }
-        System.out.println("Enter the location in the branch library:");
-        String loc = scanner.nextLine();
-        Location location = locationRepositoryService.getLocationByBranchAndName(branchLibrary, loc);
-        if(location == null) {
-            return null;
-        }
-        return location;
+//        System.out.println("Enter the branch library's name:");
+//        String name = scanner.nextLine();
+//        BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
+//        if(branchLibrary == null) {
+//            return null;
+//        }
+//        System.out.println("Enter the location in the branch library:");
+//        String loc = scanner.nextLine();
+//        Location location = locationRepositoryService.getLocationByBranchAndName(branchLibrary, loc);
+//        if(location == null) {
+//            return null;
+//        }
+//        return location;
+        return null;
     }
 
     private BookCopy findCopy(Scanner scanner) {
