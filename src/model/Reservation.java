@@ -5,43 +5,43 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Reservation {
-
-    private static int nrReservations = 0;
-    private int id;
-    private LibraryMember libraryMember;
-    private Book book;
+    private int reservationID;
+    private int libraryMemberID;
+    private String bookID;
     private LocalDate expiryDate;
-    private Location pickupLocation;
+    private int pickupLocationID;
 
     public Reservation() {}
 
-    public Reservation(LibraryMember libraryMember, Book book, LocalDate expiryDate, Location pickupLocation) {
-        this.libraryMember = libraryMember;
-        this.book = book;
+    public Reservation(int libraryMemberID, String bookID, LocalDate expiryDate, int pickupLocationID) {
+        this.libraryMemberID = libraryMemberID;
+        this.bookID = bookID;
         this.expiryDate = expiryDate;
-        this.pickupLocation = new Location(pickupLocation);
-        nrReservations++;
-        this.id = nrReservations;
+        this.pickupLocationID = pickupLocationID;
     }
 
-    public int getId() {
-        return id;
+    public int getReservationID() {
+        return reservationID;
     }
 
-    public LibraryMember getLibraryMember() {
-        return libraryMember;
+    public void setReservationID(int reservationID) {
+        this.reservationID = reservationID;
     }
 
-    public void setLibraryMember(LibraryMember libraryMember) {
-        this.libraryMember = libraryMember;
+    public int getLibraryMemberID() {
+        return libraryMemberID;
     }
 
-    public Book getBook() {
-        return book;
+    public void setLibraryMemberID(int libraryMemberID) {
+        this.libraryMemberID = libraryMemberID;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public String getBookID() {
+        return bookID;
+    }
+
+    public void setBook(String bookID) {
+        this.bookID = bookID;
     }
 
     public LocalDate getExpiryDate() {
@@ -52,12 +52,12 @@ public class Reservation {
         this.expiryDate = expiryDate;
     }
 
-    public Location getPickupLocation() {
-        return pickupLocation;
+    public int getPickupLocationID() {
+        return pickupLocationID;
     }
 
-    public void setPickupLocation(Location pickupLocation) {
-        this.pickupLocation = pickupLocation;
+    public void setPickupLocation(int pickupLocationID) {
+        this.pickupLocationID = pickupLocationID;
     }
 
     @Override
@@ -65,20 +65,17 @@ public class Reservation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Reservation that = (Reservation) o;
-        return id == that.id && Objects.equals(libraryMember, that.libraryMember) && Objects.equals(book, that.book) && Objects.equals(expiryDate, that.expiryDate) && Objects.equals(pickupLocation, that.pickupLocation);
+        return reservationID == that.reservationID && libraryMemberID == that.libraryMemberID && bookID.equals(that.bookID) && Objects.equals(expiryDate, that.expiryDate) && pickupLocationID == that.pickupLocationID;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, libraryMember, book, expiryDate, pickupLocation);
+        return Objects.hash(reservationID, libraryMemberID, bookID, expiryDate, pickupLocationID);
     }
 
     @Override
     public String toString() {
-        return "ID: " + id +
-                "\nLIBRARY MEMBER:\n" + libraryMember +
-                "\nBOOK:\n" + book +
-                "\nEXPIRES ON: " + expiryDate +
-                "\nPICK UP LOCATION:\n" + pickupLocation;
+        return "ID: " + reservationID +
+                "\nEXPIRES ON: " + expiryDate;
     }
 }

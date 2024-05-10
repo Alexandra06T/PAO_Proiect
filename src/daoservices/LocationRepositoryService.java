@@ -48,7 +48,7 @@ public class LocationRepositoryService {
         try {
             List<Location> locations = locationDao.getAll();
             if(locations == null)
-                throw new InvalidDataException("There is no book.");
+                throw new InvalidDataException("There is no location.");
             return locations;
 
         } catch (SQLException e) {

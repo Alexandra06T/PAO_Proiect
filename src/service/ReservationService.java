@@ -2,11 +2,13 @@ package service;
 
 import daoservices.*;
 import model.*;
+import utils.InvalidDataException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class ReservationService {
     private BookRepositoryService bookRepositoryService;
@@ -24,96 +26,79 @@ public class ReservationService {
     }
 
     public void create(Scanner scanner) {
-        Book book = chooseBook(scanner);
-        if(book == null) {
-            System.out.println("Couldn't find the book");
-            return;
+        try {
+            Book book = chooseBook(scanner);
+            LibraryMember libraryMember = chooseLibraryMember(scanner);
+            databaseService.printLocationsWithBookCopies(book.getISBN());
+            Location location = chooseLocation(scanner);
+            System.out.println("Enter the number of days until the reservation expires:");
+            int nrDays = scanner.nextInt();
+            scanner.nextLine();
+
+            Reservation reservation = new Reservation(libraryMember.getMemberID(), book.getISBN(), java.time.LocalDate.now().plusDays(nrDays), location.getLocationID());
+            databaseService.addReservation(reservation);
+            System.out.println("Reservation saved");
+        } catch (InvalidDataException e) {
+            System.out.println("Creation failed: " + e.getMessage());
         }
-        LibraryMember libraryMember = chooseLibraryMember(scanner);
-        if(libraryMember == null) {
-            System.out.println("Couldn't find the library member");
-            return;
+    }
+
+    private Book chooseBook(Scanner scanner) throws InvalidDataException {
+        System.out.println("How do you want to search the book? [title/author]");
+        String option = scanner.nextLine().toLowerCase();
+        System.out.println("Enter:");
+        String search = scanner.nextLine();
+        List<Book> searchedBooks;
+
+        switch (option) {
+            case "title":
+                searchedBooks = bookRepositoryService.getBooksByTitle(search);
+                //daca avem o singura carte, o returnam
+                if(searchedBooks.size() == 1) return searchedBooks.getFirst();
+                //daca avem mai multe carti, cerem isbn-ul
+                break;
+            case "author":
+                searchedBooks = bookRepositoryService.getBooksByAuthor(search);
+                if(searchedBooks.size() == 1) return searchedBooks.getFirst();
+                break;
+            default:
+                throw new InvalidDataException("Wrong option");
         }
-        Location location = chooseLocation(scanner);
+        System.out.println("Results for '" + search + "':");
+        for(Book b : searchedBooks) {
+            System.out.println(b);
+            System.out.println("-------------------------------");
+        }
+        System.out.println("Enter the ISBN of the book:");
+        String isbn = scanner.nextLine();
+        Book book = bookRepositoryService.getBookByISBN(isbn);
+        return book;
+    }
+
+    private Location chooseLocation(Scanner scanner) throws InvalidDataException{
+        System.out.println("Enter the branch library's name:");
+        String name = scanner.nextLine();
+        BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
+        if(branchLibrary == null) {
+            throw new InvalidDataException("No branch library having this name");
+        }
+        System.out.println("Enter the location in the branch library:");
+        String loc = scanner.nextLine();
+        Location location = locationRepositoryService.getLocationByBranchAndName(loc, branchLibrary.getBranchLibraryID());
         if(location == null) {
-            System.out.println("Couldn't find the location");
-            return;
+            throw new InvalidDataException("No location in the branch library having this name");
         }
+        return location;
+    }
 
-        List<Reservation> reservations = databaseService.getReservationByMember(libraryMember);
-        if(reservations != null) {
-            for (Reservation r : reservations) {
-                if (r.getBook().equals(book) && r.getPickupLocation().equals(location) && r.getExpiryDate().isAfter(java.time.LocalDate.now())) {
-                    System.out.println("There is already a reservation");
-                    return;
-                }
-            }
-        }
-        System.out.println("Enter the number of days until the reservation expires:");
-        int nrDays = scanner.nextInt();
+    private LibraryMember chooseLibraryMember(Scanner scanner) throws InvalidDataException {
+        System.out.println("Enter the ID of the library member:");
+        int memberId = scanner.nextInt();
         scanner.nextLine();
-
-        Reservation reservation = new Reservation(libraryMember, book, java.time.LocalDate.now().plusDays(nrDays), location);
-        databaseService.addReservation(reservation);
+        return libraryMemberRepositoryService.getLibraryMemberById(memberId);
     }
 
-    private Book chooseBook(Scanner scanner) {
-//        System.out.println("How do you want to search the book? [title/author]");
-//        String option = scanner.nextLine().toLowerCase();
-//        System.out.println("Enter:");
-//        String search = scanner.nextLine();
-//        switch (option) {
-//            case "title":
-//                bookRepositoryService.getBooksByTitle(search);
-//                break;
-//            case "author":
-//                bookRepositoryService.getBooksByAuthor(search);
-//                break;
-//            default:
-//                System.out.println("wrong option");
-//                return null;
-//        }
-//        System.out.println("Enter the ISBN of the book:");
-//        String isbn = scanner.nextLine();
-//        Book book = bookRepositoryService.getBookByISBN(isbn);
-//        if(book == null) {
-//            System.out.println("wrong ISBN");
-//        }
-//        return book;
-        return null;
-    }
-
-    private Location chooseLocation(Scanner scanner) {
-//        System.out.println("Enter the branch library's name:");
-//        String name = scanner.nextLine();
-//        System.out.println("Enter the location in the branch library:");
-//        String loc = scanner.nextLine();
-//        BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
-//        if(branchLibrary == null) {
-//            return null;
-//        }
-//        Location location = locationRepositoryService.getLocationByBranchAndName(branchLibrary, loc);
-//        if(location == null) {
-//            return null;
-//        }
-//        return location;
-        return null;
-    }
-
-    private LibraryMember chooseLibraryMember(Scanner scanner) {
-//        System.out.println("Enter the ID of the library member:");
-//        int memberId = scanner.nextInt();
-//        scanner.nextLine();
-//        LibraryMember libraryMember = libraryMemberRepositoryService.getLibraryMemberById(memberId);
-//        if(libraryMember == null) {
-//            System.out.println("There is no library member having this ID");
-//            return null;
-//        }
-//        return libraryMember;
-        return null;
-    }
-
-    private Reservation findReservation(Scanner scanner) {
+    private Reservation findReservation(Scanner scanner) throws InvalidDataException{
         System.out.println("Enter the search option for the reservation [book/library member/location]");
         String option = scanner.nextLine().toLowerCase();
         Reservation reservation = new Reservation();
@@ -123,102 +108,83 @@ public class ReservationService {
         switch (option) {
             case "book":
                 Book book = chooseBook(scanner);
-                if (book == null) return null;
-                reservations = databaseService.getReservationByBook(book);
-                if(reservations == null) {
-                    System.out.println("There are no reservations for this book");
-                    return null;
-                }
-                System.out.println("Enter reservation ID:");
-                reservationId = scanner.nextInt();
-                scanner.nextLine();
-                reservation = databaseService.getReservationById(reservationId);
-                if(reservation == null) {
-                    System.out.println("wrong ID");
-                    return null;
-                }
+                databaseService.printReservationsByBook(book.getISBN());
+                reservations = databaseService.getReservationsByBook(book.getISBN());
                 break;
             case "library member":
                 LibraryMember libraryMember = chooseLibraryMember(scanner);
-                if(libraryMember == null) return null;
-                reservations = databaseService.getReservationByMember(libraryMember);
-                if(reservations != null){
-                    for(Reservation r: reservations) {
-                        System.out.println(r.getId());
-                        System.out.println(r.getBook());
-                        System.out.println(r.getPickupLocation());
-                        System.out.println(r.getExpiryDate());
-                        System.out.println("---------------------------");
-                    }
-                } else {
-                    System.out.println("There are no reservations for this library member");
-                    return null;
-                }
-                System.out.println("Enter reservation ID:");
-                reservationId = scanner.nextInt();
-                scanner.nextLine();
-                reservation = databaseService.getReservationById(reservationId);
-                if(reservation == null) {
-                    System.out.println("wrong ID");
-                    return null;
-                }
+                databaseService.printReservationsByMember(libraryMember.getMemberID());
+                reservations = databaseService.getReservationsByMember(libraryMember.getMemberID());
                 break;
             case "location":
                 Location location = chooseLocation(scanner);
-                if(location == null) return null;
-                reservations = databaseService.getReservationByLocation(location);
-                if(reservations == null) {
-                    System.out.println("There are no reservations for this location");
-                    return null;
-                }
-                System.out.println("Enter reservation ID:");
-                reservationId = scanner.nextInt();
-                scanner.nextLine();
-                reservation = databaseService.getReservationById(reservationId);
-                if(reservation == null) {
-                    System.out.println("wrong ID");
-                    return null;
-                }
+                databaseService.printReservationsByLocation(location.getLocationID());
+                reservations = databaseService.getReservationsByLocation(location.getLocationID());
                 break;
             default:
-                System.out.println("wrong option");
-                return null;
+                throw new InvalidDataException("Wrong option");
         }
-
+        if(reservations.size() == 1) return reservations.getFirst();
+        System.out.println("Enter reservation ID:");
+        reservationId = scanner.nextInt();
+        scanner.nextLine();
+        reservation = databaseService.getReservationById(reservationId);
         return reservation;
     }
 
-    public void read(Scanner scanner) {
-        Reservation reservation = findReservation(scanner);
-        if(reservation == null) {
-            System.out.println("Couldn't find the reservation");
-            return;
+    public void view() {
+        try {
+            System.out.println("RESERVATIONS:");
+            databaseService.printAll();
+            System.out.println();
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println(reservation);
+
+    }
+
+    public void read(Scanner scanner) {
+        try {
+            Reservation reservation = findReservation(scanner);
+            System.out.println(reservation);
+            Book book = bookRepositoryService.getBookByISBN(reservation.getBookID());
+            System.out.println(book.getTitle() + " by " + book.getAuthors().stream().collect(Collectors.joining("; ")));
+            Location location = locationRepositoryService.getLocationByID(reservation.getPickupLocationID());
+            BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibraryByID(location.getBranchLibraryID());
+            System.out.println(location.getName() + ", " + branchLibrary.getName());
+            LibraryMember libraryMember = libraryMemberRepositoryService.getLibraryMemberById(reservation.getLibraryMemberID());
+            System.out.println("Library member's details: " + libraryMember);
+            System.out.println();
+            System.out.println();
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void delete(Scanner scanner) {
-        Reservation reservation = findReservation(scanner);
-        if(reservation == null) {
-            System.out.println("Couldn't find the reservation");
+        try {
+            Reservation reservation = findReservation(scanner);
+            databaseService.removeReservation(reservation);
+            System.out.println("Reservation cancelled successfully!");
+        } catch (InvalidDataException e) {
+            System.out.println("cancellation failed: " + e.getMessage());
         }
-        databaseService.removeReservation(reservation.getId());
-        reservation.getBook().removeReservation(reservation);
-        reservation.getPickupLocation().removeReservation(reservation);
     }
 
     public void update(Scanner scanner) {
-        Reservation reservation = findReservation(scanner);
-        if(reservation == null) {
-            System.out.println("Couldn't find the reservation");
-            return;
+        try {
+            Reservation reservation = findReservation(scanner);
+            System.out.println("Update the information:");
+            databaseService.printLocationsWithBookCopies(reservation.getBookID());
+            Location newLocation = chooseLocation(scanner);
+            System.out.println("Enter the number of days you want to add to the expiring date:");
+            int nrDays = scanner.nextInt();
+            scanner.nextLine();
+            reservation.setPickupLocation(newLocation.getLocationID());
+            reservation.setExpiryDate(reservation.getExpiryDate().plusDays(nrDays));
+        } catch (InvalidDataException e) {
+            System.out.println("Update failed: " + e.getMessage());
         }
-        System.out.println("Update the information:");
-        Location newLocation = chooseLocation(scanner);
-        System.out.println("Enter the number of days you want to add to the expiring date:");
-        int nrDays = scanner.nextInt();
-        scanner.nextLine();
-        reservation.setPickupLocation(newLocation);
-        reservation.setExpiryDate(reservation.getExpiryDate().plusDays(nrDays));
+
     }
 }

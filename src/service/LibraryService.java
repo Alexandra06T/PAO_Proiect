@@ -191,6 +191,9 @@ public class LibraryService {
             case "create":
                 reservationService.create(scanner);
                 break;
+            case "list":
+                reservationService.view();
+                break;
             case "read":
                 reservationService.read(scanner);
                 break;

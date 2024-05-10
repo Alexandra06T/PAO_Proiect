@@ -26,7 +26,7 @@ INSERT INTO category (`categoryIndex`, name)
 VALUES (278, 'Algebra Liniara');
 
 INSERT INTO book (ISBN, title, authors, publishingHouse, publishedDate, numberOfPages, categoryID)
-VALUES ('973-748-092-7', 'Vanatorul de zmeie', 'Hosseini, Khaled', 'Niculescu', 2007, 404, 636);
+VALUES ('973-748-092-7', 'Vanatorii de zmeie', 'Hosseini, Khaled', 'Niculescu', 2007, 404, 636);
 INSERT INTO book (ISBN, title, authors, publishingHouse, publishedDate, numberOfPages, categoryID)
 VALUES ('978-505-469-4', 'Inocentii', 'Parvulescu, Ioana', 'Humanitas', 2016, 340, 600);
 INSERT INTO book (ISBN, title, authors, publishingHouse, publishedDate, numberOfPages, categoryID)
