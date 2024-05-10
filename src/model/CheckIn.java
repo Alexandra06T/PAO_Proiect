@@ -1,13 +1,27 @@
 package model;
 
 public class CheckIn extends Transaction {
+
+    private int checkInID;
     private int numberDays;
     private String type;
     private boolean checkedOut = false;
 
+    public CheckIn() {
+
+    }
+
     public CheckIn(Transaction transaction) {
         super(transaction);
+        this.checkInID = transaction.getTransactionID();
+    }
 
+    public int getCheckInID() {
+        return checkInID;
+    }
+
+    public void setCheckInID(int checkInID) {
+        this.checkInID = checkInID;
     }
 
     public int getNumberDays() {
@@ -37,7 +51,7 @@ public class CheckIn extends Transaction {
     @Override
     public String toString() {
         return  super.toString() +
-                "\nCheck in for: " + numberDays + " days" +
+                "Check in for: " + numberDays + " days" +
                 "\nType of the check in: " + type +
                 "\nChecked out: " + checkedOut;
     }

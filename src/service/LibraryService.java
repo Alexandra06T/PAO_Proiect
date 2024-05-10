@@ -219,6 +219,9 @@ public class LibraryService {
             case "create":
                 transactionService.create(scanner);
                 break;
+            case "list":
+                transactionService.view();
+                break;
             case "read":
                 transactionService.read(scanner);
                 break;

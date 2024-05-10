@@ -79,15 +79,9 @@ public class ReservationService {
         System.out.println("Enter the branch library's name:");
         String name = scanner.nextLine();
         BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
-        if(branchLibrary == null) {
-            throw new InvalidDataException("No branch library having this name");
-        }
         System.out.println("Enter the location in the branch library:");
         String loc = scanner.nextLine();
         Location location = locationRepositoryService.getLocationByBranchAndName(loc, branchLibrary.getBranchLibraryID());
-        if(location == null) {
-            throw new InvalidDataException("No location in the branch library having this name");
-        }
         return location;
     }
 
@@ -182,6 +176,7 @@ public class ReservationService {
             scanner.nextLine();
             reservation.setPickupLocation(newLocation.getLocationID());
             reservation.setExpiryDate(reservation.getExpiryDate().plusDays(nrDays));
+            databaseService.updateReservation(reservation);
         } catch (InvalidDataException e) {
             System.out.println("Update failed: " + e.getMessage());
         }

@@ -1,6 +1,7 @@
 package service;
 
 import daoservices.LibraryMemberRepositoryService;
+import daoservices.TransactionRepositoryService;
 import model.LibraryMember;
 import utils.InvalidDataException;
 
@@ -10,9 +11,11 @@ import java.util.Scanner;
 public class LibraryMemberService {
 
     private LibraryMemberRepositoryService databaseService;
+    private TransactionRepositoryService transactionRepositoryService;
 
     public LibraryMemberService() throws SQLException {
         this.databaseService = new LibraryMemberRepositoryService();
+        this.transactionRepositoryService = new TransactionRepositoryService();
     }
 
     public void view() {
@@ -70,7 +73,7 @@ public class LibraryMemberService {
         scanner.nextLine();
         try {
             LibraryMember libraryMember = databaseService.getLibraryMemberById(id);
-            if(databaseService.getNrCurrentCheckIns(libraryMember.getMemberID()) == 0) {
+            if(transactionRepositoryService.getNrCurrentCheckIns(libraryMember.getMemberID()) == 0) {
                 databaseService.removeLibraryMember(libraryMember);
                 System.out.println("Library member removed");
             }

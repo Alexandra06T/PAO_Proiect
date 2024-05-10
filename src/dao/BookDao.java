@@ -3,6 +3,7 @@ package dao;
 import daoservices.DatabaseConnection;
 import model.Book;
 import model.Category;
+import utils.FileManagement;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static utils.Constants.AUDIT_FILE;
 
 public class BookDao implements DaoInterface<Book> {
     private static BookDao bookDao;
@@ -50,6 +53,7 @@ public class BookDao implements DaoInterface<Book> {
             }
             else books = null;
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Book: get all " + java.time.Instant.now());
         return books;
     }
 
@@ -69,6 +73,7 @@ public class BookDao implements DaoInterface<Book> {
                 book.setCategoryID(rs.getInt("categoryID"));
                 return book;
             }
+            FileManagement.writeIntoFile(AUDIT_FILE, "Book: read " + java.time.Instant.now());
             return null;
         }
     }
@@ -89,6 +94,7 @@ public class BookDao implements DaoInterface<Book> {
                 book.setCategoryID(rs.getInt("categoryID"));
                 books.add(book);
             }
+            FileManagement.writeIntoFile(AUDIT_FILE, "Book: read by title " + java.time.Instant.now());
             if(books.isEmpty()) return null;
             return books;
         } finally {
@@ -113,6 +119,7 @@ public class BookDao implements DaoInterface<Book> {
                 book.setCategoryID(rs.getInt("categoryID"));
                 books.add(book);
             }
+            FileManagement.writeIntoFile(AUDIT_FILE, "Book: read by author " + java.time.Instant.now());
             if(books.isEmpty()) return null;
             return books;
         }
@@ -125,6 +132,7 @@ public class BookDao implements DaoInterface<Book> {
             statement.setString(1, book.getISBN());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Book: delete " + java.time.Instant.now());
     }
 
     @Override
@@ -141,6 +149,7 @@ public class BookDao implements DaoInterface<Book> {
 
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Book: add " + java.time.Instant.now());
     }
 
     @Override
@@ -157,5 +166,6 @@ public class BookDao implements DaoInterface<Book> {
             statement.setString(7, book.getISBN());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Book: update" + java.time.Instant.now());
     }
 }

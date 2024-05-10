@@ -2,9 +2,11 @@ package daoservices;
 
 import dao.*;
 import model.*;
+import org.w3c.dom.CDATASection;
 import utils.InvalidDataException;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -291,5 +293,22 @@ public class ReservationRepositoryService {
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }
+    }
+
+    public void cancelReservation(int libraryMemberID, int locationID, String bookID, LocalDate localDate) {
+        try {
+            List<Reservation> reservations = getReservationsByMember(libraryMemberID).stream().
+                    filter(r -> r.getPickupLocationID() == locationID && r.getBookID().equals(bookID)).toList();
+            if(!reservations.isEmpty()) {
+                Reservation reservation = reservations.getFirst();
+                reservation.setExpiryDate(localDate);
+                reservationDao.update(reservation);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
+        } catch (InvalidDataException e) {
+            return;
+        }
+
     }
 }

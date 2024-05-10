@@ -4,6 +4,7 @@ import daoservices.DatabaseConnection;
 import model.Book;
 import model.BookCopy;
 import model.Location;
+import utils.FileManagement;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static utils.Constants.AUDIT_FILE;
 
 public class BookCopyDao implements DaoInterface<BookCopy> {
     private static BookCopyDao bookCopyDao;
@@ -47,6 +50,7 @@ public class BookCopyDao implements DaoInterface<BookCopy> {
             }
             else bookCopies = null;
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "BookCopy: get all " + java.time.Instant.now());
         return bookCopies;
     }
 
@@ -69,6 +73,7 @@ public class BookCopyDao implements DaoInterface<BookCopy> {
                 rs.close();
             }
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "BookCopy: read " + java.time.Instant.now());
         return bookCopy;
     }
 
@@ -90,6 +95,7 @@ public class BookCopyDao implements DaoInterface<BookCopy> {
                 rs.close();
             }
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "BookCopy: read by book " + java.time.Instant.now());
         if(bookCopies.isEmpty()) return null;
         return bookCopies;
     }
@@ -101,6 +107,7 @@ public class BookCopyDao implements DaoInterface<BookCopy> {
             statement.setInt(1, bookCopy.getBookCopyID());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "BookCopy: delete " + java.time.Instant.now());
     }
 
     @Override
@@ -115,6 +122,7 @@ public class BookCopyDao implements DaoInterface<BookCopy> {
 
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "BookCopy: add " + java.time.Instant.now());
     }
 
     @Override
@@ -128,5 +136,18 @@ public class BookCopyDao implements DaoInterface<BookCopy> {
             statement.setInt(5, bookCopy.getBookCopyID());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "BookCopy: update " + java.time.Instant.now());
     }
+
+    public void setAvailability(int bookCopyID, boolean availability) throws SQLException {
+        String sql = "UPDATE libraryms.bookcopy b SET b.available = ? WHERE b.ID = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setBoolean(1, availability);
+            statement.setInt(2, bookCopyID);
+
+            statement.executeUpdate();
+        }
+        FileManagement.writeIntoFile(AUDIT_FILE, "BookCopy: set availability " + java.time.Instant.now());
+    }
+
 }

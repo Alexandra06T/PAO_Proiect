@@ -59,7 +59,10 @@ VALUES ('2024-04-26', 'checkin', 2, 4);
 
 INSERT INTO checkin (checkinID, numberdays, checkedout, type)
 VALUES (1, 14, false, 'imprumut normal');
+UPDATE bookcopy SET available = FALSE WHERE ID = 1;
 INSERT INTO checkin (checkinID, numberdays, checkedout, type)
 VALUES (2, 1, false, 'imprumut in sala de lectura');
+UPDATE bookcopy SET available = FALSE WHERE ID = 5;
 INSERT INTO checkin (checkinID, numberdays, checkedout, type)
 VALUES (3, 14, false, 'imprumut normal');
+UPDATE bookcopy SET available = FALSE WHERE ID = 4;

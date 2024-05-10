@@ -3,6 +3,7 @@ package dao;
 import daoservices.DatabaseConnection;
 import model.BranchLibrary;
 import model.Category;
+import utils.FileManagement;
 import utils.InvalidDataException;
 
 import java.sql.Connection;
@@ -11,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static utils.Constants.AUDIT_FILE;
 
 public class BranchLibraryDao implements DaoInterface<BranchLibrary> {
     private static BranchLibraryDao branchLibraryDao;
@@ -35,6 +38,7 @@ public class BranchLibraryDao implements DaoInterface<BranchLibrary> {
             statement.setString(2, branchLibrary.getAddress());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "BranchLibrary: add " + java.time.Instant.now());
     }
 
     @Override
@@ -56,7 +60,7 @@ public class BranchLibraryDao implements DaoInterface<BranchLibrary> {
             }
             else branchLibraries = null;
         }
-
+        FileManagement.writeIntoFile(AUDIT_FILE, "BranchLibrary: get all " + java.time.Instant.now());
         return branchLibraries;
     }
 
@@ -79,6 +83,8 @@ public class BranchLibraryDao implements DaoInterface<BranchLibrary> {
             if(rs != null) {
                 rs.close();
             }
+            FileManagement.writeIntoFile(AUDIT_FILE, "BranchLibrary: read " + java.time.Instant.now());
+
         }
         return null;
     }
@@ -101,6 +107,8 @@ public class BranchLibraryDao implements DaoInterface<BranchLibrary> {
             if(rs != null) {
                 rs.close();
             }
+            FileManagement.writeIntoFile(AUDIT_FILE, "BranchLibrary: read by id " + java.time.Instant.now());
+
         }
         return null;
     }
@@ -112,6 +120,8 @@ public class BranchLibraryDao implements DaoInterface<BranchLibrary> {
             statement.setInt(1, branchLibrary.getBranchLibraryID());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "BranchLibrary: delete " + java.time.Instant.now());
+
     }
 
     @Override
@@ -123,6 +133,8 @@ public class BranchLibraryDao implements DaoInterface<BranchLibrary> {
             statement.setInt(3, branchLibrary.getBranchLibraryID());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "BranchLibrary: update " + java.time.Instant.now());
+
     }
 
 }

@@ -5,52 +5,50 @@ import java.util.List;
 import java.util.Objects;
 
 public class Transaction {
-
-    private static int nrTransactions = 0;
-    private int id;
-    private LibraryMember libraryMember;
-    private BookCopy bookCopy;
+    private int transactionID;
+    private int libraryMemberID;
+    private int bookCopyID;
     private LocalDate date;
 
     public Transaction() {
 
     }
 
-    public Transaction(LibraryMember libraryMember, BookCopy bookCopy, LocalDate date) {
-        this.libraryMember = libraryMember;
-        this.bookCopy = bookCopy;
+    public Transaction(int libraryMemberID, int bookCopyID, LocalDate date) {
+        this.libraryMemberID = libraryMemberID;
+        this.bookCopyID = bookCopyID;
         this.date = date;
-        nrTransactions++;
-        this.id = nrTransactions;
     }
 
     public Transaction(Transaction transaction) {
-        this.libraryMember = transaction.getLibraryMember();
-        this.bookCopy = transaction.getBookCopy();
+        this.libraryMemberID = transaction.getLibraryMemberID();
+        this.bookCopyID = transaction.getBookCopyID();
         this.date = transaction.getDate();
-        this.id = transaction.getId();
+        this.transactionID = transaction.getTransactionID();
     }
 
-    public int getId() {
-        return id;
+    public int getTransactionID() {
+        return transactionID;
     }
 
-    public void setId(int id) {this.id = id;}
-
-    public LibraryMember getLibraryMember() {
-        return libraryMember;
+    public void setTransactionID(int transactionID) {
+        this.transactionID = transactionID;
     }
 
-    public void setLibraryMember(LibraryMember libraryMember) {
-        this.libraryMember = libraryMember;
+    public int getLibraryMemberID() {
+        return libraryMemberID;
     }
 
-    public BookCopy getBookCopy() {
-        return bookCopy;
+    public void setLibraryMemberID(int libraryMemberID) {
+        this.libraryMemberID = libraryMemberID;
     }
 
-    public void setBookCopy(BookCopy bookCopy) {
-        this.bookCopy = bookCopy;
+    public int getBookCopyID() {
+        return bookCopyID;
+    }
+
+    public void setBookCopyID(int bookCopyID) {
+        this.bookCopyID = bookCopyID;
     }
 
     public LocalDate getDate() {
@@ -66,27 +64,16 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return id == that.id && Objects.equals(libraryMember, that.libraryMember) && Objects.equals(bookCopy, that.bookCopy) && Objects.equals(date, that.date);
+        return transactionID == that.transactionID && libraryMemberID == that.libraryMemberID && bookCopyID == that.bookCopyID && Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, libraryMember, bookCopy, date);
+        return Objects.hash(transactionID, libraryMemberID, bookCopyID, date);
     }
 
     @Override
     public String toString() {
-//        StringBuilder res = new StringBuilder("ID: " + id +
-//                "\nLIBRARY MEMBER:\n" + libraryMember.getName() + ", ID: " + libraryMember.getMemberID() +
-//                "\nBOOK COPY:\n" + bookCopy.getBook().getTitle() + '\n');
-//        List<String> authors = bookCopy.getBook().getAuthors();
-//        for(String a : authors) {
-//            res.append(a);
-//            res.append("; ");
-//        }
-//        res.append('\n').append(bookCopy.getLocation().getName()).append("\nON: ").append(date);
-//
-//        return res.toString();
-        return null;
+        return "ID: " + transactionID + "\nMade on: " + date + '\n';
     }
 }

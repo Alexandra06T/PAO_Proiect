@@ -3,11 +3,14 @@ package dao;
 import daoservices.DatabaseConnection;
 import model.Category;
 import utils.InvalidDataException;
+import utils.FileManagement;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static utils.Constants.AUDIT_FILE;
 
 public class CategoryDao implements DaoInterface<Category> {
     private static CategoryDao categoryDao;
@@ -34,6 +37,8 @@ public class CategoryDao implements DaoInterface<Category> {
             statement.setString(2, category.getName());
             statement.executeUpdate();
         }
+
+        FileManagement.writeIntoFile(AUDIT_FILE, "Category: add " + java.time.Instant.now());
     }
 
     @Override
@@ -54,6 +59,7 @@ public class CategoryDao implements DaoInterface<Category> {
             }
             else categories = null;
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Category: get all " + java.time.Instant.now());
 
         return categories;
     }
@@ -77,6 +83,7 @@ public class CategoryDao implements DaoInterface<Category> {
                 rs.close();
             }
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Category: read " + java.time.Instant.now());
         return null;
     }
 
@@ -99,6 +106,7 @@ public class CategoryDao implements DaoInterface<Category> {
                 rs.close();
             }
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Category: read by name " + java.time.Instant.now());
         return null;
     }
 
@@ -109,6 +117,7 @@ public class CategoryDao implements DaoInterface<Category> {
             statement.setString(1, category.getName());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Category: delete " + java.time.Instant.now());
     }
 
     @Override
@@ -119,6 +128,7 @@ public class CategoryDao implements DaoInterface<Category> {
             statement.setInt(2, category.getCategoryIndex());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Category: update " + java.time.Instant.now());
     }
 
 }

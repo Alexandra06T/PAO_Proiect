@@ -4,6 +4,7 @@ import daoservices.DatabaseConnection;
 import model.Book;
 import model.BranchLibrary;
 import model.Location;
+import utils.FileManagement;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static utils.Constants.AUDIT_FILE;
 
 public class LocationDao implements DaoInterface<Location> {
     private static LocationDao locationDao;
@@ -45,6 +48,8 @@ public class LocationDao implements DaoInterface<Location> {
                 rs.close();
             }
             else locations = null;
+            FileManagement.writeIntoFile(AUDIT_FILE, "Location: get all " + java.time.Instant.now());
+
         }
         return locations;
     }
@@ -57,6 +62,8 @@ public class LocationDao implements DaoInterface<Location> {
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, id);
             rs = statement.executeQuery();
+            FileManagement.writeIntoFile(AUDIT_FILE, "Location: read " + java.time.Instant.now());
+
             if(rs.next()) {
                 Location location = new Location(rs.getString("name"), rs.getInt("branchLibraryID"));
                 location.setLocationID(rs.getInt("ID"));
@@ -75,6 +82,8 @@ public class LocationDao implements DaoInterface<Location> {
             statement.setString(1, name.toUpperCase());
             statement.setInt(2, branchLibraryId);
             rs = statement.executeQuery();
+            FileManagement.writeIntoFile(AUDIT_FILE, "Location: read by nam " + java.time.Instant.now());
+
             if(rs.next()) {
                 Location location = new Location(rs.getString("name"), rs.getInt("branchLibraryID"));
                 location.setLocationID(rs.getInt("ID"));
@@ -91,6 +100,8 @@ public class LocationDao implements DaoInterface<Location> {
             statement.setInt(1, location.getLocationID());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Location: delete " + java.time.Instant.now());
+
     }
 
     @Override
@@ -102,6 +113,8 @@ public class LocationDao implements DaoInterface<Location> {
 
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Location: add " + java.time.Instant.now());
+
     }
 
     @Override
@@ -112,5 +125,7 @@ public class LocationDao implements DaoInterface<Location> {
             statement.setInt(2, location.getLocationID());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Location: update " + java.time.Instant.now());
+
     }
 }

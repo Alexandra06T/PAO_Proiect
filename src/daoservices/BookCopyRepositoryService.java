@@ -93,32 +93,15 @@ public class BookCopyRepositoryService {
     }
 
 
-    public List<BookCopy> printAvailableBookCopies(String bookISBN) throws InvalidDataException {
+    public List<BookCopy> printAvailableBookCopiesByLocation(String bookISBN, int locationID) throws InvalidDataException {
         try {
-            List<BookCopy> bookCopies = bookCopyDao.readByBook(bookISBN).stream().filter(BookCopy::isAvailable).toList();
-            if(bookCopies == null)
-                throw new InvalidDataException("No available copies for this book");
-            bookCopies.stream().collect(groupingBy(BookCopy::getLocationID, groupingBy(BookCopy::getBookISBN))).forEach((lid, gr) -> {
-                try {
-                    Location l = locationDao.read(String.valueOf(lid));
-                    BranchLibrary bl = branchLibraryDao.readByID(String.valueOf(l.getBranchLibraryID()));
-                    System.out.println(bl.getName() + ", " + l.getName().toUpperCase() + ": ");
-                    gr.forEach((b, lb) -> {
-                        try {
-                            Book book = bookDao.read(b);
-                            System.out.println(book.getTitle() + " by " + book.getAuthors() + "--------------------------------");
-                            lb.forEach(System.out::println);
-                            System.out.println();
-                        } catch (SQLException e) {
-                            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
-                        }
-                        System.out.println();
-                    });
-                    System.out.println();
-                } catch (SQLException e) {
-                    System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
-                }
-            });
+            List<BookCopy> bookCopies = bookCopyDao.readByBook(bookISBN);
+            if(bookCopies == null) throw new InvalidDataException("There are no copies of this book.");
+            bookCopies = bookCopies.stream().filter(b -> b.getLocationID() == locationID).filter(BookCopy::isAvailable).toList();
+            if(bookCopies.isEmpty())
+                throw new InvalidDataException("No available copies for the book in this location");
+            bookCopies.forEach(System.out::println);
+            return bookCopies;
         } catch (SQLException e) {
             System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
         }

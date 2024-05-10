@@ -64,29 +64,6 @@ public class LibraryMemberRepositoryService {
         return null;
     }
 
-    public int getNrCurrentCheckIns(int memberID) {
-        try {
-             return libraryMemberDao.getNrCurrentCheckIns(memberID);
-        }
-        catch (SQLException e) {
-            System.out.println("SQLException " + e.getSQLState() + " " + e.getMessage());
-        }
-        return 0;
-    }
-
-    public boolean hasOverdueCopies(int memberId, LocalDate currentDate) {
-//        LibraryMember libraryMember = libraryMemberDao.read(String.valueOf(memberId));
-//        List<Transaction> transactions = libraryMember.getTransactions();
-//        for(Transaction t : transactions) {
-//            if(t instanceof CheckIn checkIn) {
-//                if(!checkIn.isCheckedOut() && currentDate.isAfter(t.getDate().plusDays(((CheckIn) t).getNumberDays()))) {
-//                    return true;
-//                }
-//            }
-//        }
-        return false;
-    }
-
     public void removeLibraryMember(LibraryMember libraryMember) throws InvalidDataException {
         if (libraryMember == null) throw new InvalidDataException("Invalid library member");
         try {

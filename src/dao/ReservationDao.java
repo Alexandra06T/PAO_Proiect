@@ -2,6 +2,7 @@ package dao;
 
 import daoservices.DatabaseConnection;
 import model.*;
+import utils.FileManagement;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.time.LocalDate;
 import java.util.Map;
+
+import static utils.Constants.AUDIT_FILE;
 
 public class ReservationDao implements DaoInterface<Reservation> {
     private static ReservationDao reservationDao;
@@ -41,6 +44,8 @@ public class ReservationDao implements DaoInterface<Reservation> {
             if(rs != null) {
                 rs.close();
             }
+            FileManagement.writeIntoFile(AUDIT_FILE, "Reservation: get all " + java.time.Instant.now());
+
         }
         if(reservations.isEmpty()) return null;
         return reservations;
@@ -54,6 +59,8 @@ public class ReservationDao implements DaoInterface<Reservation> {
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, id);
             rs = statement.executeQuery();
+            FileManagement.writeIntoFile(AUDIT_FILE, "Reservation: read " + java.time.Instant.now());
+
             if(rs.next()) {
                 Reservation reservation = new Reservation(rs.getInt("librarymemberID"), rs.getString("bookID"), rs.getDate("expirydate").toLocalDate(), rs.getInt("pickuplocation"));
                 reservation.setReservationID(rs.getInt("ID"));
@@ -71,6 +78,8 @@ public class ReservationDao implements DaoInterface<Reservation> {
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, bookISBN);
             rs = statement.executeQuery();
+            FileManagement.writeIntoFile(AUDIT_FILE, "Reservation: read by book " + java.time.Instant.now());
+
             while(rs.next()) {
                 Reservation reservation = new Reservation(rs.getInt("librarymemberID"), rs.getString("bookID"), rs.getDate("expirydate").toLocalDate(), rs.getInt("pickuplocation"));
                 reservation.setReservationID(rs.getInt("ID"));
@@ -89,6 +98,8 @@ public class ReservationDao implements DaoInterface<Reservation> {
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, libraryMemberID);
             rs = statement.executeQuery();
+            FileManagement.writeIntoFile(AUDIT_FILE, "Reservation: read by library member " + java.time.Instant.now());
+
             while(rs.next()) {
                 Reservation reservation = new Reservation(rs.getInt("librarymemberID"), rs.getString("bookID"), rs.getDate("expirydate").toLocalDate(), rs.getInt("pickuplocation"));
                 reservation.setReservationID(rs.getInt("ID"));
@@ -107,6 +118,8 @@ public class ReservationDao implements DaoInterface<Reservation> {
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, locationID);
             rs = statement.executeQuery();
+            FileManagement.writeIntoFile(AUDIT_FILE, "Reservation: read by location " + java.time.Instant.now());
+
             while(rs.next()) {
                 Reservation reservation = new Reservation(rs.getInt("librarymemberID"), rs.getString("bookID"), rs.getDate("expirydate").toLocalDate(), rs.getInt("pickuplocation"));
                 reservation.setReservationID(rs.getInt("ID"));
@@ -124,6 +137,8 @@ public class ReservationDao implements DaoInterface<Reservation> {
             statement.setInt(1, reservation.getReservationID());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Reservation: delete " + java.time.Instant.now());
+
     }
 
     @Override
@@ -137,6 +152,8 @@ public class ReservationDao implements DaoInterface<Reservation> {
 
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Reservation: add " + java.time.Instant.now());
+
     }
 
     public Map<BranchLibrary, Map<Location, Integer>> locationsWithBookCopies(String bookID) throws SQLException {
@@ -165,6 +182,8 @@ public class ReservationDao implements DaoInterface<Reservation> {
                 bookCopiesPerLocation.get(branchLibrary).put(rslocation, rs.getInt("nr"));
 
             }
+            FileManagement.writeIntoFile(AUDIT_FILE, "Reservation: get locations with book copies " + java.time.Instant.now());
+
             if(bookCopiesPerLocation.isEmpty()) return null;
             return bookCopiesPerLocation;
         }
@@ -179,5 +198,7 @@ public class ReservationDao implements DaoInterface<Reservation> {
             statement.setInt(3, reservation.getReservationID());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "Reservation: update " + java.time.Instant.now());
+
     }
 }

@@ -2,6 +2,7 @@ package service;
 
 import daoservices.*;
 import model.*;
+import utils.InvalidDataException;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static java.time.Period.between;
+import static java.util.stream.Collectors.groupingBy;
 import static utils.Constants.*;
 
 public class TransactionService {
@@ -17,6 +19,8 @@ public class TransactionService {
     private BookCopyRepositoryService bookCopyRepositoryService;
     private LibraryMemberRepositoryService libraryMemberRepositoryService;
     private ReservationRepositoryService reservationRepositoryService;
+    private BranchLibraryRepositoryService branchLibraryRepositoryService;
+    private LocationRepositoryService locationRepositoryService;
 
     public TransactionService() throws SQLException {
         this.databaseService = new TransactionRepositoryService();
@@ -24,208 +28,231 @@ public class TransactionService {
         this.bookCopyRepositoryService = new BookCopyRepositoryService();
         this.libraryMemberRepositoryService = new LibraryMemberRepositoryService();
         this.reservationRepositoryService = new ReservationRepositoryService();
+        this.branchLibraryRepositoryService = new BranchLibraryRepositoryService();
+        this.locationRepositoryService = new LocationRepositoryService();
     }
 
     public void create(Scanner scanner) {
         System.out.println("Enter type of transaction [check in/check out]:");
         String typeOfTransaction = scanner.nextLine().toLowerCase();
-        if(!typeOfTransactionValidation(typeOfTransaction)) { return; }
-        transactionInit(scanner, typeOfTransaction);
+        try {
+            typeOfTransactionValidation(typeOfTransaction);
+            transactionInit(scanner, typeOfTransaction);
+        } catch (InvalidDataException e) {
+            System.out.println("Creation failed: " + e.getMessage());
+        }
+    }
+
+    public void view() {
+        try {
+            System.out.println("TRANSACTIONS:");
+            System.out.println("CHECK INS:");
+            databaseService.printAll(CHECKIN);
+            System.out.println();
+            System.out.println("CHECK OUTS:");
+            databaseService.printAll(CHECKOUT);
+            System.out.println();
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void read(Scanner scanner) {
-        System.out.println("Enter the id of the transaction:");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        CheckIn checkIn = databaseService.getCheckInById(id);
-        if(checkIn != null) {
-            System.out.println(checkIn);
-            return;
+        System.out.println("Enter the type of the transaction:");
+        String typeOfTransaction = scanner.nextLine();
+        try {
+            typeOfTransactionValidation(typeOfTransaction);
+            Transaction transaction = chooseTransaction(typeOfTransaction, scanner);
+            databaseService.printTransactionDetails(transaction);
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
         }
-        CheckOut checkOut = databaseService.getCheckOutById(id);
-        if(checkOut != null) {
-            System.out.println(checkOut);
-            return;
-        }
-        System.out.println("Couldn't find the transaction");
-        System.out.println();
     }
 
     public void delete(Scanner scanner) {
-        System.out.println("Enter the id of the check in:");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        if(databaseService.getCheckInById(id) == null) {
-            System.out.println("There is no check in having this id");
-            return;
+        System.out.println("Enter the type of the transaction:");
+        String typeOfTransaction = scanner.nextLine();
+        try {
+            typeOfTransactionValidation(typeOfTransaction);
+            Transaction transaction = chooseTransaction(CHECKIN, scanner);
+            databaseService.removeTransaction(CHECKIN, transaction.getTransactionID());
+        } catch (InvalidDataException e) {
+            System.out.println("Removal failed :" + e.getMessage());
         }
-        databaseService.removeTransaction(CHECKIN, id);
     }
 
     public void update(Scanner scanner) {
         System.out.println("Enter the type of the transaction:");
         String typeOfTransaction = scanner.nextLine();
-        if(!typeOfTransactionValidation(typeOfTransaction)) { return; }
-        System.out.println("Enter the id of the transaction:");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        Transaction transaction = databaseService.getTransaction(typeOfTransaction, id);
-        if (transaction == null) { return;}
+        try {
+            typeOfTransactionValidation(typeOfTransaction);
+            Transaction transaction = chooseTransaction(typeOfTransaction, scanner);
 
-        if(typeOfTransaction.equals(CHECKIN)){
-            checkInInit(scanner, (CheckIn) transaction);
-        }else{
-            CheckIn currentCheckIn = null;
-            //cautam daca exista imprumut
-//            List<CheckIn> checkIns = libraryMemberRepositoryService.getCurrentCheckIns(transaction.getLibraryMember().getMemberID());
-//            for(CheckIn checkIn : checkIns) {
-//                if(checkIn.getBookCopy().equals(transaction.getBookCopy())) {
-//                    checkIn.setCheckedOut(true);
-//                    currentCheckIn = new CheckIn(checkIn);
-//                    break;
-//                }
-//            }
+            if(typeOfTransaction.equals(CHECKIN)){
+                CheckIn checkIn = (CheckIn) transaction;
+                System.out.println("Enter the number of the days to add to the set period:");
+                int numberDays = scanner.nextInt();
+                scanner.nextLine();
+                if(numberDays > 0 && checkIn.getNumberDays() + numberDays > maxNrBorrowDays)
+                    throw new InvalidDataException("The period exceeds the maximum period allowed");
+                checkIn.setNumberDays(numberDays);
+                databaseService.updateTransaction(checkIn);
 
-            if(currentCheckIn == null) {
-                System.out.println("There is no such check in");
-                return;
+            }else{
+                CheckOut checkOut = (CheckOut) transaction;
+                System.out.println("Enter the book status:");
+                String bookStatus = scanner.nextLine();
+                checkOut.setBookStatus(bookStatus);
+                databaseService.updateTransaction(checkOut);
             }
-
-            checkOutInit(scanner, currentCheckIn ,(CheckOut) transaction);
+        } catch (InvalidDataException e) {
+            System.out.println("Update failed: " + e.getMessage());
         }
     }
 
-    public boolean typeOfTransactionValidation(String typeOfTransaction) {
+    public void typeOfTransactionValidation(String typeOfTransaction) throws InvalidDataException{
 
         if(! typeOfTransaction.equals(CHECKIN) && !typeOfTransaction.equals(CHECKOUT)){
-            System.out.println("Wrong type");
-            return false;
+            throw new InvalidDataException("Wrong type");
         }
-        return true;
     }
 
-    private Book chooseBook(Scanner scanner) {
-//        System.out.println("How do you want to search the book? [title/author]");
-//        String option = scanner.nextLine().toLowerCase();
-//        System.out.println("Enter:");
-//        String search = scanner.nextLine();
-//        switch (option) {
-//            case "title":
-//                if(bookRepositoryService.getBooksByTitle(search) == null) return null;
-//                break;
-//            case "author":
-//                if(bookRepositoryService.getBooksByAuthor(search) == null) return null;
-//                break;
-//            default:
-//                System.out.println("wrong option");
-//                return null;
-//        }
-//        System.out.println("Enter the ISBN of the book:");
-//        String isbn = scanner.nextLine();
-//        Book book = bookRepositoryService.getBookByISBN(isbn);
-//        if(book == null) {
-//            System.out.println("wrong ISBN");
-//            return null;
-//        }
-//        return book;
-        return null;
+    public Transaction chooseTransaction(String typeOfTransaction, Scanner scanner) throws InvalidDataException {
+        LibraryMember libraryMember = chooseLibraryMember(scanner);
+        Location location = chooseLocation(scanner);
+        Book book = chooseBook(scanner);
+        databaseService.printTransactionFiltered(typeOfTransaction, libraryMember.getMemberID(), location.getLocationID(), book.getISBN());
+        System.out.println("Enter the ID of the transaction:");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        return databaseService.getTransaction(typeOfTransaction, id);
     }
 
-    private BookCopy chooseCopy(Scanner scanner) {
+    private Book chooseBook(Scanner scanner) throws InvalidDataException {
+        System.out.println("How do you want to search the book? [title/author]");
+        String option = scanner.nextLine().toLowerCase();
+        System.out.println("Enter:");
+        String search = scanner.nextLine();
+        List<Book> searchedBooks;
 
-//        Book book = chooseBook(scanner);
-//        if(book == null) {
-//            System.out.println("Couldn't find the book");
-//            return null;
-//        }
-//        List<BookCopy> availableCopies = bookCopyRepositoryService.getAvailableCopies(book);
-//
-//        if(availableCopies == null){
-//            return null;
-//        }
-//        System.out.println("Enter the id of the bookCopy");
-//        int id = scanner.nextInt();
-//        scanner.nextLine();
-//        BookCopy bookCopy = bookCopyRepositoryService.getCopyByBookAndId(book, id);
-//        if(bookCopy == null || !bookCopy.isAvailable()) {
-//            System.out.println("wrong id");
-//            return null;
-//        }
-//        return bookCopy;
-        return null;
+        switch (option) {
+            case "title":
+                searchedBooks = bookRepositoryService.getBooksByTitle(search);
+                //daca avem o singura carte, o returnam
+                if(searchedBooks.size() == 1) return searchedBooks.getFirst();
+                //daca avem mai multe carti, cerem isbn-ul
+                break;
+            case "author":
+                searchedBooks = bookRepositoryService.getBooksByAuthor(search);
+                if(searchedBooks.size() == 1) return searchedBooks.getFirst();
+                break;
+            default:
+                throw new InvalidDataException("Wrong option");
+        }
+        System.out.println("Results for '" + search + "':");
+        for(Book b : searchedBooks) {
+            System.out.println(b);
+            System.out.println("-------------------------------");
+        }
+        System.out.println("Enter the ISBN of the book:");
+        String isbn = scanner.nextLine();
+        Book book = bookRepositoryService.getBookByISBN(isbn);
+        return book;
     }
 
-    private LibraryMember chooseLibraryMember(Scanner scanner) {
-//        System.out.println("Enter the ID of the library member:");
-//        int memberId = scanner.nextInt();
-//        scanner.nextLine();
-//        LibraryMember libraryMember = libraryMemberRepositoryService.getLibraryMemberById(memberId);
-//        if(libraryMember == null) {
-//            System.out.println("There is no library member having this ID");
-//            return null;
-//        }
-//        return libraryMember;
-        return null;
+    private BookCopy chooseCopy(Scanner scanner) throws InvalidDataException {
+//        Location location = chooseLocation(scanner);
+        Book book = chooseBook(scanner);
+//        List<BookCopy> availableBookCopies = bookCopyRepositoryService.printAvailableBookCopiesByLocation(book.getISBN(), location.getLocationID());
+        List<BookCopy> availableBookCopies = bookCopyRepositoryService.getBookCopiesByBook(book.getISBN()).stream().filter(BookCopy::isAvailable).toList();
+//        if(availableBookCopies.size() == 1) return availableBookCopies.getFirst();
+        availableBookCopies.stream().collect(groupingBy(b -> {
+                try{
+            return locationRepositoryService.getLocationByID(b.getLocationID()).getBranchLibraryID();
+            } catch (InvalidDataException e) {
+                    System.out.println(e.getMessage());
+            }
+                return null;
+    }, groupingBy(BookCopy::getLocationID))).forEach((br, map) -> {
+        try {
+            BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibraryByID(br);
+            System.out.println(branchLibrary.getName());
+            map.forEach((l, bc) -> {
+                try {
+                    Location location = locationRepositoryService.getLocationByID(l);
+                    System.out.println(location);
+                    bc.forEach(System.out::println);
+                } catch (InvalidDataException e) {
+                    System.out.println(e.getMessage());
+                }
+            });
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
+        }
+        });
+
+        System.out.println("Enter the id of the book copy:");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        BookCopy bookCopy = bookCopyRepositoryService.getBookCopyById(id);
+        //daca a fost ales un exemplar nepermis, exceptie
+        if(!bookCopy.isAvailable())
+            throw new InvalidDataException("Wrong book copy ID");
+        return bookCopy;
     }
 
-    private void transactionInit(Scanner scanner, String typeOfTransaction) {
+    private Location chooseLocation(Scanner scanner) throws InvalidDataException{
+        System.out.println("Enter the branch library's name:");
+        String name = scanner.nextLine();
+        BranchLibrary branchLibrary = branchLibraryRepositoryService.getBranchLibrary(name);
+        System.out.println("Enter the location in the branch library:");
+        String loc = scanner.nextLine();
+        return locationRepositoryService.getLocationByBranchAndName(loc, branchLibrary.getBranchLibraryID());
+    }
+
+    private LibraryMember chooseLibraryMember(Scanner scanner) throws InvalidDataException {
+        System.out.println("Enter the ID of the library member:");
+        int memberId = scanner.nextInt();
+        scanner.nextLine();
+        return libraryMemberRepositoryService.getLibraryMemberById(memberId);
+    }
+
+    private CheckIn chooseCheckIn(Scanner scanner) throws InvalidDataException {
+        LibraryMember libraryMember = chooseLibraryMember(scanner);
+        Location location = chooseLocation(scanner);
+        Book book = chooseBook(scanner);
+        List<CheckIn> checkIns = databaseService.getCurrentCheckIns(libraryMember.getMemberID(), location.getLocationID(), book.getISBN());
+        for(CheckIn checkIn : checkIns) {
+            System.out.println(checkIn);
+            System.out.println("-----------------------");
+        }
+        if(checkIns.size() == 1)
+            return checkIns.getFirst();
+        System.out.println("Enter the id of the check in:");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        CheckIn currentCheckIn = databaseService.getCheckInById(id);
+        if(!checkIns.contains(currentCheckIn))
+            throw new InvalidDataException("Wrong check in ID");
+        return currentCheckIn;
+    }
+
+    private void transactionInit(Scanner scanner, String typeOfTransaction) throws InvalidDataException {
 
         Transaction transaction;
 
         if(typeOfTransaction.equals(CHECKIN)) {
+
             transaction = setGeneralInfo(scanner);
-            if(transaction == null) return;
-
-            LibraryMember libraryMember = transaction.getLibraryMember();
-
-            //verificam daca are voie sa imprumute
-            if(libraryMemberRepositoryService.getNrCurrentCheckIns(libraryMember.getMemberID()) >= maxNrBorrowedBooks ||
-            libraryMemberRepositoryService.hasOverdueCopies(libraryMember.getMemberID(), java.time.LocalDate.now())) {
-                System.out.println("The library member is not allowed to borrow books");
-                return;
-            }
-
             CheckIn checkIn = new CheckIn(transaction);
-            if(!checkInInit(scanner, checkIn)) {
-                System.out.println("The check in was discarded");
-                return;
-            }
+            checkInInit(scanner, checkIn);
             transaction = checkIn;
-
-            //daca exista rezervare, o anulam
-//            List<Reservation> reservations = reservationRepositoryService.getReservationByMember(libraryMember);
-//            if(reservations != null) {
-//                for(Reservation r : reservations) {
-//                    if(r.getBook().equals(transaction.getBookCopy().getBook()) && r.getExpiryDate().isAfter(java.time.LocalDate.now())) {
-//                        r.setExpiryDate(java.time.LocalDate.now());
-//                    }
-//                }
-//            }
+            BookCopy bookCopy = bookCopyRepositoryService.getBookCopyById(checkIn.getBookCopyID());
+            reservationRepositoryService.cancelReservation(checkIn.getLibraryMemberID(), bookCopy.getLocationID(), bookCopy.getBookISBN(), LocalDate.now());
         }
         else {
-            LibraryMember libraryMember = chooseLibraryMember(scanner);
-            if(libraryMember == null) return;
-
-//            //cautam daca exista imprumut
-//            List<CheckIn> checkIns = libraryMemberRepositoryService.getCurrentCheckIns(libraryMember.getMemberID());
-//            if(checkIns.isEmpty()) {
-//                System.out.println("The library member hasn't borrowed any book");
-//                return;
-//            }
-//            for(CheckIn checkIn : checkIns) {
-//                System.out.println(checkIn);
-//                System.out.println("-----------------------");
-//            }
-            System.out.println("Enter the id of the check in:");
-            int id = scanner.nextInt();
-            scanner.nextLine();
-
-            CheckIn currentCheckIn = databaseService.getCheckInById(id);
-            if(currentCheckIn == null) {
-                System.out.println("wrong id");
-                return;
-            }
-
+            CheckIn currentCheckIn = chooseCheckIn(scanner);
             CheckOut checkOut = new CheckOut(currentCheckIn);
             checkOutInit(scanner, currentCheckIn, checkOut);
             transaction = checkOut;
@@ -236,29 +263,31 @@ public class TransactionService {
         System.out.println("Created " + transaction + '\n');
     }
 
-    private Transaction setGeneralInfo(Scanner scanner) {
-        BookCopy bookCopy = chooseCopy(scanner);
-        if(bookCopy == null) return null;
+    private Transaction setGeneralInfo(Scanner scanner) throws InvalidDataException {
         LibraryMember libraryMember = chooseLibraryMember(scanner);
-        if(libraryMember == null) return null;
+        if(!databaseService.checkAllowCheckIn(libraryMember.getMemberID(), java.time.LocalDate.now())) {
+            throw new InvalidDataException("The library member is not allowed to check in books");
+        }
+        BookCopy bookCopy = chooseCopy(scanner);
         LocalDate localDate = java.time.LocalDate.now();
-        return new Transaction(libraryMember, bookCopy, localDate);
+        return new Transaction(libraryMember.getMemberID(), bookCopy.getBookCopyID(), localDate);
     }
 
-    private boolean checkInInit(Scanner scanner, CheckIn checkIn) {
+    private void checkInInit(Scanner scanner, CheckIn checkIn) throws InvalidDataException {
         System.out.println("Enter the number of days:");
         int nrDays = scanner.nextInt();
         scanner.nextLine();
         if(nrDays > maxNrBorrowDays) {
-            System.out.println("The period exceeds the maximum period");
-            return false;
+            throw new InvalidDataException("The period exceeds the maximum period allowed");
+        }
+        if(nrDays < 0) {
+            throw new InvalidDataException("A negative number is not allowed");
         }
         System.out.println("Enter the type of the check in:");
         String type = scanner.nextLine();
         checkIn.setNumberDays(nrDays);
         checkIn.setType(type);
         checkIn.setCheckedOut(false);
-        return true;
     }
 
     private void checkOutInit(Scanner scanner, CheckIn currentCheckIn, CheckOut checkOut) {

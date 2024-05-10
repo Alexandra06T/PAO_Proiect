@@ -2,6 +2,7 @@ package dao;
 
 import daoservices.DatabaseConnection;
 import model.*;
+import utils.FileManagement;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static utils.Constants.AUDIT_FILE;
 
 
 public class LibraryMemberDao implements DaoInterface<LibraryMember> {
@@ -37,6 +40,8 @@ public class LibraryMemberDao implements DaoInterface<LibraryMember> {
             statement.setString(4, libraryMember.getAddress());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "LibraryMember: add " + java.time.Instant.now());
+
     }
 
     @Override
@@ -57,6 +62,8 @@ public class LibraryMemberDao implements DaoInterface<LibraryMember> {
                 rs.close();
             }
             else libraryMembers = null;
+            FileManagement.writeIntoFile(AUDIT_FILE, "LibraryMember: get all " + java.time.Instant.now());
+
         }
 
         return libraryMembers;
@@ -83,6 +90,8 @@ public class LibraryMemberDao implements DaoInterface<LibraryMember> {
             if(rs != null) {
                 rs.close();
             }
+            FileManagement.writeIntoFile(AUDIT_FILE, "LibraryMember: read " + java.time.Instant.now());
+
         }
         return null;
     }
@@ -94,6 +103,8 @@ public class LibraryMemberDao implements DaoInterface<LibraryMember> {
             statement.setInt(1, libraryMember.getMemberID());
             statement.executeUpdate();
         }
+        FileManagement.writeIntoFile(AUDIT_FILE, "LibraryMember: delete " + java.time.Instant.now());
+
     }
 
     @Override
@@ -107,24 +118,7 @@ public class LibraryMemberDao implements DaoInterface<LibraryMember> {
             statement.setInt(5, libraryMember.getMemberID());
             statement.executeUpdate();
         }
-    }
+        FileManagement.writeIntoFile(AUDIT_FILE, "LibraryMember: update " + java.time.Instant.now());
 
-    public int getNrCurrentCheckIns(int memberId) throws SQLException {
-        String sql = "SELECT COUNT(c.checkinID) AS nr FROM libraryms.checkin c INNER JOIN libraryms.transaction t ON (c.checkinID = t.ID) " +
-                "WHERE t.librarymemberID = ? AND c.checkedout IS FALSE";
-        ResultSet rs = null;
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, memberId);
-            rs = statement.executeQuery();
-            if(rs.next()) {
-                int nrCheckins = rs.getInt("nr");
-                return nrCheckins;
-            }
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-        }
-        return 0;
     }
 }
