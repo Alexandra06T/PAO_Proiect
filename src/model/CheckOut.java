@@ -3,6 +3,7 @@ package model;
 public class CheckOut extends Transaction {
 
     private int checkOutID;
+    private int checkinID;
     private String bookStatus;
     private int overdueDays;
     private double penalty;
@@ -12,7 +13,7 @@ public class CheckOut extends Transaction {
 
     public CheckOut(Transaction transaction) {
         super(transaction);
-        this.checkOutID = transaction.getTransactionID();
+        this.checkinID = transaction.getTransactionID();
     }
 
     public int getCheckOutID() {
@@ -47,10 +48,19 @@ public class CheckOut extends Transaction {
         this.penalty = penalty;
     }
 
+    public int getCheckinID() {
+        return checkinID;
+    }
+
+    public void setCheckinID(int checkinID) {
+        this.checkinID = checkinID;
+    }
+
     @Override
     public String toString() {
         return  super.toString() +
-                "Book state: " + bookStatus +
+                "ID of the check in: " + checkinID +
+                "\nBook state: " + bookStatus +
                 "\nOverdue days: " + overdueDays + " days" +
                 "\nPenalty: " + penalty;
     }

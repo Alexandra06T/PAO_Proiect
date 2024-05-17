@@ -8,8 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-import static utils.Constants.CHECKIN;
-import static utils.Constants.CHECKOUT;
+import static utils.Constants.*;
 
 public class TransactionRepositoryService {
 
@@ -166,8 +165,8 @@ public class TransactionRepositoryService {
         try {
             if(transaction == null) throw new InvalidDataException("Invalid transaction");
             switch (transaction){
-                case CheckIn checkIn -> checkInDao.add(checkIn);
-                case CheckOut checkOut -> checkOutDao.add(checkOut);
+                case CheckIn checkIn -> {checkInDao.add(checkIn); bookCopyDao.setAvailability(checkIn.getBookCopyID(), false); }
+                case CheckOut checkOut -> {checkOutDao.add(checkOut); bookCopyDao.setAvailability(checkOut.getBookCopyID(), true);}
                 default -> throw new InvalidDataException("Unexpected value: " + transaction);
             }
         } catch (SQLException e) {
@@ -179,8 +178,8 @@ public class TransactionRepositoryService {
         try {
             if(transaction == null) throw new InvalidDataException("Invalid transaction");
             switch (transaction){
-                case CheckIn checkIn -> {checkInDao.update(checkIn);}
-                case CheckOut checkOut -> {checkOutDao.add(checkOut);}
+                case CheckIn checkIn -> checkInDao.update(checkIn);
+                case CheckOut checkOut -> checkOutDao.update(checkOut);
                 default -> throw new InvalidDataException("Unexpected value: " + transaction);
             }
         } catch (SQLException e) {
@@ -222,7 +221,7 @@ public class TransactionRepositoryService {
     public boolean checkAllowCheckIn(int memberID, LocalDate currentDate) {
         //are voie daca nu depaseste numarul de exemplare imprumutate permise si nu are carti nereturnate care depasesc
         //data pentru returnare
-        return getNrCurrentCheckIns(memberID) == 0 && !hasOverdueCopies(memberID, currentDate);
+        return getNrCurrentCheckIns(memberID) < maxNrBorrowedBooks && !hasOverdueCopies(memberID, currentDate);
     }
 
 

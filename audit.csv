@@ -3,3 +3,1070 @@ Category: get all 2024-05-10T20:06:30.039224100Z
 Category: read by name 2024-05-10T20:06:39.850773Z
 Category: update 2024-05-10T20:06:59.098253Z
 Category: get all 2024-05-10T20:07:04.621126500Z
+LibraryMember: read 2024-05-13T08:56:27.542243500Z
+CheckIn: get number of current check ins 2024-05-13T08:56:27.704355800Z
+LibraryMember: read 2024-05-13T08:56:46.296542300Z
+CheckIn: get number of current check ins 2024-05-13T08:56:46.299539400Z
+CheckIn: get all 2024-05-13T08:56:56.789084800Z
+LibraryMember: read 2024-05-13T08:56:57.195447700Z
+Location: read 2024-05-13T08:56:57.197430700Z
+BranchLibrary: read by id 2024-05-13T08:56:57.619763100Z
+LibraryMember: read 2024-05-13T08:56:57.650656100Z
+Location: read 2024-05-13T08:56:57.654656Z
+BranchLibrary: read by id 2024-05-13T08:56:57.655656300Z
+LibraryMember: read 2024-05-13T08:56:57.660764400Z
+Location: read 2024-05-13T08:56:57.661655200Z
+BranchLibrary: read by id 2024-05-13T08:56:57.662655100Z
+LibraryMember: read 2024-05-13T08:56:57.667750900Z
+Location: read 2024-05-13T08:56:57.668771700Z
+BranchLibrary: read by id 2024-05-13T08:56:57.669746400Z
+CheckOut: get all 2024-05-13T08:56:57.672787900Z
+LibraryMember: read 2024-05-13T08:57:34.063595600Z
+BranchLibrary: read 2024-05-13T08:57:40.493101800Z
+LibraryMember: read 2024-05-13T08:58:02.414774700Z
+BranchLibrary: read 2024-05-13T08:58:10.217943900Z
+Location: read by nam 2024-05-13T08:58:19.064832500Z
+Book: read by title 2024-05-13T08:59:47.951787400Z
+CheckIn: get current check ins 2024-05-13T08:59:47.954765600Z
+CheckOut: add 2024-05-13T08:59:58.425928Z
+CheckIn: get all 2024-05-13T09:00:09.897582500Z
+LibraryMember: read 2024-05-13T09:00:09.901583100Z
+Location: read 2024-05-13T09:00:09.902581400Z
+BranchLibrary: read by id 2024-05-13T09:00:09.903581300Z
+LibraryMember: read 2024-05-13T09:00:09.907581900Z
+Location: read 2024-05-13T09:00:09.908582100Z
+BranchLibrary: read by id 2024-05-13T09:00:09.909581100Z
+LibraryMember: read 2024-05-13T09:00:09.912582400Z
+Location: read 2024-05-13T09:00:09.913582Z
+BranchLibrary: read by id 2024-05-13T09:00:09.914582600Z
+LibraryMember: read 2024-05-13T09:00:09.917581800Z
+Location: read 2024-05-13T09:00:09.918580500Z
+BranchLibrary: read by id 2024-05-13T09:00:09.919580900Z
+CheckOut: get all 2024-05-13T09:00:09.921582Z
+LibraryMember: read 2024-05-13T18:29:09.614431500Z
+BranchLibrary: read 2024-05-13T18:29:17.203847900Z
+Location: read by nam 2024-05-13T18:29:22.385911800Z
+Book: read by title 2024-05-13T18:29:27.150093100Z
+CheckIn: get current check ins 2024-05-13T18:29:27.171094600Z
+LibraryMember: read 2024-05-13T18:33:12.143343600Z
+BranchLibrary: read 2024-05-13T18:33:17.906016900Z
+Location: read by nam 2024-05-13T18:33:22.542170300Z
+Book: read by title 2024-05-13T18:33:28.374343400Z
+CheckIn: get current check ins 2024-05-13T18:33:28.386254400Z
+CheckOut: add 2024-05-13T18:33:32.066643300Z
+CheckIn: get all 2024-05-13T18:33:43.352327700Z
+LibraryMember: read 2024-05-13T18:33:43.388323Z
+Location: read 2024-05-13T18:33:43.390331700Z
+BranchLibrary: read by id 2024-05-13T18:33:43.391381700Z
+LibraryMember: read 2024-05-13T18:33:43.406324200Z
+Location: read 2024-05-13T18:33:43.407326900Z
+BranchLibrary: read by id 2024-05-13T18:33:43.409324300Z
+LibraryMember: read 2024-05-13T18:33:43.413327300Z
+Location: read 2024-05-13T18:33:43.414328600Z
+BranchLibrary: read by id 2024-05-13T18:33:43.416324200Z
+LibraryMember: read 2024-05-13T18:33:43.420325500Z
+Location: read 2024-05-13T18:33:43.421329200Z
+BranchLibrary: read by id 2024-05-13T18:33:43.422329300Z
+CheckOut: get all 2024-05-13T18:33:43.424323900Z
+LibraryMember: read 2024-05-13T18:33:43.428326200Z
+Location: read 2024-05-13T18:33:43.429324700Z
+BranchLibrary: read by id 2024-05-13T18:33:43.430321200Z
+CheckIn: get all 2024-05-13T20:22:45.942329800Z
+LibraryMember: read 2024-05-13T20:22:45.966333200Z
+Location: read 2024-05-13T20:22:45.967329400Z
+BranchLibrary: read by id 2024-05-13T20:22:45.969331600Z
+LibraryMember: read 2024-05-13T20:22:45.978327500Z
+Location: read 2024-05-13T20:22:45.978327500Z
+BranchLibrary: read by id 2024-05-13T20:22:45.979328300Z
+LibraryMember: read 2024-05-13T20:22:45.982331400Z
+Location: read 2024-05-13T20:22:45.983330500Z
+BranchLibrary: read by id 2024-05-13T20:22:45.984330Z
+LibraryMember: read 2024-05-13T20:22:45.987331100Z
+Location: read 2024-05-13T20:22:45.988329200Z
+BranchLibrary: read by id 2024-05-13T20:22:45.988329200Z
+CheckOut: get all 2024-05-13T20:22:45.990328100Z
+LibraryMember: read 2024-05-13T20:24:56.279976800Z
+BranchLibrary: read 2024-05-13T20:25:47.932776300Z
+Location: read by nam 2024-05-13T20:25:52.547261500Z
+Book: read by title 2024-05-13T20:25:58.771167700Z
+CheckIn: get current check ins 2024-05-13T20:25:58.773164700Z
+CheckOut: add 2024-05-13T20:26:20.301181Z
+CheckIn: get all 2024-05-13T20:26:57.174622200Z
+LibraryMember: read 2024-05-13T20:26:57.178620300Z
+Location: read 2024-05-13T20:26:57.179620100Z
+BranchLibrary: read by id 2024-05-13T20:26:57.180620800Z
+LibraryMember: read 2024-05-13T20:26:57.183621800Z
+Location: read 2024-05-13T20:26:57.184621700Z
+BranchLibrary: read by id 2024-05-13T20:26:57.185619600Z
+LibraryMember: read 2024-05-13T20:26:57.188625800Z
+Location: read 2024-05-13T20:26:57.189619400Z
+BranchLibrary: read by id 2024-05-13T20:26:57.191622Z
+LibraryMember: read 2024-05-13T20:26:57.194621100Z
+Location: read 2024-05-13T20:26:57.195622300Z
+BranchLibrary: read by id 2024-05-13T20:26:57.196621400Z
+CheckOut: get all 2024-05-13T20:26:57.197620Z
+LibraryMember: read 2024-05-13T20:26:57.205653Z
+Location: read 2024-05-13T20:26:57.206655Z
+BranchLibrary: read by id 2024-05-13T20:26:57.208620400Z
+LibraryMember: read 2024-05-13T20:32:21.371683800Z
+BranchLibrary: read 2024-05-13T20:32:27.106291Z
+Location: read by nam 2024-05-13T20:32:32.921240900Z
+Book: read by title 2024-05-13T20:32:40.123309300Z
+CheckIn: get by library member, location and book 2024-05-13T20:32:40.127310400Z
+LibraryMember: read 2024-05-13T20:32:40.149307800Z
+Location: read 2024-05-13T20:32:40.149307800Z
+BranchLibrary: read by id 2024-05-13T20:32:40.150309500Z
+CheckIn: read 2024-05-13T20:32:56.816638100Z
+CheckIn: read 2024-05-13T20:32:56.818638500Z
+CheckIn: delete 2024-05-13T20:32:56.845636Z
+BookCopy: set availability 2024-05-13T20:32:56.850636900Z
+CheckIn: get all 2024-05-13T20:33:04.743282300Z
+LibraryMember: read 2024-05-13T20:33:04.748283800Z
+Location: read 2024-05-13T20:33:04.749328400Z
+BranchLibrary: read by id 2024-05-13T20:33:04.750285800Z
+LibraryMember: read 2024-05-13T20:33:04.754293600Z
+Location: read 2024-05-13T20:33:04.755283600Z
+BranchLibrary: read by id 2024-05-13T20:33:04.756284400Z
+LibraryMember: read 2024-05-13T20:33:04.759282700Z
+Location: read 2024-05-13T20:33:04.760284200Z
+BranchLibrary: read by id 2024-05-13T20:33:04.761284900Z
+CheckOut: get all 2024-05-13T20:33:04.763287500Z
+LibraryMember: read 2024-05-13T20:33:04.772278300Z
+Location: read 2024-05-13T20:33:04.773279100Z
+BranchLibrary: read by id 2024-05-13T20:33:04.774278800Z
+LibraryMember: read 2024-05-13T20:37:38.097018600Z
+BranchLibrary: read 2024-05-13T20:37:45.633624400Z
+Location: read by nam 2024-05-13T20:37:55.302951100Z
+Book: read by title 2024-05-13T20:37:59.241593700Z
+CheckOut: get check out by library member, location and book 2024-05-13T20:37:59.244708500Z
+LibraryMember: read 2024-05-13T20:37:59.270603Z
+Location: read 2024-05-13T20:37:59.271603900Z
+BranchLibrary: read by id 2024-05-13T20:37:59.272634900Z
+CheckOut: read 2024-05-13T20:38:09.779370400Z
+CheckOut: read 2024-05-13T20:38:09.781367500Z
+CheckOut: delete 2024-05-13T20:38:09.805378800Z
+BookCopy: set availability 2024-05-13T20:38:09.810365900Z
+CheckIn: get all 2024-05-13T20:38:16.241789700Z
+LibraryMember: read 2024-05-13T20:38:16.246789700Z
+Location: read 2024-05-13T20:38:16.246789700Z
+BranchLibrary: read by id 2024-05-13T20:38:16.247790Z
+LibraryMember: read 2024-05-13T20:38:16.249789Z
+Location: read 2024-05-13T20:38:16.250789600Z
+BranchLibrary: read by id 2024-05-13T20:38:16.251791600Z
+LibraryMember: read 2024-05-13T20:38:16.252790300Z
+Location: read 2024-05-13T20:38:16.253790800Z
+BranchLibrary: read by id 2024-05-13T20:38:16.254792400Z
+CheckOut: get all 2024-05-13T20:38:16.254792400Z
+LibraryMember: read 2024-05-13T20:38:44.279322400Z
+BranchLibrary: read 2024-05-13T20:38:55.204085800Z
+Location: read by nam 2024-05-13T20:38:59.981287500Z
+Book: read by title 2024-05-13T20:39:08.430894400Z
+CheckIn: get current check ins 2024-05-13T20:39:08.432894600Z
+CheckOut: add 2024-05-13T20:39:14.475434900Z
+CheckIn: get all 2024-05-13T20:39:24.097145500Z
+LibraryMember: read 2024-05-13T20:39:24.101133Z
+Location: read 2024-05-13T20:39:24.102030Z
+BranchLibrary: read by id 2024-05-13T20:39:24.103034Z
+LibraryMember: read 2024-05-13T20:39:24.107039Z
+Location: read 2024-05-13T20:39:24.108039600Z
+BranchLibrary: read by id 2024-05-13T20:39:24.110029700Z
+LibraryMember: read 2024-05-13T20:39:24.113034600Z
+Location: read 2024-05-13T20:39:24.114027300Z
+BranchLibrary: read by id 2024-05-13T20:39:24.115048100Z
+CheckOut: get all 2024-05-13T20:39:24.116034Z
+LibraryMember: read 2024-05-13T20:39:24.120025300Z
+Location: read 2024-05-13T20:39:24.121025200Z
+BranchLibrary: read by id 2024-05-13T20:39:24.122026800Z
+LibraryMember: read 2024-05-13T20:45:21.695786400Z
+BranchLibrary: read 2024-05-13T20:45:27.224321700Z
+Location: read by nam 2024-05-13T20:45:33.432009100Z
+LibraryMember: read 2024-05-13T20:45:55.077921500Z
+BranchLibrary: read 2024-05-13T20:46:05.252428400Z
+Location: read by nam 2024-05-13T20:46:09.858055800Z
+Book: read by title 2024-05-13T20:46:16.460460500Z
+CheckOut: get check out by library member, location and book 2024-05-13T20:46:16.463460800Z
+LibraryMember: read 2024-05-13T20:46:16.483487100Z
+Location: read 2024-05-13T20:46:16.485462400Z
+BranchLibrary: read by id 2024-05-13T20:46:16.486460900Z
+CheckOut: read 2024-05-13T20:46:39.794933600Z
+CheckOut: read 2024-05-13T20:46:39.796933500Z
+CheckOut: delete 2024-05-13T20:46:39.823933500Z
+BookCopy: set availability 2024-05-13T20:46:39.825934800Z
+LibraryMember: read 2024-05-13T20:46:51.210181800Z
+BranchLibrary: read 2024-05-13T20:47:03.779599Z
+Location: read by nam 2024-05-13T20:47:10.142803500Z
+Book: read by title 2024-05-13T20:47:19.550736900Z
+CheckIn: get current check ins 2024-05-13T20:47:19.552736600Z
+CheckOut: add 2024-05-13T20:47:25.670326500Z
+CheckIn: get all 2024-05-13T20:47:32.716214400Z
+LibraryMember: read 2024-05-13T20:47:32.721215Z
+Location: read 2024-05-13T20:47:32.721215Z
+BranchLibrary: read by id 2024-05-13T20:47:32.722211300Z
+LibraryMember: read 2024-05-13T20:47:32.724226600Z
+Location: read 2024-05-13T20:47:32.724226600Z
+BranchLibrary: read by id 2024-05-13T20:47:32.725216600Z
+LibraryMember: read 2024-05-13T20:47:32.727213300Z
+Location: read 2024-05-13T20:47:32.728213900Z
+BranchLibrary: read by id 2024-05-13T20:47:32.729231200Z
+CheckOut: get all 2024-05-13T20:47:32.730213400Z
+LibraryMember: read 2024-05-13T20:47:32.733211600Z
+Location: read 2024-05-13T20:47:32.734210900Z
+BranchLibrary: read by id 2024-05-13T20:47:32.735238600Z
+LibraryMember: read 2024-05-13T20:48:11.655457200Z
+BranchLibrary: read 2024-05-13T20:48:20.852277200Z
+Location: read by nam 2024-05-13T20:48:23.744718300Z
+Book: read by title 2024-05-13T20:48:32.818767500Z
+CheckOut: get check out by library member, location and book 2024-05-13T20:48:32.821764800Z
+LibraryMember: read 2024-05-13T20:48:32.847766100Z
+Location: read 2024-05-13T20:48:32.849767500Z
+BranchLibrary: read by id 2024-05-13T20:48:32.850766300Z
+CheckOut: read 2024-05-13T20:48:37.026929700Z
+CheckOut: read 2024-05-13T20:48:37.029930300Z
+CheckOut: delete 2024-05-13T20:48:37.050944500Z
+BookCopy: set availability 2024-05-13T20:48:37.052932800Z
+LibraryMember: read 2024-05-13T20:48:47.634400600Z
+BranchLibrary: read 2024-05-13T20:49:00.727557500Z
+Location: read by nam 2024-05-13T20:49:03.940403500Z
+Book: read by title 2024-05-13T20:49:12.768942700Z
+CheckIn: get current check ins 2024-05-13T20:49:12.771942600Z
+CheckOut: add 2024-05-13T20:49:15.895275800Z
+CheckIn: get all 2024-05-13T20:49:27.451888Z
+LibraryMember: read 2024-05-13T20:49:27.453888700Z
+Location: read 2024-05-13T20:49:27.454891600Z
+BranchLibrary: read by id 2024-05-13T20:49:27.455889300Z
+LibraryMember: read 2024-05-13T20:49:27.458891Z
+Location: read 2024-05-13T20:49:27.459891900Z
+BranchLibrary: read by id 2024-05-13T20:49:27.460889700Z
+LibraryMember: read 2024-05-13T20:49:27.464890500Z
+Location: read 2024-05-13T20:49:27.465892600Z
+BranchLibrary: read by id 2024-05-13T20:49:27.467893700Z
+CheckOut: get all 2024-05-13T20:49:27.468889700Z
+LibraryMember: read 2024-05-13T20:49:27.472891300Z
+Location: read 2024-05-13T20:49:27.473893Z
+BranchLibrary: read by id 2024-05-13T20:49:27.474891Z
+LibraryMember: read 2024-05-13T20:50:02.425021300Z
+BranchLibrary: read 2024-05-13T20:50:11.077710500Z
+Location: read by nam 2024-05-13T20:50:15.410218Z
+Book: read by title 2024-05-13T20:50:30.249669700Z
+CheckIn: get by library member, location and book 2024-05-13T20:50:30.250671700Z
+LibraryMember: read 2024-05-13T20:50:30.255667800Z
+Location: read 2024-05-13T20:50:30.256669900Z
+BranchLibrary: read by id 2024-05-13T20:50:30.257671800Z
+CheckIn: read 2024-05-13T20:50:36.412005500Z
+CheckIn: read 2024-05-13T20:50:36.413085500Z
+CheckIn: delete 2024-05-13T20:50:36.419079800Z
+BookCopy: set availability 2024-05-13T20:50:36.422080700Z
+CheckIn: get all 2024-05-13T20:50:44.153790Z
+LibraryMember: read 2024-05-13T20:50:44.157789Z
+Location: read 2024-05-13T20:50:44.158792600Z
+BranchLibrary: read by id 2024-05-13T20:50:44.159789100Z
+LibraryMember: read 2024-05-13T20:50:44.163791700Z
+Location: read 2024-05-13T20:50:44.165792200Z
+BranchLibrary: read by id 2024-05-13T20:50:44.166793800Z
+CheckOut: get all 2024-05-13T20:50:44.168791300Z
+LibraryMember: read 2024-05-13T20:53:41.355744900Z
+CheckIn: get number of current check ins 2024-05-13T20:53:41.364747100Z
+CheckIn: get number of overdue copies of a library member 2024-05-13T20:53:41.369745200Z
+Book: read by title 2024-05-13T20:53:54.009688200Z
+BookCopy: read by book 2024-05-13T20:53:54.012687400Z
+Location: read 2024-05-13T20:53:54.016687900Z
+BranchLibrary: read by id 2024-05-13T20:53:54.021683800Z
+Location: read 2024-05-13T20:53:54.023686400Z
+Reservation: read by library member 2024-05-13T20:54:13.901364300Z
+CheckIn: add 2024-05-13T20:54:13.932275200Z
+Category: read 2024-05-17T07:47:52.414725300Z
+Category: read 2024-05-17T07:48:06.189167900Z
+Category: read by name 2024-05-17T07:48:06.191172200Z
+Category: add 2024-05-17T07:48:06.204165600Z
+Category: get all 2024-05-17T07:48:10.620710400Z
+Category: read by name 2024-05-17T07:48:39.519525600Z
+Category: read 2024-05-17T07:48:45.150321200Z
+Category: read by name 2024-05-17T07:49:00.811910500Z
+Category: update 2024-05-17T07:49:00.820919600Z
+Category: get all 2024-05-17T07:49:14.309411600Z
+Category: update 2024-05-17T07:49:32.351768200Z
+Category: get all 2024-05-17T07:49:56.197719600Z
+Category: delete 2024-05-17T07:50:10.862490400Z
+Category: get all 2024-05-17T07:50:14.523958500Z
+Category: read 2024-05-17T07:50:25.222714400Z
+Category: get all 2024-05-17T07:51:16.721754700Z
+Category: get all 2024-05-17T07:51:16.723750900Z
+Book: read 2024-05-17T07:51:20.821946400Z
+Book: add 2024-05-17T07:51:20.827945500Z
+Book: read by title 2024-05-17T07:51:40.406085600Z
+Book: read by author 2024-05-17T07:51:57.670653Z
+Book: read by title 2024-05-17T07:52:36.013617200Z
+Book: read by author 2024-05-17T07:52:54.440488700Z
+Book: get all 2024-05-17T07:53:02.859510500Z
+Book: get all 2024-05-17T07:53:40.434305800Z
+Book: read by title 2024-05-17T07:54:03.179719100Z
+Category: get all 2024-05-17T07:54:28.186243900Z
+Category: get all 2024-05-17T07:54:28.188243200Z
+Book: update2024-05-17T07:54:57.311116300Z
+Book: get all 2024-05-17T07:55:02.318038800Z
+Book: read by title 2024-05-17T07:55:34.537386100Z
+Book: read by title 2024-05-17T07:55:51.699739100Z
+Book: delete 2024-05-17T07:55:51.711919800Z
+Book: get all 2024-05-17T07:55:55.653517Z
+Book: read by title 2024-05-17T07:56:14.682858Z
+BranchLibrary: read 2024-05-17T07:56:38.127311800Z
+BranchLibrary: add 2024-05-17T07:56:38.132538200Z
+BranchLibrary: get all 2024-05-17T07:56:46.606196400Z
+BranchLibrary: read 2024-05-17T07:56:59.178198300Z
+BranchLibrary: read 2024-05-17T07:57:07.579775500Z
+BranchLibrary: read 2024-05-17T07:57:20.211042900Z
+BranchLibrary: read 2024-05-17T07:57:31.353511100Z
+BranchLibrary: read 2024-05-17T07:57:53.046866100Z
+BranchLibrary: read 2024-05-17T07:57:59.506415100Z
+BranchLibrary: update 2024-05-17T07:57:59.514479400Z
+BranchLibrary: get all 2024-05-17T07:58:05.161966700Z
+BranchLibrary: read 2024-05-17T07:58:16.574421700Z
+BranchLibrary: read 2024-05-17T07:58:33.216295300Z
+BranchLibrary: delete 2024-05-17T07:58:33.226296Z
+BranchLibrary: get all 2024-05-17T07:58:39.200083Z
+BranchLibrary: read 2024-05-17T07:58:48.454567100Z
+BranchLibrary: add 2024-05-17T07:58:48.458569Z
+BranchLibrary: read 2024-05-17T07:59:00.459745500Z
+BranchLibrary: read 2024-05-17T07:59:20.005911600Z
+BranchLibrary: read 2024-05-17T07:59:29.111206300Z
+Location: read by nam 2024-05-17T07:59:34.784222400Z
+Location: add 2024-05-17T07:59:34.792230100Z
+Location: get all 2024-05-17T07:59:39.391150100Z
+BranchLibrary: read by id 2024-05-17T07:59:39.396141700Z
+BranchLibrary: read by id 2024-05-17T07:59:39.398140400Z
+BranchLibrary: read by id 2024-05-17T07:59:39.399140600Z
+BranchLibrary: read 2024-05-17T07:59:53.075258100Z
+Location: read by nam 2024-05-17T08:00:01.196582Z
+BranchLibrary: read 2024-05-17T08:00:15.817582600Z
+BranchLibrary: read 2024-05-17T08:00:24.499702900Z
+BranchLibrary: read 2024-05-17T08:00:34.290921200Z
+Location: read by nam 2024-05-17T08:00:39.355264500Z
+Location: read by nam 2024-05-17T08:00:52.042428Z
+Location: update 2024-05-17T08:00:52.048558600Z
+BranchLibrary: read 2024-05-17T08:01:00.264420Z
+Location: read by nam 2024-05-17T08:01:02.273301200Z
+Location: get all 2024-05-17T08:01:05.975515800Z
+BranchLibrary: read by id 2024-05-17T08:01:05.977608700Z
+BranchLibrary: read by id 2024-05-17T08:01:05.978518500Z
+BranchLibrary: read by id 2024-05-17T08:01:05.980514900Z
+BranchLibrary: read 2024-05-17T08:01:14.599322700Z
+Location: read by nam 2024-05-17T08:01:19.105448400Z
+Location: read by nam 2024-05-17T08:01:32.068277300Z
+Location: update 2024-05-17T08:01:32.072286Z
+BranchLibrary: read 2024-05-17T08:01:41.965471400Z
+BranchLibrary: read 2024-05-17T08:01:48.979944600Z
+Location: read by nam 2024-05-17T08:01:54.553972900Z
+Location: add 2024-05-17T08:01:54.559974800Z
+BranchLibrary: read 2024-05-17T08:02:00.357698400Z
+Location: read by nam 2024-05-17T08:02:03.896558100Z
+Location: read by nam 2024-05-17T08:02:06.301696400Z
+BranchLibrary: read 2024-05-17T08:02:17.114189700Z
+Location: read by nam 2024-05-17T08:02:20.277310300Z
+Location: delete 2024-05-17T08:02:20.284376400Z
+Location: get all 2024-05-17T08:02:26.345575600Z
+BranchLibrary: read by id 2024-05-17T08:02:26.347578300Z
+BranchLibrary: read by id 2024-05-17T08:02:26.348573900Z
+BranchLibrary: read by id 2024-05-17T08:02:26.350576700Z
+BookCopy: get all 2024-05-17T08:02:43.366970900Z
+Location: read 2024-05-17T08:02:43.369899400Z
+BranchLibrary: read by id 2024-05-17T08:02:43.371974400Z
+Location: read 2024-05-17T08:02:43.388609800Z
+BranchLibrary: read by id 2024-05-17T08:02:43.389589100Z
+Book: read by title 2024-05-17T08:03:46.257849300Z
+Book: read 2024-05-17T08:03:46.259842600Z
+Book: read by title 2024-05-17T08:04:10.623884800Z
+BranchLibrary: read 2024-05-17T08:04:17.713429Z
+Location: read by nam 2024-05-17T08:04:19.643762900Z
+Book: read by title 2024-05-17T08:04:56.374756800Z
+BranchLibrary: read 2024-05-17T08:05:01.555139200Z
+Location: read by nam 2024-05-17T08:05:03.208303700Z
+BookCopy: add 2024-05-17T08:05:03.215388200Z
+BookCopy: get all 2024-05-17T08:05:10.409175200Z
+Location: read 2024-05-17T08:05:10.411176300Z
+BranchLibrary: read by id 2024-05-17T08:05:10.412176500Z
+Location: read 2024-05-17T08:05:10.415174700Z
+BranchLibrary: read by id 2024-05-17T08:05:10.416176200Z
+Location: read 2024-05-17T08:05:10.423175700Z
+BranchLibrary: read by id 2024-05-17T08:05:10.424175500Z
+Book: read by title 2024-05-17T08:05:39.511851100Z
+Book: read by title 2024-05-17T08:05:55.615841700Z
+Book: read 2024-05-17T08:05:58.487446300Z
+Book: read by title 2024-05-17T08:06:12.409861400Z
+BookCopy: read by book 2024-05-17T08:06:15.467052700Z
+Location: read 2024-05-17T08:06:21.053805800Z
+BranchLibrary: read by id 2024-05-17T08:06:21.055823200Z
+Book: read by title 2024-05-17T08:06:39.418164Z
+BookCopy: read by book 2024-05-17T08:06:39.419121300Z
+Location: read 2024-05-17T08:06:39.421140400Z
+BranchLibrary: read by id 2024-05-17T08:06:39.422123200Z
+Book: read by title 2024-05-17T08:06:49.297251400Z
+BookCopy: read by book 2024-05-17T08:06:51.398066700Z
+Book: read by title 2024-05-17T08:07:23.406049300Z
+BookCopy: read by book 2024-05-17T08:07:55.808051500Z
+BranchLibrary: read 2024-05-17T08:08:13.029913Z
+Location: read by nam 2024-05-17T08:08:20.680248Z
+BookCopy: update 2024-05-17T08:08:20.687245600Z
+BookCopy: get all 2024-05-17T08:08:25.420297Z
+Location: read 2024-05-17T08:08:25.422295300Z
+BranchLibrary: read by id 2024-05-17T08:08:25.423294600Z
+Location: read 2024-05-17T08:08:25.425293200Z
+BranchLibrary: read by id 2024-05-17T08:08:25.427342800Z
+Location: read 2024-05-17T08:08:25.432301500Z
+BranchLibrary: read by id 2024-05-17T08:08:25.433294500Z
+Book: read by title 2024-05-17T08:08:43.272086600Z
+BookCopy: read by book 2024-05-17T08:08:44.874089Z
+BranchLibrary: read 2024-05-17T08:09:05.403528200Z
+Location: read by nam 2024-05-17T08:09:10.538145300Z
+BookCopy: update 2024-05-17T08:09:10.544156400Z
+BookCopy: get all 2024-05-17T08:09:16.955378400Z
+Location: read 2024-05-17T08:09:16.956371500Z
+BranchLibrary: read by id 2024-05-17T08:09:16.958368500Z
+Location: read 2024-05-17T08:09:16.961367700Z
+BranchLibrary: read by id 2024-05-17T08:09:16.963372800Z
+Book: read by title 2024-05-17T08:09:42.723505100Z
+BookCopy: read by book 2024-05-17T08:09:45.843503400Z
+BookCopy: delete 2024-05-17T08:09:48.071982Z
+BookCopy: get all 2024-05-17T08:09:55.826353300Z
+Location: read 2024-05-17T08:09:55.828352700Z
+BranchLibrary: read by id 2024-05-17T08:09:55.829399100Z
+Location: read 2024-05-17T08:09:55.832368900Z
+BranchLibrary: read by id 2024-05-17T08:09:55.833360800Z
+Book: read by title 2024-05-17T08:10:12.040019700Z
+BookCopy: read by book 2024-05-17T08:10:15.115023100Z
+BookCopy: delete 2024-05-17T08:10:15.121016600Z
+Category: get all 2024-05-17T08:11:05.173917300Z
+Category: get all 2024-05-17T08:11:05.174916500Z
+Category: read 2024-05-17T08:11:07.139312100Z
+Category: get all 2024-05-17T08:11:32.321082300Z
+Category: get all 2024-05-17T08:11:32.323081700Z
+Book: get all 2024-05-17T08:11:46.045997600Z
+Book: read by title 2024-05-17T08:12:03.892794Z
+BranchLibrary: read 2024-05-17T08:12:18.385157100Z
+Location: read by nam 2024-05-17T08:12:21.963703400Z
+BookCopy: add 2024-05-17T08:12:21.966693100Z
+BookCopy: get all 2024-05-17T08:12:26.856954800Z
+Location: read 2024-05-17T08:12:26.858963Z
+BranchLibrary: read by id 2024-05-17T08:12:26.859960100Z
+Location: read 2024-05-17T08:12:26.862056400Z
+BranchLibrary: read by id 2024-05-17T08:12:26.863041300Z
+Book: read by title 2024-05-17T08:13:05.909380800Z
+BranchLibrary: read 2024-05-17T08:13:14.588286700Z
+Location: read by nam 2024-05-17T08:13:17.433494700Z
+BookCopy: add 2024-05-17T08:13:17.439497600Z
+Book: read by title 2024-05-17T08:13:25.344148400Z
+BookCopy: read by book 2024-05-17T08:13:26.844466600Z
+BookCopy: read 2024-05-17T08:13:30.320863900Z
+LibraryMember: add 2024-05-17T08:14:05.157427900Z
+LibraryMember: get all 2024-05-17T08:14:10.577293500Z
+LibraryMember: add 2024-05-17T08:14:51.446489900Z
+LibraryMember: get all 2024-05-17T08:14:57.548002Z
+LibraryMember: add 2024-05-17T08:15:19.996697200Z
+LibraryMember: get all 2024-05-17T08:15:26.688518400Z
+LibraryMember: add 2024-05-17T08:19:34.897939Z
+LibraryMember: get all 2024-05-17T08:19:42.439786100Z
+LibraryMember: read 2024-05-17T08:19:52.205536Z
+LibraryMember: read 2024-05-17T08:20:07.128320500Z
+LibraryMember: read 2024-05-17T08:20:20.780277100Z
+LibraryMember: update 2024-05-17T08:20:45.648982100Z
+LibraryMember: get all 2024-05-17T08:20:50.855806600Z
+LibraryMember: read 2024-05-17T08:21:02.832843400Z
+LibraryMember: read 2024-05-17T08:21:09.812414400Z
+LibraryMember: read 2024-05-17T08:21:18.257872900Z
+CheckIn: get number of current check ins 2024-05-17T08:21:18.267401600Z
+LibraryMember: delete 2024-05-17T08:21:18.272629100Z
+LibraryMember: read 2024-05-17T08:21:27.449812400Z
+CheckIn: get number of current check ins 2024-05-17T08:21:27.450813100Z
+LibraryMember: delete 2024-05-17T08:21:27.456810700Z
+LibraryMember: get all 2024-05-17T08:21:33.997541700Z
+Book: read by title 2024-05-17T08:22:02.617105400Z
+Book: read by title 2024-05-17T08:22:11.658941900Z
+LibraryMember: read 2024-05-17T08:22:17.039761500Z
+Reservation: get locations with book copies 2024-05-17T08:22:17.045761Z
+BranchLibrary: read 2024-05-17T08:22:24.303269700Z
+Location: read by nam 2024-05-17T08:22:31.548944700Z
+Book: read by title 2024-05-17T08:22:40.968639700Z
+LibraryMember: read 2024-05-17T08:22:46.453615200Z
+Reservation: get locations with book copies 2024-05-17T08:22:46.454617Z
+BranchLibrary: read 2024-05-17T08:22:51.967822300Z
+Location: read by nam 2024-05-17T08:22:56.880160800Z
+Book: read by title 2024-05-17T08:23:04.810290Z
+LibraryMember: read 2024-05-17T08:23:07.993664Z
+Reservation: get locations with book copies 2024-05-17T08:23:07.994662100Z
+BranchLibrary: read 2024-05-17T08:23:15.715521100Z
+Location: read by nam 2024-05-17T08:23:19.406484900Z
+Location: read 2024-05-17T08:23:30.476648100Z
+Reservation: get locations with book copies 2024-05-17T08:23:30.478644300Z
+BranchLibrary: read by id 2024-05-17T08:23:30.480643Z
+Book: read by title 2024-05-17T08:23:41.138063500Z
+LibraryMember: read 2024-05-17T08:23:47.510181400Z
+Reservation: get locations with book copies 2024-05-17T08:23:47.512179700Z
+BranchLibrary: read 2024-05-17T08:23:53.060615600Z
+Location: read by nam 2024-05-17T08:24:00.364277700Z
+Location: read 2024-05-17T08:24:02.451042800Z
+Reservation: get locations with book copies 2024-05-17T08:24:02.452973900Z
+BranchLibrary: read by id 2024-05-17T08:24:02.453973400Z
+Reservation: get all 2024-05-17T08:24:02.459971900Z
+Reservation: add 2024-05-17T08:24:02.471384500Z
+Reservation: get all 2024-05-17T08:24:13.346803600Z
+LibraryMember: read 2024-05-17T08:24:13.350810500Z
+Location: read 2024-05-17T08:24:13.354810400Z
+BranchLibrary: read by id 2024-05-17T08:24:13.356810700Z
+LibraryMember: read 2024-05-17T08:24:13.357810600Z
+Location: read 2024-05-17T08:24:13.359917Z
+BranchLibrary: read by id 2024-05-17T08:24:13.360842900Z
+LibraryMember: read 2024-05-17T08:24:13.361810Z
+Location: read 2024-05-17T08:24:13.363809700Z
+BranchLibrary: read by id 2024-05-17T08:24:13.364867200Z
+Book: read by title 2024-05-17T08:24:45.052952200Z
+Reservation: read by book 2024-05-17T08:24:46.924203500Z
+LibraryMember: read 2024-05-17T08:24:46.926201400Z
+Location: read 2024-05-17T08:24:46.928203400Z
+BranchLibrary: read by id 2024-05-17T08:24:46.929215900Z
+Reservation: read by book 2024-05-17T08:24:46.930221500Z
+Location: read 2024-05-17T08:24:46.932216700Z
+BranchLibrary: read by id 2024-05-17T08:24:46.933215800Z
+LibraryMember: read 2024-05-17T08:24:46.934214800Z
+LibraryMember: read 2024-05-17T08:25:24.636936300Z
+Reservation: read by library member 2024-05-17T08:25:24.638967300Z
+Location: read 2024-05-17T08:25:24.641942Z
+BranchLibrary: read by id 2024-05-17T08:25:24.643936Z
+Reservation: read by library member 2024-05-17T08:25:24.646942400Z
+Location: read 2024-05-17T08:25:24.649942500Z
+BranchLibrary: read by id 2024-05-17T08:25:24.650945100Z
+LibraryMember: read 2024-05-17T08:25:24.652940900Z
+BranchLibrary: read 2024-05-17T08:26:02.282002500Z
+Location: read by nam 2024-05-17T08:26:13.088832800Z
+Reservation: read by location 2024-05-17T08:26:13.090835Z
+LibraryMember: read 2024-05-17T08:26:13.093828Z
+LibraryMember: read 2024-05-17T08:26:13.097827800Z
+LibraryMember: read 2024-05-17T08:26:13.100833500Z
+Reservation: read by location 2024-05-17T08:26:13.102829700Z
+Reservation: read 2024-05-17T08:26:21.809989500Z
+BranchLibrary: read 2024-05-17T08:53:40.493065200Z
+BranchLibrary: read 2024-05-17T08:56:26.061203500Z
+Location: read by nam 2024-05-17T08:56:31.553690400Z
+Reservation: read by location 2024-05-17T08:56:31.555690300Z
+LibraryMember: read 2024-05-17T08:56:31.556689600Z
+LibraryMember: read 2024-05-17T08:56:31.559689100Z
+LibraryMember: read 2024-05-17T08:56:31.561694400Z
+Reservation: read by location 2024-05-17T08:56:31.563691400Z
+Reservation: read 2024-05-17T08:56:37.434671400Z
+Location: read 2024-05-17T08:56:37.437673200Z
+BranchLibrary: read by id 2024-05-17T08:56:37.438673100Z
+LibraryMember: read 2024-05-17T08:56:37.439682100Z
+LibraryMember: read 2024-05-17T08:56:55.632571200Z
+Reservation: read by library member 2024-05-17T08:56:55.634572200Z
+Location: read 2024-05-17T08:56:55.635575700Z
+BranchLibrary: read by id 2024-05-17T08:56:55.636578Z
+Reservation: read by library member 2024-05-17T08:56:55.638575900Z
+Location: read 2024-05-17T08:56:55.640572500Z
+BranchLibrary: read by id 2024-05-17T08:56:55.641580300Z
+LibraryMember: read 2024-05-17T08:56:55.642589100Z
+BranchLibrary: read 2024-05-17T08:57:15.703585100Z
+Location: read by nam 2024-05-17T08:57:21.045679600Z
+Reservation: read by location 2024-05-17T08:57:21.047679400Z
+LibraryMember: read 2024-05-17T08:57:21.048680800Z
+LibraryMember: read 2024-05-17T08:57:21.051687600Z
+LibraryMember: read 2024-05-17T08:57:21.054678700Z
+Reservation: read by location 2024-05-17T08:57:21.056679900Z
+Reservation: read 2024-05-17T08:57:23.686748300Z
+Reservation: get locations with book copies 2024-05-17T08:57:23.688748200Z
+BranchLibrary: read 2024-05-17T08:57:47.300558900Z
+Location: read by nam 2024-05-17T08:57:52.987076800Z
+Reservation: read by book 2024-05-17T08:57:54.904250600Z
+LibraryMember: read 2024-05-17T09:02:41.123835300Z
+Reservation: read by library member 2024-05-17T09:02:41.131837600Z
+Location: read 2024-05-17T09:02:41.146354600Z
+BranchLibrary: read by id 2024-05-17T09:02:41.148353500Z
+LibraryMember: read 2024-05-17T09:02:41.150356Z
+BranchLibrary: read 2024-05-17T09:03:04.198643100Z
+Location: read by nam 2024-05-17T09:03:07.877027Z
+Reservation: read by location 2024-05-17T09:03:07.878068600Z
+Reservation: read by location 2024-05-17T09:03:07.880119400Z
+LibraryMember: read 2024-05-17T09:03:07.886122900Z
+LibraryMember: read 2024-05-17T09:03:07.889762600Z
+LibraryMember: read 2024-05-17T09:03:07.891853Z
+Reservation: read 2024-05-17T09:03:11.073112300Z
+Reservation: get locations with book copies 2024-05-17T09:03:11.076058300Z
+BranchLibrary: read 2024-05-17T09:03:22.474425500Z
+Location: read by nam 2024-05-17T09:03:27.880022200Z
+Reservation: read by book 2024-05-17T09:03:29.791292400Z
+BranchLibrary: read 2024-05-17T09:07:28.170296600Z
+Location: read by nam 2024-05-17T09:07:35.096839500Z
+Reservation: read by location 2024-05-17T09:07:35.100829300Z
+Reservation: read by location 2024-05-17T09:07:35.107830100Z
+LibraryMember: read 2024-05-17T09:07:35.119839300Z
+LibraryMember: read 2024-05-17T09:07:35.137401900Z
+LibraryMember: read 2024-05-17T09:07:35.139401800Z
+Reservation: read 2024-05-17T09:07:37.539794100Z
+Reservation: get locations with book copies 2024-05-17T09:07:37.542729200Z
+BranchLibrary: read 2024-05-17T09:07:45.330447400Z
+BranchLibrary: read 2024-05-17T09:08:03.343487400Z
+Location: read by nam 2024-05-17T09:08:07.659187200Z
+Reservation: read by location 2024-05-17T09:08:07.660185700Z
+Reservation: read by location 2024-05-17T09:08:07.662186900Z
+LibraryMember: read 2024-05-17T09:08:07.663186700Z
+LibraryMember: read 2024-05-17T09:08:07.665186800Z
+LibraryMember: read 2024-05-17T09:08:07.667187900Z
+Reservation: read 2024-05-17T09:08:09.608588200Z
+Reservation: get locations with book copies 2024-05-17T09:08:09.610587900Z
+BranchLibrary: read 2024-05-17T09:08:19.418148400Z
+Location: read by nam 2024-05-17T09:08:24.609275700Z
+Reservation: read by book 2024-05-17T09:08:26.423388300Z
+Reservation: update 2024-05-17T09:08:26.441270300Z
+Reservation: get all 2024-05-17T09:08:41.352648800Z
+LibraryMember: read 2024-05-17T09:08:41.354670200Z
+Location: read 2024-05-17T09:08:41.358653500Z
+BranchLibrary: read by id 2024-05-17T09:08:41.359654200Z
+LibraryMember: read 2024-05-17T09:08:41.360653900Z
+Location: read 2024-05-17T09:08:41.362653700Z
+BranchLibrary: read by id 2024-05-17T09:08:41.363653800Z
+LibraryMember: read 2024-05-17T09:08:41.364654Z
+Location: read 2024-05-17T09:08:41.366654400Z
+BranchLibrary: read by id 2024-05-17T09:08:41.368653600Z
+BranchLibrary: read 2024-05-17T09:09:53.233020200Z
+Location: read by nam 2024-05-17T09:09:57.099328800Z
+Reservation: read by location 2024-05-17T09:09:57.102327600Z
+Reservation: read by location 2024-05-17T09:09:57.110324500Z
+LibraryMember: read 2024-05-17T09:09:57.134941700Z
+LibraryMember: read 2024-05-17T09:09:57.147958800Z
+Reservation: read 2024-05-17T09:09:59.300716Z
+Reservation: get locations with book copies 2024-05-17T09:09:59.303773Z
+BranchLibrary: read 2024-05-17T09:10:08.720810800Z
+BranchLibrary: read 2024-05-17T09:10:24.462312200Z
+Location: read by nam 2024-05-17T09:10:28.456563300Z
+Reservation: read by location 2024-05-17T09:10:28.457561400Z
+Reservation: read by location 2024-05-17T09:10:28.460562Z
+LibraryMember: read 2024-05-17T09:10:28.461561500Z
+LibraryMember: read 2024-05-17T09:10:28.464555100Z
+Reservation: read 2024-05-17T09:10:30.138294400Z
+Reservation: get locations with book copies 2024-05-17T09:10:30.140256Z
+BranchLibrary: read 2024-05-17T09:10:43.489213500Z
+Location: read by nam 2024-05-17T09:10:47.526721300Z
+Location: read 2024-05-17T09:10:49.335608100Z
+Reservation: get locations with book copies 2024-05-17T09:10:49.337622100Z
+BranchLibrary: read by id 2024-05-17T09:10:49.339628500Z
+LibraryMember: read 2024-05-17T09:11:26.442554200Z
+Reservation: read by library member 2024-05-17T09:11:26.444554500Z
+Reservation: delete 2024-05-17T09:11:26.451149700Z
+Reservation: get all 2024-05-17T09:11:32.151809800Z
+LibraryMember: read 2024-05-17T09:11:32.154805100Z
+Location: read 2024-05-17T09:11:32.158797300Z
+BranchLibrary: read by id 2024-05-17T09:11:32.159902Z
+LibraryMember: read 2024-05-17T09:11:32.161795600Z
+Location: read 2024-05-17T09:11:32.163793700Z
+BranchLibrary: read by id 2024-05-17T09:11:32.165793400Z
+LibraryMember: read 2024-05-17T09:12:12.056071500Z
+CheckIn: get number of current check ins 2024-05-17T09:12:12.061065600Z
+CheckIn: get number of overdue copies of a library member 2024-05-17T09:12:12.076065Z
+Book: read by title 2024-05-17T09:12:14.889018600Z
+BookCopy: read by book 2024-05-17T09:12:18.686977800Z
+Location: read 2024-05-17T09:12:18.692984600Z
+Location: read 2024-05-17T09:12:18.694984900Z
+BranchLibrary: read by id 2024-05-17T09:12:18.699978400Z
+Location: read 2024-05-17T09:12:18.701976700Z
+Reservation: read by library member 2024-05-17T09:12:35.870436900Z
+CheckIn: add 2024-05-17T09:12:35.909534400Z
+CheckIn: get all 2024-05-17T09:12:51.630075200Z
+LibraryMember: read 2024-05-17T09:12:51.646074600Z
+Location: read 2024-05-17T09:12:51.648077100Z
+BranchLibrary: read by id 2024-05-17T09:12:51.649088Z
+LibraryMember: read 2024-05-17T09:12:51.663074400Z
+Location: read 2024-05-17T09:12:51.665073100Z
+BranchLibrary: read by id 2024-05-17T09:12:51.666073100Z
+LibraryMember: read 2024-05-17T09:12:51.669071700Z
+Location: read 2024-05-17T09:12:51.670075600Z
+BranchLibrary: read by id 2024-05-17T09:12:51.671071700Z
+LibraryMember: read 2024-05-17T09:12:51.674079600Z
+Location: read 2024-05-17T09:12:51.675071800Z
+BranchLibrary: read by id 2024-05-17T09:12:51.676072700Z
+CheckOut: get all 2024-05-17T09:12:51.682071700Z
+LibraryMember: read 2024-05-17T09:13:26.866255400Z
+LibraryMember: read 2024-05-17T09:13:37.607775800Z
+CheckIn: get number of current check ins 2024-05-17T09:13:37.611775700Z
+LibraryMember: read 2024-05-17T09:16:33.546605300Z
+CheckIn: get number of current check ins 2024-05-17T09:16:40.650912500Z
+LibraryMember: read 2024-05-17T09:17:38.950842700Z
+CheckIn: get number of current check ins 2024-05-17T09:18:21.484935Z
+CheckIn: get number of current check ins 2024-05-17T09:18:47.654614600Z
+LibraryMember: read 2024-05-17T09:19:44.674110400Z
+CheckIn: get number of current check ins 2024-05-17T09:19:47.518463800Z
+CheckIn: get number of overdue copies of a library member 2024-05-17T09:19:47.529464100Z
+Book: read by title 2024-05-17T09:19:55.906656100Z
+BookCopy: read by book 2024-05-17T09:19:57.763593700Z
+Location: read 2024-05-17T09:19:57.772605300Z
+Location: read 2024-05-17T09:19:57.776597100Z
+BranchLibrary: read by id 2024-05-17T09:19:57.779597100Z
+Location: read 2024-05-17T09:19:57.781594400Z
+Reservation: read by library member 2024-05-17T09:20:15.582411700Z
+CheckIn: add 2024-05-17T09:20:15.625835600Z
+CheckIn: get all 2024-05-17T09:20:23.321721900Z
+LibraryMember: read 2024-05-17T09:20:23.335715500Z
+Location: read 2024-05-17T09:20:23.336717300Z
+BranchLibrary: read by id 2024-05-17T09:20:23.338729900Z
+LibraryMember: read 2024-05-17T09:20:23.353721100Z
+Location: read 2024-05-17T09:20:23.354717900Z
+BranchLibrary: read by id 2024-05-17T09:20:23.354717900Z
+LibraryMember: read 2024-05-17T09:20:23.357718600Z
+Location: read 2024-05-17T09:20:23.358730600Z
+BranchLibrary: read by id 2024-05-17T09:20:23.359719300Z
+LibraryMember: read 2024-05-17T09:20:23.361715600Z
+Location: read 2024-05-17T09:20:23.362715400Z
+BranchLibrary: read by id 2024-05-17T09:20:23.363715700Z
+LibraryMember: read 2024-05-17T09:20:23.365719600Z
+Location: read 2024-05-17T09:20:23.366722100Z
+BranchLibrary: read by id 2024-05-17T09:20:23.367721700Z
+CheckOut: get all 2024-05-17T09:20:23.369724300Z
+BookCopy: get all 2024-05-17T09:21:35.215503500Z
+Location: read 2024-05-17T09:21:35.224522800Z
+BranchLibrary: read by id 2024-05-17T09:21:35.226519600Z
+Location: read 2024-05-17T09:21:35.240716800Z
+BranchLibrary: read by id 2024-05-17T09:21:35.241739700Z
+LibraryMember: read 2024-05-17T09:26:37.130887600Z
+BranchLibrary: read 2024-05-17T09:26:42.838274700Z
+Location: read by nam 2024-05-17T09:26:48.611885300Z
+Book: read by title 2024-05-17T09:26:50.974087Z
+CheckIn: get by library member, location and book 2024-05-17T09:26:52.695249300Z
+LibraryMember: read 2024-05-17T09:26:52.725943800Z
+Location: read 2024-05-17T09:26:52.726892900Z
+BranchLibrary: read by id 2024-05-17T09:26:52.728891200Z
+LibraryMember: read 2024-05-17T09:26:52.747071800Z
+Location: read 2024-05-17T09:26:52.748069100Z
+BranchLibrary: read by id 2024-05-17T09:26:52.749066200Z
+CheckIn: read 2024-05-17T09:27:02.250966100Z
+CheckIn: read 2024-05-17T09:27:02.252965800Z
+CheckIn: delete 2024-05-17T09:27:02.285042600Z
+BookCopy: set availability 2024-05-17T09:27:02.286963700Z
+LibraryMember: read 2024-05-17T09:27:16.232080Z
+BranchLibrary: read 2024-05-17T09:27:20.949736900Z
+Location: read by nam 2024-05-17T09:27:24.533425100Z
+Book: read by title 2024-05-17T09:27:28.040106700Z
+CheckIn: get by library member, location and book 2024-05-17T09:27:29.324821700Z
+LibraryMember: read 2024-05-17T09:27:29.328827600Z
+Location: read 2024-05-17T09:27:29.329825300Z
+BranchLibrary: read by id 2024-05-17T09:27:29.331824300Z
+CheckIn: read 2024-05-17T09:27:31.235268400Z
+CheckIn: read 2024-05-17T09:27:31.237174Z
+CheckIn: delete 2024-05-17T09:27:31.247264800Z
+BookCopy: set availability 2024-05-17T09:27:31.248168900Z
+LibraryMember: read 2024-05-17T09:27:42.730419100Z
+CheckIn: get number of current check ins 2024-05-17T09:27:45.137225800Z
+CheckIn: get number of overdue copies of a library member 2024-05-17T09:27:45.147215700Z
+Book: read by title 2024-05-17T09:27:48.774585500Z
+BookCopy: read by book 2024-05-17T09:27:49.915369500Z
+Location: read 2024-05-17T09:27:49.926386100Z
+Location: read 2024-05-17T09:27:49.927372700Z
+BranchLibrary: read by id 2024-05-17T09:27:49.929372800Z
+Location: read 2024-05-17T09:27:49.930373900Z
+Reservation: read by library member 2024-05-17T09:27:59.007591Z
+CheckIn: add 2024-05-17T09:27:59.020694600Z
+BookCopy: set availability 2024-05-17T09:27:59.024823800Z
+CheckIn: get all 2024-05-17T09:28:05.192544900Z
+LibraryMember: read 2024-05-17T09:28:05.198522700Z
+Location: read 2024-05-17T09:28:05.199571100Z
+BranchLibrary: read by id 2024-05-17T09:28:05.201520200Z
+LibraryMember: read 2024-05-17T09:28:05.205526300Z
+Location: read 2024-05-17T09:28:05.206521500Z
+BranchLibrary: read by id 2024-05-17T09:28:05.207527800Z
+LibraryMember: read 2024-05-17T09:28:05.211631100Z
+Location: read 2024-05-17T09:28:05.212521500Z
+BranchLibrary: read by id 2024-05-17T09:28:05.213567500Z
+LibraryMember: read 2024-05-17T09:28:05.216519200Z
+Location: read 2024-05-17T09:28:05.217627Z
+BranchLibrary: read by id 2024-05-17T09:28:05.218520200Z
+CheckOut: get all 2024-05-17T09:28:05.219525600Z
+BookCopy: get all 2024-05-17T09:28:15.317310900Z
+Location: read 2024-05-17T09:28:15.321301600Z
+BranchLibrary: read by id 2024-05-17T09:28:15.322304900Z
+Location: read 2024-05-17T09:28:15.328306900Z
+BranchLibrary: read by id 2024-05-17T09:28:15.329301800Z
+LibraryMember: read 2024-05-17T09:28:27.714122100Z
+CheckIn: get number of current check ins 2024-05-17T09:28:32.595410900Z
+CheckIn: get number of overdue copies of a library member 2024-05-17T09:28:32.596409Z
+Book: read by title 2024-05-17T09:28:37.006153900Z
+BookCopy: read by book 2024-05-17T09:28:38.382358800Z
+Location: read 2024-05-17T09:28:38.383365400Z
+BranchLibrary: read by id 2024-05-17T09:28:38.385357300Z
+Location: read 2024-05-17T09:28:38.386358300Z
+LibraryMember: read 2024-05-17T09:29:01.252698600Z
+BranchLibrary: read 2024-05-17T09:29:06.364806600Z
+Location: read by nam 2024-05-17T09:29:10.241548600Z
+Book: read by title 2024-05-17T09:29:12.473026400Z
+CheckIn: get by library member, location and book 2024-05-17T09:29:13.931952500Z
+LibraryMember: read 2024-05-17T09:29:13.935950800Z
+Location: read 2024-05-17T09:29:13.936950Z
+BranchLibrary: read by id 2024-05-17T09:29:13.938947700Z
+CheckIn: read 2024-05-17T09:29:16.450654800Z
+CheckIn: update 2024-05-17T09:29:19.283134600Z
+CheckIn: get all 2024-05-17T09:29:24.598531800Z
+LibraryMember: read 2024-05-17T09:29:24.602530700Z
+Location: read 2024-05-17T09:29:24.603530500Z
+BranchLibrary: read by id 2024-05-17T09:29:24.604529300Z
+LibraryMember: read 2024-05-17T09:29:24.608530800Z
+Location: read 2024-05-17T09:29:24.609535300Z
+BranchLibrary: read by id 2024-05-17T09:29:24.611534100Z
+LibraryMember: read 2024-05-17T09:29:24.614530100Z
+Location: read 2024-05-17T09:29:24.615533300Z
+BranchLibrary: read by id 2024-05-17T09:29:24.616529200Z
+LibraryMember: read 2024-05-17T09:29:24.619541400Z
+Location: read 2024-05-17T09:29:24.620537900Z
+BranchLibrary: read by id 2024-05-17T09:29:24.621536500Z
+CheckOut: get all 2024-05-17T09:29:24.622538800Z
+LibraryMember: read 2024-05-17T09:30:55.842683900Z
+BranchLibrary: read 2024-05-17T09:31:01.145718500Z
+Location: read by nam 2024-05-17T09:31:04.530754700Z
+Book: read by title 2024-05-17T09:31:07.328881Z
+CheckIn: get by library member, location and book 2024-05-17T09:31:09.437177900Z
+LibraryMember: read 2024-05-17T09:31:09.459126800Z
+Location: read 2024-05-17T09:31:09.459126800Z
+BranchLibrary: read by id 2024-05-17T09:31:09.461128200Z
+CheckIn: read 2024-05-17T09:31:12.017227300Z
+CheckIn: update 2024-05-17T09:31:14.208766700Z
+CheckIn: get all 2024-05-17T09:31:18.643457900Z
+LibraryMember: read 2024-05-17T09:31:18.649547700Z
+Location: read 2024-05-17T09:31:18.650452300Z
+BranchLibrary: read by id 2024-05-17T09:31:18.652452900Z
+LibraryMember: read 2024-05-17T09:31:18.655981300Z
+Location: read 2024-05-17T09:31:18.657077900Z
+BranchLibrary: read by id 2024-05-17T09:31:18.658031400Z
+LibraryMember: read 2024-05-17T09:31:18.660983700Z
+Location: read 2024-05-17T09:31:18.661982Z
+BranchLibrary: read by id 2024-05-17T09:31:18.662981100Z
+LibraryMember: read 2024-05-17T09:31:18.664978400Z
+Location: read 2024-05-17T09:31:18.665978500Z
+BranchLibrary: read by id 2024-05-17T09:31:18.666977600Z
+CheckOut: get all 2024-05-17T09:31:18.668979Z
+LibraryMember: read 2024-05-17T09:31:29.264200Z
+BranchLibrary: read 2024-05-17T09:31:36.249244800Z
+Location: read by nam 2024-05-17T09:31:40.817881800Z
+Book: read by title 2024-05-17T09:31:45.027599Z
+CheckIn: get by library member, location and book 2024-05-17T09:31:47.495907200Z
+Book: get all 2024-05-17T09:31:59.167280800Z
+BookCopy: get all 2024-05-17T09:32:14.739587100Z
+Location: read 2024-05-17T09:32:14.744588800Z
+BranchLibrary: read by id 2024-05-17T09:32:14.746588300Z
+Location: read 2024-05-17T09:32:14.754587400Z
+BranchLibrary: read by id 2024-05-17T09:32:14.755585600Z
+LibraryMember: read 2024-05-17T09:32:50.936401800Z
+BranchLibrary: read 2024-05-17T09:32:59.333142400Z
+Location: read by nam 2024-05-17T09:33:02.402693700Z
+Book: read by title 2024-05-17T09:33:05.290018200Z
+CheckIn: get current check ins 2024-05-17T09:33:06.611930600Z
+LibraryMember: read 2024-05-17T09:33:22.353797800Z
+BranchLibrary: read 2024-05-17T09:33:27.092577700Z
+Location: read by nam 2024-05-17T09:33:30.284241Z
+Book: read by title 2024-05-17T09:33:32.924034Z
+CheckIn: get current check ins 2024-05-17T09:33:33.718089800Z
+CheckOut: add 2024-05-17T09:33:41.032700200Z
+BookCopy: set availability 2024-05-17T09:33:41.036701600Z
+CheckIn: get all 2024-05-17T09:33:47.850709300Z
+LibraryMember: read 2024-05-17T09:33:47.853708700Z
+Location: read 2024-05-17T09:33:47.854750500Z
+BranchLibrary: read by id 2024-05-17T09:33:47.854750500Z
+LibraryMember: read 2024-05-17T09:33:47.857711200Z
+Location: read 2024-05-17T09:33:47.857711200Z
+BranchLibrary: read by id 2024-05-17T09:33:47.858710200Z
+LibraryMember: read 2024-05-17T09:33:47.861711600Z
+Location: read 2024-05-17T09:33:47.862709700Z
+BranchLibrary: read by id 2024-05-17T09:33:47.862709700Z
+LibraryMember: read 2024-05-17T09:33:47.864712400Z
+Location: read 2024-05-17T09:33:47.865709700Z
+BranchLibrary: read by id 2024-05-17T09:33:47.866709600Z
+CheckOut: get all 2024-05-17T09:33:47.867713300Z
+LibraryMember: read 2024-05-17T09:33:47.875752900Z
+Location: read 2024-05-17T09:33:47.876710800Z
+BranchLibrary: read by id 2024-05-17T09:33:47.876710800Z
+LibraryMember: read 2024-05-17T09:34:19.172253500Z
+BranchLibrary: read 2024-05-17T09:34:24.244820500Z
+Location: read by nam 2024-05-17T09:34:27.787027400Z
+Book: read by title 2024-05-17T09:34:30.640222700Z
+CheckOut: get check out by library member, location and book 2024-05-17T09:34:31.984737400Z
+LibraryMember: read 2024-05-17T09:34:31.987742200Z
+Location: read 2024-05-17T09:34:31.988741500Z
+BranchLibrary: read by id 2024-05-17T09:34:31.989743100Z
+CheckOut: read 2024-05-17T09:34:35.762962Z
+LibraryMember: read 2024-05-17T09:34:35.766949300Z
+Location: read 2024-05-17T09:34:35.767950700Z
+BranchLibrary: read by id 2024-05-17T09:34:35.769952400Z
+LibraryMember: read 2024-05-17T09:35:00.791162500Z
+BranchLibrary: read 2024-05-17T09:35:04.695580800Z
+Location: read by nam 2024-05-17T09:35:07.845174800Z
+Book: read by title 2024-05-17T09:35:10.116983100Z
+CheckOut: get check out by library member, location and book 2024-05-17T09:35:11.774770700Z
+LibraryMember: read 2024-05-17T09:35:11.778779400Z
+Location: read 2024-05-17T09:35:11.780770100Z
+BranchLibrary: read by id 2024-05-17T09:35:11.781784800Z
+CheckOut: read 2024-05-17T09:35:15.108065100Z
+LibraryMember: read 2024-05-17T09:35:29.979222900Z
+BranchLibrary: read 2024-05-17T09:35:34.133818Z
+Location: read by nam 2024-05-17T09:35:38.263149300Z
+Book: read by title 2024-05-17T09:35:40.495712Z
+CheckOut: get check out by library member, location and book 2024-05-17T09:35:41.339228200Z
+LibraryMember: read 2024-05-17T09:35:41.343143300Z
+Location: read 2024-05-17T09:35:41.344142Z
+BranchLibrary: read by id 2024-05-17T09:35:41.345141500Z
+CheckOut: read 2024-05-17T09:36:02.566335100Z
+LibraryMember: read 2024-05-17T09:36:21.522893300Z
+BranchLibrary: read 2024-05-17T09:36:27.774011300Z
+Location: read by nam 2024-05-17T09:36:30.330827600Z
+Book: read by title 2024-05-17T09:36:33.384770500Z
+CheckIn: get by library member, location and book 2024-05-17T09:36:34.891589200Z
+LibraryMember: read 2024-05-17T09:36:34.895601800Z
+Location: read 2024-05-17T09:36:34.896599200Z
+BranchLibrary: read by id 2024-05-17T09:36:34.897599300Z
+CheckIn: read 2024-05-17T09:37:02.926610100Z
+LibraryMember: read 2024-05-17T09:37:02.929609600Z
+Location: read 2024-05-17T09:37:02.930608400Z
+BranchLibrary: read by id 2024-05-17T09:37:02.931609800Z
+LibraryMember: read 2024-05-17T09:58:39.190738300Z
+BranchLibrary: read 2024-05-17T09:58:43.216315300Z
+Location: read by nam 2024-05-17T09:58:46.430570500Z
+Book: read by title 2024-05-17T09:58:48.808643300Z
+CheckIn: get by library member, location and book 2024-05-17T09:58:49.592692900Z
+LibraryMember: read 2024-05-17T09:58:49.626159Z
+Location: read 2024-05-17T09:58:49.627161100Z
+BranchLibrary: read by id 2024-05-17T09:58:49.628156900Z
+CheckIn: read 2024-05-17T09:58:52.442960500Z
+LibraryMember: read 2024-05-17T09:59:20.268961200Z
+BranchLibrary: read 2024-05-17T09:59:24.772098400Z
+Location: read by nam 2024-05-17T09:59:27.619094200Z
+Book: read by title 2024-05-17T09:59:31.278096400Z
+CheckOut: get check out by library member, location and book 2024-05-17T09:59:32.711067100Z
+LibraryMember: read 2024-05-17T09:59:32.722826200Z
+Location: read 2024-05-17T09:59:32.723863Z
+BranchLibrary: read by id 2024-05-17T09:59:32.725721800Z
+CheckOut: read 2024-05-17T09:59:37.479646100Z
+LibraryMember: read 2024-05-17T10:00:21.075832200Z
+BranchLibrary: read 2024-05-17T10:00:25.074446800Z
+Location: read by nam 2024-05-17T10:00:29.479392800Z
+Book: read by title 2024-05-17T10:00:31.735173500Z
+CheckOut: get check out by library member, location and book 2024-05-17T10:00:32.457945400Z
+LibraryMember: read 2024-05-17T10:00:32.481904300Z
+Location: read 2024-05-17T10:00:32.482910800Z
+BranchLibrary: read by id 2024-05-17T10:00:32.483911200Z
+CheckOut: read 2024-05-17T10:00:35.046992700Z
+CheckOut: update 2024-05-17T10:00:38.048804Z
+CheckIn: get all 2024-05-17T10:00:46.705410100Z
+LibraryMember: read 2024-05-17T10:00:46.711413Z
+Location: read 2024-05-17T10:00:46.712424900Z
+BranchLibrary: read by id 2024-05-17T10:00:46.713459800Z
+LibraryMember: read 2024-05-17T10:00:46.715419500Z
+Location: read 2024-05-17T10:00:46.716419Z
+BranchLibrary: read by id 2024-05-17T10:00:46.717419600Z
+LibraryMember: read 2024-05-17T10:00:46.720422600Z
+Location: read 2024-05-17T10:00:46.721439600Z
+BranchLibrary: read by id 2024-05-17T10:00:46.721439600Z
+LibraryMember: read 2024-05-17T10:00:46.724419100Z
+Location: read 2024-05-17T10:00:46.724419100Z
+BranchLibrary: read by id 2024-05-17T10:00:46.725419700Z
+CheckOut: get all 2024-05-17T10:00:46.726420200Z
+LibraryMember: read 2024-05-17T10:00:46.730419600Z
+Location: read 2024-05-17T10:00:46.731422200Z
+BranchLibrary: read by id 2024-05-17T10:00:46.732420600Z
+LibraryMember: read 2024-05-17T10:00:59.628931Z
+BranchLibrary: read 2024-05-17T10:01:03.648685800Z
+Location: read by nam 2024-05-17T10:01:07.643111500Z
+Book: read by title 2024-05-17T10:01:12.299057Z
+CheckIn: get by library member, location and book 2024-05-17T10:01:14.050901100Z
+LibraryMember: read 2024-05-17T10:01:14.055900600Z
+Location: read 2024-05-17T10:01:14.056911600Z
+BranchLibrary: read by id 2024-05-17T10:01:14.057943700Z
+CheckIn: read 2024-05-17T10:01:17.076712700Z
+CheckIn: read 2024-05-17T10:01:17.078718300Z
+CheckIn: delete 2024-05-17T10:01:17.088715500Z
+BookCopy: set availability 2024-05-17T10:01:17.090712900Z
+CheckIn: get all 2024-05-17T10:01:21.326976800Z
+LibraryMember: read 2024-05-17T10:01:21.331064100Z
+Location: read 2024-05-17T10:01:21.332969800Z
+BranchLibrary: read by id 2024-05-17T10:01:21.334994300Z
+LibraryMember: read 2024-05-17T10:01:21.338970200Z
+Location: read 2024-05-17T10:01:21.340968500Z
+BranchLibrary: read by id 2024-05-17T10:01:21.341969800Z
+LibraryMember: read 2024-05-17T10:01:21.346970500Z
+Location: read 2024-05-17T10:01:21.348009700Z
+BranchLibrary: read by id 2024-05-17T10:01:21.348975300Z
+CheckOut: get all 2024-05-17T10:01:21.349975500Z
+Category: delete 2024-05-17T10:01:45.066271300Z
+Category: get all 2024-05-17T10:01:48.999156300Z
+Book: get all 2024-05-17T10:01:59.934608Z
+Book: read by title 2024-05-17T10:02:23.647100500Z
+LibraryMember: read 2024-05-17T10:02:27.698527900Z
+Reservation: get locations with book copies 2024-05-17T10:02:27.703525500Z
+Book: read by title 2024-05-17T10:02:39.293803200Z
+LibraryMember: read 2024-05-17T10:02:41.928558100Z
+Reservation: get locations with book copies 2024-05-17T10:02:41.930562600Z
+BranchLibrary: read 2024-05-17T10:02:47.230852Z
+Location: read by nam 2024-05-17T10:02:51.078485200Z
+Location: read 2024-05-17T10:02:54.258659200Z
+Reservation: get locations with book copies 2024-05-17T10:02:54.260663500Z
+BranchLibrary: read by id 2024-05-17T10:02:54.261662800Z
+Reservation: get all 2024-05-17T10:02:54.263662400Z
+Reservation: add 2024-05-17T10:02:54.292163Z
+LibraryMember: read 2024-05-17T10:03:12.437286800Z
+CheckIn: get number of current check ins 2024-05-17T10:03:12.439333300Z
+CheckIn: get number of overdue copies of a library member 2024-05-17T10:03:12.441366900Z
+Book: read by title 2024-05-17T10:03:14.690443400Z
+BookCopy: read by book 2024-05-17T10:03:16.999273200Z
+Location: read 2024-05-17T10:03:17.004275500Z
+Location: read 2024-05-17T10:03:17.006276300Z
+BranchLibrary: read by id 2024-05-17T10:03:17.008272900Z
+Location: read 2024-05-17T10:03:17.009273700Z
+Reservation: read by library member 2024-05-17T10:03:23.038329600Z
+Reservation: update 2024-05-17T10:03:23.045961100Z
+CheckIn: add 2024-05-17T10:03:23.054971400Z
+BookCopy: set availability 2024-05-17T10:03:23.058965Z
+Reservation: get all 2024-05-17T10:03:29.394757800Z
+LibraryMember: read 2024-05-17T10:03:29.397840400Z
+Location: read 2024-05-17T10:03:29.401763400Z
+BranchLibrary: read by id 2024-05-17T10:03:29.402764300Z
+LibraryMember: read 2024-05-17T10:03:29.403764500Z
+Location: read 2024-05-17T10:03:29.405862800Z
+BranchLibrary: read by id 2024-05-17T10:03:29.407767800Z
+LibraryMember: read 2024-05-17T10:03:29.408884400Z
+Location: read 2024-05-17T10:03:29.410756500Z
+BranchLibrary: read by id 2024-05-17T10:03:29.412766800Z
+LibraryMember: read 2024-05-17T10:06:07.953621400Z
+BranchLibrary: read 2024-05-17T10:06:20.220627700Z
+Location: read by nam 2024-05-17T10:06:26.573808100Z
+Book: read by title 2024-05-17T10:06:28.700713100Z
+CheckIn: get by library member, location and book 2024-05-17T10:06:30.519400600Z
+LibraryMember: read 2024-05-17T10:06:30.554395500Z
+Location: read 2024-05-17T10:06:30.555391Z
+BranchLibrary: read by id 2024-05-17T10:06:30.556389500Z
+CheckIn: read 2024-05-17T10:06:34.959209Z
+CheckIn: read 2024-05-17T10:06:34.961157800Z
+CheckIn: delete 2024-05-17T10:06:35.001703200Z
+BookCopy: set availability 2024-05-17T10:06:35.006702900Z
+LibraryMember: read 2024-05-17T10:06:47.818113900Z
+CheckIn: get number of current check ins 2024-05-17T10:06:47.828628100Z
+CheckIn: get number of overdue copies of a library member 2024-05-17T10:06:47.846624700Z
+Book: read by title 2024-05-17T10:06:52.300198100Z
+BookCopy: read by book 2024-05-17T10:06:54.166625300Z
+Location: read 2024-05-17T10:06:54.171628700Z
+Location: read 2024-05-17T10:06:54.173629200Z
+BranchLibrary: read by id 2024-05-17T10:06:54.175665500Z
+Location: read 2024-05-17T10:06:54.176622900Z
+Reservation: read by library member 2024-05-17T10:07:13.073397700Z
+Reservation: update 2024-05-17T10:07:45.107131500Z
+CheckIn: add 2024-05-17T10:07:45.116131Z
+BookCopy: set availability 2024-05-17T10:07:45.119134700Z
+Reservation: get all 2024-05-17T10:07:52.289298900Z
+LibraryMember: read 2024-05-17T10:07:52.293299200Z
+Location: read 2024-05-17T10:07:52.296301300Z
+BranchLibrary: read by id 2024-05-17T10:07:52.298301100Z
+LibraryMember: read 2024-05-17T10:07:52.300296700Z
+Location: read 2024-05-17T10:07:52.303303800Z
+BranchLibrary: read by id 2024-05-17T10:07:52.304296100Z
+LibraryMember: read 2024-05-17T10:07:52.306307300Z
+Location: read 2024-05-17T10:07:52.308299100Z
+BranchLibrary: read by id 2024-05-17T10:07:52.309314600Z
+Reservation: get all 2024-05-17T10:09:13.206795200Z
+LibraryMember: read 2024-05-17T10:09:13.212794600Z
+Location: read 2024-05-17T10:09:13.221796500Z
+BranchLibrary: read by id 2024-05-17T10:09:13.223797Z
+LibraryMember: read 2024-05-17T10:09:13.224796100Z
+Location: read 2024-05-17T10:09:13.225797200Z
+BranchLibrary: read by id 2024-05-17T10:09:13.226794600Z
+LibraryMember: read 2024-05-17T10:09:13.227796800Z
+Location: read 2024-05-17T10:09:13.228795100Z
+BranchLibrary: read by id 2024-05-17T10:09:13.229793800Z

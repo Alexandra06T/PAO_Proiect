@@ -17,7 +17,7 @@ import java.util.List;
 public class BookRepositoryService {
 
     private BookDao bookDao = BookDao.getInstance();
-    private CategoryDao categoryDao;
+    private CategoryDao categoryDao = CategoryDao.getInstance();
 
     public BookRepositoryService() throws SQLException {}
 

@@ -9,24 +9,18 @@ public class Location {
     private int locationID;
     private String name;
     private int branchLibraryID;
-    private List<BookCopy> bookCopies;
-    private List<Reservation> reservations;
 
     public Location() {}
 
     public Location(String name, int branchLibraryID) {
         this.name = name;
         this.branchLibraryID = branchLibraryID;
-        this.bookCopies = new ArrayList<>();
-        this.reservations = new ArrayList<>();
     }
 
     public Location(Location location) {
         this.name = location.getName();
         this.branchLibraryID = location.getBranchLibraryID();
         this.locationID = location.getLocationID();
-        this.bookCopies = location.getBookCopies();
-        this.reservations = location.getReservations();
     }
 
     public int getLocationID() {
@@ -51,30 +45,6 @@ public class Location {
 
     public void setBranchLibrary(int branchLibraryID) {
         this.branchLibraryID = branchLibraryID;
-    }
-
-    public List<BookCopy> getBookCopies() {
-        return bookCopies;
-    }
-
-    public void addBookCopy(BookCopy bookCopy) {
-        bookCopies.add(bookCopy);
-    }
-
-    public void removeBookCopy(BookCopy bookCopy) {
-        bookCopies.remove(bookCopy);
-    }
-
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void addReservation(Reservation reservation) {
-        reservations.add(reservation);
-    }
-
-    public void removeReservation(Reservation reservation) {
-        reservations.remove(reservation);
     }
 
     @Override

@@ -38,6 +38,7 @@ public class ReservationRepositoryService {
                     System.out.println("----------------------------------");
                     rs.forEach(r -> {
                         try {
+                            System.out.println(r);
                             Book book = bookDao.read(r.getBookID());
                             System.out.println(book.getTitle() + " by " + book.getAuthors().stream().collect(Collectors.joining("; ")));
                             Location location = locationDao.read(String.valueOf(r.getPickupLocationID()));
@@ -282,11 +283,15 @@ public class ReservationRepositoryService {
         if(reservation == null)
             throw new InvalidDataException("Invalid reservation");
         try {
-            Reservation dupl = reservationDao.readByBook(reservation.getBookID())
+            Location location = locationDao.read(String.valueOf(reservation.getPickupLocationID()));
+            if(!checkBookCopiesExistence(location, reservation.getBookID())) {
+                throw new InvalidDataException("There is no copy of the book in this location.");
+            }
+            Optional<Reservation> dupl = reservationDao.readByBook(reservation.getBookID())
                     .stream().filter(x -> x.getLibraryMemberID() == reservation.getLibraryMemberID() && x.getPickupLocationID() == reservation.getPickupLocationID())
-                    .toList().getFirst();
+                    .findFirst();
 
-            if(dupl != null && dupl.getReservationID() != reservation.getReservationID())
+            if(dupl.isPresent() && dupl.get().getReservationID() != reservation.getReservationID())
                 throw new InvalidDataException("There is already a reservation for this book and library member in this location");
             reservationDao.update(reservation);
             System.out.println("Reservation updated successfully!");

@@ -45,6 +45,7 @@ public class CheckOutDao implements DaoInterface<CheckOut> {
                 checkOut.setBookStatus(rs.getString("bookstatus"));
                 checkOut.setOverdueDays(rs.getInt("overduedays"));
                 checkOut.setPenalty(rs.getDouble("penalty"));
+                checkOut.setCheckinID(rs.getInt("checkinID"));
                 checkOuts.add(checkOut);
             }
 
@@ -79,6 +80,7 @@ public class CheckOutDao implements DaoInterface<CheckOut> {
                 checkOut.setBookStatus(rs.getString("bookstatus"));
                 checkOut.setOverdueDays(rs.getInt("overduedays"));
                 checkOut.setPenalty(rs.getDouble("penalty"));
+                checkOut.setCheckinID(rs.getInt("checkinID"));
                 return checkOut;
             }
             return null;
@@ -86,7 +88,7 @@ public class CheckOutDao implements DaoInterface<CheckOut> {
     }
 
     public List<CheckOut> getCheckOut(int libraryMemberID, int locationID, String bookID) throws SQLException {
-        String sql = "SELECT * FROM libraryms.checkout c INNER JOIN libraryms.transaction t ON c.checkinID = t.ID " +
+        String sql = "SELECT * FROM libraryms.checkout c INNER JOIN libraryms.transaction t ON c.checkoutID = t.ID " +
                 "INNER JOIN libraryms.bookcopy b ON b.ID = t.bookcopyID " +
                 "WHERE UPPER(t.transactiontype) LIKE 'CHECKOUT' AND t.librarymemberID = ? " +
                 "AND b.locationID = ? AND b.bookID LIKE ?";
@@ -109,6 +111,7 @@ public class CheckOutDao implements DaoInterface<CheckOut> {
                 checkOut.setPenalty(rs.getDouble("c.penalty"));
                 checkOut.setOverdueDays(rs.getInt("c.overduedays"));
                 checkOut.setBookStatus(rs.getString("c.bookstatus"));
+                checkOut.setCheckinID(rs.getInt("c.checkinID"));
                 checkOuts.add(checkOut);
             }
             if(checkOuts.isEmpty()) return null;
@@ -134,21 +137,33 @@ public class CheckOutDao implements DaoInterface<CheckOut> {
 
     @Override
     public void add(CheckOut checkOut) throws SQLException {
+        ResultSet rs = null;
+        int key = 0;
         String sql = "INSERT INTO libraryms.transaction (date, transactiontype, librarymemberID, bookcopyID) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setDate(1, Date.valueOf(checkOut.getDate()));
             statement.setString(2, "checkout");
             statement.setInt(3, checkOut.getLibraryMemberID());
             statement.setInt(4, checkOut.getBookCopyID());
 
             statement.executeUpdate();
+            rs = statement.getGeneratedKeys();
+            if(rs.next())
+                key = rs.getInt(1);
         }
-        String sql2 = "INSERT INTO libraryms.checkout VALUES (?, ?, ?, ?)";
+        String sql2 = "INSERT INTO libraryms.checkout VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql2)) {
-            statement.setInt(1, checkOut.getCheckOutID());
+            statement.setInt(1, key);
             statement.setString(2, checkOut.getBookStatus());
             statement.setInt(3, checkOut.getOverdueDays());
             statement.setDouble(4, checkOut.getPenalty());
+            statement.setInt(5, checkOut.getCheckinID());
+
+            statement.executeUpdate();
+        }
+        String sql3 = "UPDATE libraryms.checkin SET checkedout = true WHERE checkinID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql3)) {
+            statement.setInt(1, checkOut.getCheckinID());
 
             statement.executeUpdate();
         }

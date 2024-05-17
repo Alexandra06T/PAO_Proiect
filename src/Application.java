@@ -78,6 +78,3 @@ public class Application {
 
 
 }
-
-//TODO: create audit system
-//TODO: throw and handle exceptions

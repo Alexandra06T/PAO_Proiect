@@ -74,8 +74,16 @@ public class TransactionService {
         String typeOfTransaction = scanner.nextLine();
         try {
             typeOfTransactionValidation(typeOfTransaction);
-            Transaction transaction = chooseTransaction(CHECKIN, scanner);
-            databaseService.removeTransaction(CHECKIN, transaction.getTransactionID());
+            if(typeOfTransaction.equals(CHECKIN)){
+                Transaction transaction = chooseTransaction(CHECKIN, scanner);
+                databaseService.removeTransaction(CHECKIN, transaction.getTransactionID());
+                System.out.println("Check in removed successfully!");
+                }
+            else {
+                Transaction transaction = chooseTransaction(CHECKOUT, scanner);
+                databaseService.removeTransaction(CHECKOUT, transaction.getTransactionID());
+                System.out.println("Check out removed successfully!");
+            }
         } catch (InvalidDataException e) {
             System.out.println("Removal failed :" + e.getMessage());
         }
@@ -95,7 +103,7 @@ public class TransactionService {
                 scanner.nextLine();
                 if(numberDays > 0 && checkIn.getNumberDays() + numberDays > maxNrBorrowDays)
                     throw new InvalidDataException("The period exceeds the maximum period allowed");
-                checkIn.setNumberDays(numberDays);
+                checkIn.setNumberDays(numberDays + checkIn.getNumberDays());
                 databaseService.updateTransaction(checkIn);
 
             }else{
@@ -125,7 +133,10 @@ public class TransactionService {
         System.out.println("Enter the ID of the transaction:");
         int id = scanner.nextInt();
         scanner.nextLine();
-        return databaseService.getTransaction(typeOfTransaction, id);
+        Transaction transaction = databaseService.getTransaction(typeOfTransaction, id);
+        if(transaction.getLibraryMemberID() != libraryMember.getMemberID())
+            throw new InvalidDataException("The transaction doesn't belong to the chosen library member!");
+        return transaction;
     }
 
     private Book chooseBook(Scanner scanner) throws InvalidDataException {
@@ -161,11 +172,8 @@ public class TransactionService {
     }
 
     private BookCopy chooseCopy(Scanner scanner) throws InvalidDataException {
-//        Location location = chooseLocation(scanner);
         Book book = chooseBook(scanner);
-//        List<BookCopy> availableBookCopies = bookCopyRepositoryService.printAvailableBookCopiesByLocation(book.getISBN(), location.getLocationID());
         List<BookCopy> availableBookCopies = bookCopyRepositoryService.getBookCopiesByBook(book.getISBN()).stream().filter(BookCopy::isAvailable).toList();
-//        if(availableBookCopies.size() == 1) return availableBookCopies.getFirst();
         availableBookCopies.stream().collect(groupingBy(b -> {
                 try{
             return locationRepositoryService.getLocationByID(b.getLocationID()).getBranchLibraryID();
@@ -260,7 +268,6 @@ public class TransactionService {
         }
 
         databaseService.addTransaction(transaction);
-        System.out.println("Created " + transaction + '\n');
     }
 
     private Transaction setGeneralInfo(Scanner scanner) throws InvalidDataException {

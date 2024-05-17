@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS checkout, checkin, libraryms.transaction, reservation, librarymember, bookcopy, location, branchlibrary, book, category;
+
 CREATE TABLE `libraryms`.`category`
 (
     `categoryIndex` INT NOT NULL,
@@ -82,5 +84,7 @@ CREATE TABLE `libraryms`.`checkout` (
                                        `checkoutID` INT PRIMARY KEY REFERENCES transaction (`ID`) ON DELETE CASCADE,
                                        `bookstatus` VARCHAR(50) NULL,
                                        `overduedays` INT NULL,
-                                       `penalty` DOUBLE NULL
+                                       `penalty` DOUBLE NULL,
+                                       `checkinID` INT NOT NULL UNIQUE,
+                                       FOREIGN KEY (`checkinID`) REFERENCES checkin (`checkinID`) ON DELETE CASCADE
 );

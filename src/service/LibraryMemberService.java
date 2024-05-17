@@ -29,25 +29,24 @@ public class LibraryMemberService {
     }
 
     public void create(Scanner scanner) {
-        System.out.println("Enter the name of the member:");
-        String name = scanner.nextLine();
-        System.out.println("Enter the email address of the member:");
-        String emailAddress = scanner.nextLine();
-        if(!emailAddress.matches("[a-z]+(.[a-z0-9])*@[a-z0-9]+.(com|org|ro|gov)")) {
-            System.out.println("The email address has an invalid format");
-            return;
-        }
-        System.out.println("Enter the phone number of the member:");
-        String phoneNumber = scanner.nextLine();
-        //verificare simpla a unui numar de telefon
-        if(!phoneNumber.matches("0([237])[0-9]{8}")) {
-            System.out.println("The phone number has an invalid format");
-            return;
-        }
-        System.out.println("Enter the address of the member:");
-        String address = scanner.nextLine();
-        LibraryMember libraryMember = new LibraryMember(name, emailAddress, phoneNumber, address);
         try {
+            System.out.println("Enter the name of the member:");
+            String name = scanner.nextLine();
+            if(name.isEmpty()) throw new InvalidDataException("Missing name");
+            System.out.println("Enter the email address of the member:");
+            String emailAddress = scanner.nextLine();
+            if(!emailAddress.matches("[a-z]+(.[a-z0-9])*@[a-z0-9]+.(com|org|ro|gov)")) {
+                throw new InvalidDataException("The email address has an invalid format");
+            }
+            System.out.println("Enter the phone number of the member:");
+            String phoneNumber = scanner.nextLine();
+            //verificare simpla a unui numar de telefon
+            if(!phoneNumber.matches("0([237])[0-9]{8}")) {
+                throw new InvalidDataException("The phone number has an invalid format");
+            }
+            System.out.println("Enter the address of the member:");
+            String address = scanner.nextLine();
+            LibraryMember libraryMember = new LibraryMember(name, emailAddress, phoneNumber, address);
             databaseService.addLibraryMember(libraryMember);
             System.out.println("Library member enrolled");
         } catch (InvalidDataException e) {
@@ -91,10 +90,17 @@ public class LibraryMemberService {
             LibraryMember libraryMember = databaseService.getLibraryMemberById(memberId);
             System.out.println("Enter the new name of the library member:");
             String newName = scanner.nextLine();
+            if(newName.isEmpty()) throw new InvalidDataException("Missing name");
             System.out.println("Enter the new email address of the library member:");
             String newEmail = scanner.nextLine();
+            if(!newEmail.matches("[a-z]+(.[a-z0-9])*@[a-z0-9]+.(com|org|ro|gov)")) {
+                throw new InvalidDataException("The email address has an invalid format");
+            }
             System.out.println("Enter the new phone number of the library member:");
             String newPhone = scanner.nextLine();
+            if(!newPhone.matches("0([237])[0-9]{8}")) {
+                throw new InvalidDataException("The phone number has an invalid format");
+            }
             System.out.println("Enter the new address of the library member:");
             String newAddress = scanner.nextLine();
             libraryMember.setName(newName);

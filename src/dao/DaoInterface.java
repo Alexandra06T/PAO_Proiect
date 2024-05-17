@@ -15,5 +15,3 @@ public interface DaoInterface <T>{
 
     public void update(T entity) throws SQLException;
 }
-
-//TODO: implement DaoInterface in other daos

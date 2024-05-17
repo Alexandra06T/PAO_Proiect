@@ -12,10 +12,9 @@ public class BookCopy {
     private String index;
     private int locationID;
     private boolean available;
-    private List<Transaction> transactions;
 
     public BookCopy() {
-        this.transactions = new ArrayList<>();
+
     }
 
     public BookCopy(String bookISBN, String barcode, String index, int locationID, boolean available) {
@@ -24,7 +23,6 @@ public class BookCopy {
         this.index = index;
         this.locationID = locationID;
         this.available = available;
-        this.transactions = new ArrayList<>();
     }
 
     public BookCopy(BookCopy bookCopy) {
@@ -34,7 +32,6 @@ public class BookCopy {
         this.index = bookCopy.getIndex();
         this.locationID = bookCopy.getLocationID();
         this.available = bookCopy.isAvailable();
-        this.transactions = bookCopy.getTransactions();
     }
 
     public int getBookCopyID() {
@@ -85,17 +82,6 @@ public class BookCopy {
         this.bookISBN = bookISBN;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
-    }
-
-    public void removeTransaction(Transaction transaction) {
-        transactions.remove(transaction);
-    }
 
     @Override
     public boolean equals(Object o) {

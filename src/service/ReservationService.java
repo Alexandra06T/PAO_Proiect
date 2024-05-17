@@ -102,23 +102,25 @@ public class ReservationService {
         switch (option) {
             case "book":
                 Book book = chooseBook(scanner);
-                databaseService.printReservationsByBook(book.getISBN());
                 reservations = databaseService.getReservationsByBook(book.getISBN());
+                if(reservations.size() == 1) return reservations.getFirst();
+                databaseService.printReservationsByBook(book.getISBN());
                 break;
             case "library member":
                 LibraryMember libraryMember = chooseLibraryMember(scanner);
-                databaseService.printReservationsByMember(libraryMember.getMemberID());
                 reservations = databaseService.getReservationsByMember(libraryMember.getMemberID());
+                if(reservations.size() == 1) return reservations.getFirst();
+                databaseService.printReservationsByMember(libraryMember.getMemberID());
                 break;
             case "location":
                 Location location = chooseLocation(scanner);
-                databaseService.printReservationsByLocation(location.getLocationID());
                 reservations = databaseService.getReservationsByLocation(location.getLocationID());
+                if(reservations.size() == 1) return reservations.getFirst();
+                databaseService.printReservationsByLocation(location.getLocationID());
                 break;
             default:
                 throw new InvalidDataException("Wrong option");
         }
-        if(reservations.size() == 1) return reservations.getFirst();
         System.out.println("Enter reservation ID:");
         reservationId = scanner.nextInt();
         scanner.nextLine();

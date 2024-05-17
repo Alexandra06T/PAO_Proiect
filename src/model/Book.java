@@ -13,12 +13,8 @@ public class Book {
     private int publishedDate;
     private int numberOfPages;
     private int categoryID;
-    private List<BookCopy> bookCopies;
-    private List<Reservation> reservations;
 
     public Book() {
-        this.bookCopies = new ArrayList<>();
-        this.reservations = new ArrayList<>();
     }
 
 
@@ -29,8 +25,6 @@ public class Book {
         this.publishingHouse = publishingHouse;
         this.publishedDate = publishedDate;
         this.numberOfPages = numberOfPages;
-        this.bookCopies = new ArrayList<>();
-        this.reservations = new ArrayList<>();
         this.categoryID = -1;
     }
 
@@ -41,11 +35,6 @@ public class Book {
         this.publishingHouse = book.getPublishingHouse();
         this.publishedDate = book.getPublishedDate();
         this.numberOfPages = book.getNumberOfPages();
-        this.reservations = book.getReservations();
-        this.bookCopies = new ArrayList<>();
-        for(BookCopy b : book.getBookCopies()) {
-            this.bookCopies.add(new BookCopy(b));
-        }
         this.categoryID = -1;
     }
 
@@ -103,30 +92,6 @@ public class Book {
 
     public void setCategoryID(int category) {
         this.categoryID = category;
-    }
-
-    public List<BookCopy> getBookCopies() {
-        return bookCopies;
-    }
-
-    public void addBookCopy(BookCopy bookCopy) {
-        bookCopies.add(new BookCopy(bookCopy));
-    }
-
-    public void removeBookCopy(BookCopy bookCopy) {
-        bookCopies.remove(bookCopy);
-    }
-
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void addReservation(Reservation reservation) {
-        reservations.add(reservation);
-    }
-
-    public void removeReservation(Reservation reservation) {
-        reservations.remove(reservation);
     }
 
     @Override
