@@ -8,7 +8,7 @@ public class Constants {
     public final static double penaltyPerDay = 5;
 
     // conexiune baza de date
-    public static final String JDBC_DRIVER = "jdbc:mysql://localhost/proiectpao";
+    public static final String JDBC_DRIVER = "jdbc:mysql://localhost/libraryms";
     public static final String JDBC_PWD = "R091sor#30D3c";
     public static final String JDBC_USER = "root";
 
